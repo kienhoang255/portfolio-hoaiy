@@ -1,0 +1,21 @@
+.layout-container {}
+
+.layout-wrapper {
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    overflow-x: hidden;
+    background-image: url(./../assets/images/bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.layout-content {
+    bottom: 0;
+    left: 0;
+    height: calc(100vh - 35px);
+    width: 100vw;
+    background-image: url(./../assets/images/main_bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
