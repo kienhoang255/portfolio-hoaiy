@@ -2,11 +2,14 @@
   "name": "portfolio-hoaiy",
   "private": true,
   "type": "module",
+  "homepage": "https://github.com/kienhoang255/portfolio-hoaiy",
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc"
+    "typecheck": "react-router typegen && tsc",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@react-router/node": "7.12.0",
