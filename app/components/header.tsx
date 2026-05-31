@@ -6,19 +6,19 @@ export default function Header() {
         <header className="header">
             <nav className="nav">
                 <NavLink to="/" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
-                    Home
+                    Home,
                 </NavLink>
                 <NavLink to="/branding" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
-                    Branding
+                    Branding,
                 </NavLink>
                 <NavLink to="/ux-ui" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
-                    UX/UI
+                    UX/UI,
                 </NavLink>
                 <NavLink to="/social" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
-                    Social design
+                    Social design,
                 </NavLink>
                 <NavLink to="/video" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
-                    Video design
+                    Video design,
                 </NavLink>
                 <NavLink to="/photography" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
                     Photography

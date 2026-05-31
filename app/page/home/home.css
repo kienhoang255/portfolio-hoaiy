@@ -1,0 +1,193 @@
+.home-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.home-header {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10vw;
+    border-style: dashed;
+    position: relative;
+}
+
+.home-banner {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.home-info {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10vw;
+
+    font-family: Neue Regrade;
+    font-weight: 500;
+    font-size: 1.7vw;
+    line-height: 140%;
+    letter-spacing: 0%;
+
+    padding: 0 3.7vw;
+}
+
+.home-info .home-info-resume {
+    height: auto;
+    width: auto;
+    padding: 1vw 2vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../../assets/images/view-resume.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.home-info .home-info-resume:hover {
+    font-family: Homemade Apple;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 24px;
+    line-height: 140%;
+    letter-spacing: 0%;
+    color: rgba(217, 217, 217, 1);
+    background-image: url(../../assets/images/view-resume-active.png);
+}
+
+.home-banner-img {
+    width: 100%;
+    z-index: 2;
+}
+
+.home-avatar-img {
+    position: absolute;
+    z-index: 1;
+    top: 0%;
+    height: 100%;
+}
+
+.home-footer {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    font-family: Homemade Apple;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 100%;
+    letter-spacing: 5%;
+}
+
+/* ===CV==== */
+.home-cv {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8vw;
+}
+
+.home-cv .cv-folder {
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.home-cv .cv-folder:hover+.cv-hidden {
+    top: -130px;
+}
+
+.home-cv .cv-hidden {
+    position: absolute;
+    top: -30px;
+    transition: top 0.3s;
+}
+
+/* Trạng thái ẩn/hiện */
+.home-cv .cv-folder.hidden,
+.home-cv .cv-hidden.hidden {
+    display: none;
+}
+
+/* cv-show mặc định ẩn, chỉ hiện khi có class visible */
+.home-cv .cv-show {
+    display: none;
+}
+
+.home-cv .cv-show.visible {
+    display: flex;
+}
+
+.cv-company-section+.cv-title {
+    margin-top: 60px;
+}
+
+.cv-show {
+    gap: 20px;
+    flex-direction: column;
+}
+
+.cv-show .cv-title {
+    font-family: Homemade Apple;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    height: 86px;
+}
+
+.cv-show .cv-company-date {
+    font-family: Neue Regrade;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+}
+
+.cv-show .cv-company-name {
+    font-family: Neue Regrade;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 140%;
+    letter-spacing: 0%;
+
+}
+
+.cv-show .cv-company-jobtitle {
+    font-family: Neue Regrade;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 140%;
+    letter-spacing: 0%;
+}
+
+.cv-show .cv-company-jobtitle div:nth-child(2) {
+    font-family: Neue Regrade;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 140%;
+    letter-spacing: 0%;
+}
+
+.cv-show .cv-company-section {
+    display: grid;
+    grid-template-columns: 25% auto;
+    border-bottom: 0.75px solid rgba(37, 37, 37, 1);
+    border-style: dashed;
+    padding-bottom: 15px;
+}
+
+.cv-company-name .cv-note {
+    font-family: Neue Regrade;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 140%;
+    letter-spacing: 0%;
+}

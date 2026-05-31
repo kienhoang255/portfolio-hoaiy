@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        const path = window.location.pathname;
+        window.location.replace(
+            window.location.origin + '/portfolio-hoaiy/' +
+            '?p=' + encodeURIComponent(path.replace('/portfolio-hoaiy', ''))
+        );
+    </script>
+</head>
+
+</html>

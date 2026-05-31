@@ -1,0 +1,60 @@
+{
+    "routing": [
+        {
+            "id": "vina-spice-europe",
+            "title": "VINA SPICE EUROPE B.V.",
+            "desc": "Brand identity design",
+            "placeholderImg": "vina1.png"
+        },
+        {
+            "id": "gAMSPro",
+            "title": "gAMSPro 4.0",
+            "desc": "Software logo design",
+            "placeholderImg": "gsoft1.png"
+        },
+        {
+            "id": "gob",
+            "title": "GOBRANDING",
+            "desc": "Company profile design"
+        }
+    ],
+    "vina-spice-europe": {
+        "client": "VINA SPICE EUROPE B.V.",
+        "industry": "Distribution and import of agricultural products in the Netherlands and Europe",
+        "project_scope": "Logo, color palette, typography, stationery, social media templates, brand guidlines",
+        "images": [
+            "vina1.png",
+            "vina2.png",
+            "vina3.png",
+            "vina4.png",
+            "vina5.png",
+            "vina6.png",
+            "vina7.png",
+            "vina8.png",
+            "vina9.png",
+            "vina10.png",
+            "vina11.png",
+            "vina12.png"
+        ]
+    },
+    "gAMSPro": {
+        "client": "gsoft - gAMSPro 4.0 software app",
+        "industry": "Investment Procurement and Asset Management Software System",
+        "project_scope": "Logo, color palette, typography, mockup",
+        "images": [
+            "gsoft1.png",
+            "gsoft2.png",
+            "gsoft3.png",
+            "gsoft4.png",
+            "gsoft5.png",
+            "gsoft6.png",
+            "gsoft7.png"
+        ]
+    },
+    "gob": {
+        "client": "VINA SPICE EUROPE B.V.",
+        "industry": "Distribution and import of agricultural products in the Netherlands and Europe",
+        "project_scope": "Logo, color palette, typography, stationery, social media templates, brand guidlines",
+        "images": []
+    }
+}
