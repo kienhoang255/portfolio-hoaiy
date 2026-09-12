@@ -1,31 +1,63 @@
 .header {
     padding: 0;
+    width: 60vw;
+    position: absolute;
+    top: 2.1vw;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .nav {
     display: flex;
     gap: 0;
-    max-width: 80%;
+    max-width: 100%;
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
-    margin-top: 3vw;
-    padding: 0 2vw;
 }
 
 .nav-link {
-    font-family: "Neue Regrade";
-    font-weight: 500;
-    font-size: 2.1vw;
+    position: relative;
+    font-family: New Tegomin;
+    font-weight: 600;
+    font-size: 1.7vw;
+    line-height: 140%;
+    letter-spacing: 0%;
+    text-decoration: none;
+    color: inherit;
+    z-index: 0;
+    overflow: hidden;
+    color: rgba(37, 37, 37, 1);
+}
+
+.dark .nav-link {
+    color: rgba(204, 204, 204, 1);
+}
+
+.nav-link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(150, 150, 150, 1);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 300ms ease-in-out;
+    z-index: -1;
+}
+
+.nav-link:hover::before,
+.nav-link.active::before {
+    transform: scaleX(1);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    z-index: 1;
     line-height: 140%;
     letter-spacing: 0%;
 }
 
-.nav-link.active {
-    z-index: 1;
-    font-family: Homemade Apple;
-    font-weight: 400;
-    line-height: 140%;
-    letter-spacing: 0%;
-
+.dark .nav-link:hover,
+.dark .nav-link.active {
+    color: rgba(37, 37, 37, 1);
 }

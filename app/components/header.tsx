@@ -1,9 +1,13 @@
 import { NavLink } from "react-router";
 import "./header.css";
 
-export default function Header() {
+type HeaderProps = {
+    theme?: "light" | "dark";
+};
+
+export default function Header({ theme = "light" }: HeaderProps) {
     return (
-        <header className="header">
+        <header className={`header ${theme}`}>
             <nav className="nav">
                 <NavLink to="/" className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}>
                     Home,

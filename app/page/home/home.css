@@ -1,19 +1,265 @@
+.home-scroll-shell {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.home1-panel {
+    position: relative;
+    z-index: 1;
+}
+
+.home2-panel {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    transition: transform 360ms ease-out;
+}
+
+.home2-container {
+    width: 100vw;
+    min-height: 100vh;
+}
+
 .home-container {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    min-height: 100vh;
+    background-color: rgba(249, 247, 239, 1);
+    overflow-x: hidden;
+    background-image: url(../../assets/images/bg.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.home-header {
+.home2-container .home-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 100vh;
+
+    background-color: rgba(249, 247, 239, 1);
+    overflow-x: hidden;
+    background-image: url(../../assets/images/bg_2.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.home2-container .home2-content {
+    display: grid;
+    grid-template-columns: 51% 49%;
+    width: 100%;
+    min-height: 100vh;
+    padding: 8.2vw 0 2.9vw;
+    box-sizing: border-box;
+    color: rgba(224, 224, 224, 1);
+}
+
+.home2-container .home2-intro {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.home2-container .home2-avatar {
+    margin-left: auto;
+    margin-right: auto;
+    width: 24vw;
+}
+
+.home2-container .home2-title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.18ch;
+    margin-top: auto;
+    margin-left: 2vw;
+    color: rgba(239, 239, 239, 1);
+    font: 700 clamp(3.5rem, 7vw, 7.2rem)/0.8 'New Tegomin', serif;
+    letter-spacing: -0.08em;
+    white-space: nowrap;
+    opacity: 0;
+    transform: perspective(800px) rotateY(80deg) scale(0.6);
+    transition: ease-in all 0s;
+}
+
+.home2-container .home2-title.home2-title-animation {
+    transform: perspective(800px) rotateY(0deg) scale(1);
+    opacity: 1;
+    transition: ease-in all 1s;
+}
+
+.home2-container .home2-title-word {
+    display: inline-block;
+}
+
+.home2-container .home2-title-word-left {
+    font: 700 clamp(3.5rem, 6.2vw, 7rem)/0.85 'New Tegomin', serif;
+    color: rgba(250, 250, 250, 1);
+    transform-origin: left center;
+    transform: translateZ(70px);
+}
+
+.home2-container .home2-title-word-right {
+    font: 700 clamp(2.8rem, 3.8vw, 4.8rem)/0.85 'New Tegomin', serif;
+    color: rgba(230, 230, 230, 0.95);
+    transform-origin: right center;
+    transform: translateZ(-70px) scale(0.86);
+}
+
+.home2-container .home2-title-animate .home2-title-word-left {
+    animation: home2-left-word-rise 900ms cubic-bezier(.2, .8, .2, 1) forwards;
+}
+
+.home2-container .home2-title-animate .home2-title-word-right {
+    animation: home2-right-word-rise 900ms cubic-bezier(.2, .8, .2, 1) forwards;
+}
+
+@keyframes home2-left-word-rise {
+    0% {
+        opacity: 0;
+        transform: perspective(900px) rotateZ(-12deg) translate3d(-80px, 0, 70px) scale(0.76);
+        filter: blur(3px);
+    }
+
+    55% {
+        opacity: 1;
+        transform: perspective(900px) rotateZ(-4deg) translate3d(12px, 0, 30px) scale(0.96);
+        filter: blur(1px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: perspective(900px) rotateZ(0deg) translate3d(0, 0, 0) scale(1.08);
+        filter: blur(0);
+    }
+}
+
+@keyframes home2-right-word-rise {
+    0% {
+        opacity: 0;
+        transform: perspective(900px) rotateZ(12deg) translate3d(80px, 0, -80px) scale(0.68);
+        filter: blur(4px);
+    }
+
+    60% {
+        opacity: 1;
+        transform: perspective(900px) rotateZ(4deg) translate3d(0, 0, -40px) scale(0.84);
+        filter: blur(1px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: perspective(900px) rotateZ(0deg) translate3d(0, 0, -80px) scale(0.86);
+        filter: blur(0);
+    }
+}
+
+.home2-container .home2-experience {
     display: flex;
     flex-direction: column;
-    width: 85%;
-    justify-content: center;
+    min-width: 0;
+    padding-top: 1vw;
+    padding-right: 1.6vw;
+}
+
+.home2-container .home2-experience h2 {
+    align-self: flex-start;
+    margin-bottom: 1.4vw;
+    color: rgba(35, 35, 35, 1);
+    background: rgba(222, 222, 222, 0.92);
+    font: 500 clamp(1.6rem, 2.6vw, 3rem)/1.05 'New Tegomin', serif;
+}
+
+.home2-container .experience-list {}
+
+.home2-container .experience-item {
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    gap: 1.5vw;
+    padding: 0.8rem 0 0.9rem;
+    font-family: 'New Tegomin', serif;
+}
+
+.home2-container .experience-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.home2-container .experience-item time {
+    height: 1.4vw;
+    font-size: 1.1vw;
+}
+
+.home2-container .experience-detail p {
+    font-size: 0.94vw;
+}
+
+.home2-container .experience-item time,
+.home2-container .experience-detail p {
+    color: rgba(214, 214, 214, 0.88);
+    line-height: 1.3;
+}
+
+.home2-container .experience-company {
+    color: rgba(235, 235, 235, 0.96);
+    font-size: 1.67vw;
+    line-height: 1.3;
+}
+
+.home2-container .experience-company small {
+    display: block;
+    margin-top: 0.5vw;
+    font-family: New Tegomin;
+    font-weight: 400;
+    font-size: 0.94vw;
+    line-height: 120%;
+    letter-spacing: -4%;
+}
+
+.home2-container .experience-detail h3 {
+    margin-bottom: 0.3rem;
+    margin-top: 2vw;
+    color: rgba(230, 230, 230, 0.95);
+    font-size: 1.5vw;
+    font-weight: 400;
+}
+
+.home2-container .home2-contact {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2.4vw;
+    margin-top: auto;
+    padding-top: 1.2rem;
+    font: 1.1rem 'New Tegomin', serif;
+    white-space: nowrap;
+}
+
+.home2-container .home2-contact span {
+    display: inline-flex;
     align-items: center;
-    margin-top: 10vw;
-    border-style: dashed;
-    position: relative;
+    gap: 0.55rem;
+
+    font-family: New Tegomin;
+    font-weight: 400;
+    font-size: 1.25vw;
+    line-height: 100%;
+    letter-spacing: 0%;
+    height: 1.9vw;
+}
+
+.home2-container .home2-contact img {
+    width: 1.83vw;
+    height: 1.83vw;
 }
 
 .home-banner {
@@ -23,55 +269,52 @@
 }
 
 .home-info {
+    position: absolute;
+    bottom: 2.1vw;
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
     margin-top: 10vw;
 
-    font-family: Neue Regrade;
-    font-weight: 500;
+    font-family: New Tegomin;
+    font-weight: 400;
     font-size: 1.7vw;
     line-height: 140%;
     letter-spacing: 0%;
-
     padding: 0 3.7vw;
+    z-index: 1;
 }
 
-.home-info .home-info-resume {
-    height: auto;
-    width: auto;
-    padding: 1vw 2vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-image: url(../../assets/images/view-resume.png);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-}
-
-.home-info .home-info-resume:hover {
-    font-family: Homemade Apple;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 24px;
-    line-height: 140%;
-    letter-spacing: 0%;
-    color: rgba(217, 217, 217, 1);
-    background-image: url(../../assets/images/view-resume-active.png);
+.home-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    /* opacity: 0.3; */
+    z-index: 1;
 }
 
 .home-banner-img {
-    width: 100%;
+    position: absolute;
+    width: 68%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 2;
 }
 
 .home-avatar-img {
     position: absolute;
+    width: 41%;
+    top: 50%;
+    left: 56.5%;
+    transform: translate(-50%, -50%);
     z-index: 1;
-    top: 0%;
-    height: 100%;
 }
 
 .home-footer {
@@ -83,111 +326,4 @@
     font-size: 32px;
     line-height: 100%;
     letter-spacing: 5%;
-}
-
-/* ===CV==== */
-.home-cv {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 8vw;
-}
-
-.home-cv .cv-folder {
-    position: relative;
-    z-index: 1;
-    cursor: pointer;
-}
-
-.home-cv .cv-folder:hover+.cv-hidden {
-    top: -130px;
-}
-
-.home-cv .cv-hidden {
-    position: absolute;
-    top: -30px;
-    transition: top 0.3s;
-}
-
-/* Trạng thái ẩn/hiện */
-.home-cv .cv-folder.hidden,
-.home-cv .cv-hidden.hidden {
-    display: none;
-}
-
-/* cv-show mặc định ẩn, chỉ hiện khi có class visible */
-.home-cv .cv-show {
-    display: none;
-}
-
-.home-cv .cv-show.visible {
-    display: flex;
-}
-
-.cv-company-section+.cv-title {
-    margin-top: 60px;
-}
-
-.cv-show {
-    gap: 20px;
-    flex-direction: column;
-}
-
-.cv-show .cv-title {
-    font-family: Homemade Apple;
-    font-weight: 400;
-    font-size: 40px;
-    line-height: 100%;
-    letter-spacing: 0%;
-    height: 86px;
-}
-
-.cv-show .cv-company-date {
-    font-family: Neue Regrade;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 100%;
-    letter-spacing: 0%;
-}
-
-.cv-show .cv-company-name {
-    font-family: Neue Regrade;
-    font-weight: 600;
-    font-size: 32px;
-    line-height: 140%;
-    letter-spacing: 0%;
-
-}
-
-.cv-show .cv-company-jobtitle {
-    font-family: Neue Regrade;
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 140%;
-    letter-spacing: 0%;
-}
-
-.cv-show .cv-company-jobtitle div:nth-child(2) {
-    font-family: Neue Regrade;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 140%;
-    letter-spacing: 0%;
-}
-
-.cv-show .cv-company-section {
-    display: grid;
-    grid-template-columns: 25% auto;
-    border-bottom: 0.75px solid rgba(37, 37, 37, 1);
-    border-style: dashed;
-    padding-bottom: 15px;
-}
-
-.cv-company-name .cv-note {
-    font-family: Neue Regrade;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 140%;
-    letter-spacing: 0%;
 }

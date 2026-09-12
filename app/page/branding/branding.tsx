@@ -12,11 +12,11 @@ export default function Branding() {
 
     return (
         <div className={styles.container}>
-            <div className={styles['title-wrap']}>
+            {/* <div className={styles['title-wrap']}>
                 <div className={styles['title-neue']}>BRANDING</div>
                 <div className={styles['title-apple']}>Branding</div>
-            </div>
-            <div className={styles['project-wrapper']}>
+            </div> */}
+            {/* <div className={styles['project-wrapper']}>
                 {projects.map((project, idx) => (
                     <div key={idx} className={styles.project} onClick={() => goToProject(project.id)}>
                         <div className={styles['img-holder']}>
@@ -27,7 +27,7 @@ export default function Branding() {
                         </div>
                     </div>
                 ))}
-            </div>
+            </div> */}
         </div>
     );
 }
