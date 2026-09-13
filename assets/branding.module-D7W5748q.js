@@ -1,0 +1,1 @@
+const o="_container_1osuy_9",t="_content_1osuy_323",n="_image_1osuy_339",e="_about_1osuy_391",_={container:o,content:t,image:n,"btn-back":"_btn-back_1osuy_351","container-project":"_container-project_1osuy_361","header-project":"_header-project_1osuy_375",about:e};export{_ as s};
