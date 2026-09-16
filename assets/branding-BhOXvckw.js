@@ -1,1 +1,0 @@
-import{w as s,x as t,p as a}from"./chunk-EPOLDU6W-zkWtGemh.js";import{s as n}from"./branding.module-D7W5748q.js";const i=s(function(){return t(),a.jsx("div",{className:n.container})});export{i as default};
