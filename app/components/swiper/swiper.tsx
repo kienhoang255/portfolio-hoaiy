@@ -28,7 +28,7 @@ const SwiperJs: React.FC<SwiperJsProps> = ({ imgs }) => {
                         <SwiperSlide key={i}>
                             <LazyImage
                                 key={i}
-                                src={`../assets/images/${name}`}
+                                src={`${import.meta.env.BASE_URL}assets/images/${name}`}
                                 alt={name}
                             />
                         </SwiperSlide>

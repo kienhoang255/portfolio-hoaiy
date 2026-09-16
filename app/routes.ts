@@ -6,10 +6,10 @@ export default [
         route("", "./page/home/home.tsx"),
         route("branding", "./page/branding/branding.tsx"),
         route("branding/:pid", "./page/branding/branding-project.tsx"),
-        route("ux-ui", "./page/uxui.tsx"),
+        route("ux-ui", "./page/uxui/uxui.tsx"),
         route("social", "./page/social/social.tsx"),
         route("social/:pid", "./page/social/social-project.tsx"),
-        route("video", "./page/video.tsx"),
-        route("photography", "./page/photography.tsx"),
+        route("video", "./page/video/video.tsx"),
+        route("photography", "./page/photography/photography.tsx"),
     ])
 ] satisfies RouteConfig;

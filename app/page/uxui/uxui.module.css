@@ -28,8 +28,7 @@
 
 .branding-card-0,
 .branding-card-1,
-.branding-card-2,
-.branding-card-3 {
+.branding-card-2 {
     position: absolute;
 }
 
@@ -39,17 +38,11 @@
 
 .branding-card-1 {
     bottom: 2vw;
-    left: 20%;
+    left: 50%;
     transform: translateX(-50%);
 }
 
 .branding-card-2 {
-    bottom: 2vw;
-    left: 80%;
-    transform: translateX(-50%);
-}
-
-.branding-card-3 {
     right: 2vw;
     top: 50%;
     transform: translateY(-50%);

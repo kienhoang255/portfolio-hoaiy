@@ -4,18 +4,22 @@
             "id": "vina-spice-europe",
             "title": "VINA SPICE EUROPE B.V.",
             "desc": "Brand identity design",
-            "placeholderImg": "vina1.png"
+            "placeholderImg": "branding-vina.jpg",
+            "kicker": "The most 'finals' ever"
+        },
+        {
+            "id": "gob",
+            "title": "GOBRANDING",
+            "desc": "Company profile design",
+            "placeholderImg": "branding-gob.jpg",
+            "kicker": "Most brain-draining layout"
         },
         {
             "id": "gAMSPro",
             "title": "gAMSPro 4.0",
             "desc": "Software logo design",
-            "placeholderImg": "gsoft1.png"
-        },
-        {
-            "id": "gob",
-            "title": "GOBRANDING",
-            "desc": "Company profile design"
+            "placeholderImg": "branding-gsoft.jpg",
+            "kicker": "My first software logo"
         }
     ],
     "vina-spice-europe": {

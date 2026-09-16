@@ -5,6 +5,7 @@ import avatarImg from '../../assets/images/avatar2.webp'
 import birthdayIcon from '../../assets/images/birthday-icon.png'
 import emailIcon from '../../assets/images/email-icon.png'
 import phoneIcon from '../../assets/images/phone-icon.png'
+import NguyenHoaiYImg from '../../assets/images/Nguyen Hoai Y.svg'
 
 type Home2Props = {
     showContent: number
@@ -12,14 +13,16 @@ type Home2Props = {
 
 export default function Home2({ showContent }: Home2Props) {
     return (
-        <div className='home2-container'>
+        <div className='home2-container theme-dark'>
             <div className='home-container'>
-                <Header theme='dark'></Header>
                 <img className='home-overlay' src={overlayImg} alt="" />
+                <Header theme='dark'></Header>
                 <main className='home2-content'>
                     <section className='home2-intro' aria-label='Introduction'>
                         <img className={showContent === 1 ? 'home2-avatar fadeInLeft' : 'home2-avatar'} src={avatarImg} alt="" />
-                        <h1 className={showContent === 1 ? 'home2-title home2-title-animation' : 'home2-title'}>NGUYEN HOAI Y</h1>
+                        <h1 className={showContent === 1 ? 'home2-title home2-title-animation' : 'home2-title'}>
+                            <img src={NguyenHoaiYImg} alt="" />
+                        </h1>
                     </section>
 
                     <section className='home2-experience' aria-labelledby='experience-title'>
@@ -35,7 +38,7 @@ export default function Home2({ showContent }: Home2Props) {
                                     <p>-&gt; Designed communication materials, company's Website. Produced Tiktok/Social videos. Executed photography and videography for corporate events.</p>
                                 </div>
                             </article>
-                            <article className={showContent === 1 ? 'experience-item fadeInRight delay1ms' : 'experience-list'}>
+                            <article className={showContent === 1 ? 'experience-item fadeInRight' : 'experience-list'}>
                                 <div className='experience-meta'>
                                     <time>03. 2024 - Present</time>
                                     <div className='experience-company'>GSOFT SOFTWARE CORPORATION <small>(A group entity alongside GOBRANDING)</small></div>
@@ -45,7 +48,7 @@ export default function Home2({ showContent }: Home2Props) {
                                     <p>-&gt; Executed UX/UI design for the company's core software products. Designed company's Website, Corporate Brand Identity, print/digital collateral.</p>
                                 </div>
                             </article>
-                            <article className={showContent === 1 ? 'experience-item fadeInRight delay2ms' : 'experience-list'}>
+                            <article className={showContent === 1 ? 'experience-item fadeInRight' : 'experience-list'}>
                                 <div className='experience-meta'>
                                     <time>07. 2023 - 12. 2023</time>
                                     <div className='experience-company'>Natural K Beauty</div>

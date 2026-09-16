@@ -64,4 +64,5 @@
     object-fit: cover;
     mix-blend-mode: overlay;
     pointer-events: none;
+    /* z-index: 1; */
 }

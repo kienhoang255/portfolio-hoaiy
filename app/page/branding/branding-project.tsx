@@ -3,6 +3,7 @@ import styles from './branding.module.css'
 import data from '../../assets/data/branding.json'
 import btnBack from '../../assets/icons/btn-back.svg'
 import LazyImage from "~/components/lazyImg/lazyImg";
+import ContactCard from "~/components/contactCard/contactCard";
 
 type BrandingData = typeof data;
 type BrandingProjectKey = Exclude<keyof BrandingData, 'routing'>;
@@ -31,9 +32,10 @@ export default function Branding() {
                     <img src={btnBack} alt="button back" />
                 </div>
                 <div className={styles.about}>
-                    <div>Client: <strong>{project.client}</strong></div>
-                    <div>Industry: <span>{project.industry}</span></div>
-                    <div>Project scope: <span>{project.project_scope}</span></div>
+                    <strong>&#x2022; Client: <div>{project.client}</div></strong>
+                    <br />
+                    <div className={styles.industry}>&#x2022; Industry: <span>{project.industry}</span></div>
+                    <div >&#x2022; Project scope: <span>{project.project_scope}</span></div>
                 </div>
             </div>
 
@@ -43,12 +45,13 @@ export default function Branding() {
                         <LazyImage
                             className={styles.image}
                             key={i}
-                            src={`../assets/images/${name}`}
+                            src={`${import.meta.env.BASE_URL}assets/images/${name}`}
                             alt={name}
                         />
                     );
                 })}
             </div>
+            <ContactCard></ContactCard>
         </div>
     );
 }

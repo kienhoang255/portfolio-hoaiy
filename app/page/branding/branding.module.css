@@ -8,206 +8,139 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    position: relative;
+    /* position: relative; */
     left: 0;
     padding: 0 2.5vw;
     padding-bottom: 3vw;
+    height: calc(100% - 5.1vw);
+    top: 5.1vw;
 }
 
-/* .title-wrap {
-    position: relative;
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    height: 6.5vw;
-    margin-top: 3.9vw;
-    margin-bottom: 8vw;
-    animation: slideIn .8s ease-out forwards;
-}
-
-.title-neue,
-.title-apple {
+.title {
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    margin: 0;
-    font-size: 6.5vw;
-    line-height: 140%;
-    -webkit-font-smoothing: antialiased;
-    pointer-events: none;
-} */
-
-
-.title-neue {
-    font-family: 'Neue Regrade', sans-serif;
-    animation: instantSwap calc(var(--swap-interval) * 2) steps(1, end) infinite;
-    font-weight: 500;
-    opacity: 0;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.title-apple {
-    font-family: 'Homemade Apple', cursive;
-    animation: instantSwap calc(var(--swap-interval) * 2) steps(1, end) infinite;
-    animation-delay: var(--swap-interval);
-    padding-left: 3.4vw;
-    opacity: 0;
+.title img {
+    width: 100vw;
 }
 
-.project-wrapper {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3vw;
+.branding-card-0,
+.branding-card-1,
+.branding-card-2 {
+    position: absolute;
 }
 
-.project {
-    animation: slideUp 0.8s ease-out forwards;
-    opacity: 0;
+.branding-card-0 {
+    top: 4vw;
 }
 
-.project:nth-child(1) {
-    animation-delay: 0s;
+.branding-card-1 {
+    bottom: 2vw;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.project:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.project:nth-child(3) {
-    animation-delay: 0.4s;
-}
-
-.project:hover {
-    cursor: pointer;
-}
-
-.project .img-holder {
-    background-color: rgba(217, 217, 217, 1);
-    width: 100%;
-    aspect-ratio: 1 / 1;
-}
-
-.description {
-    display: flex;
-    flex-direction: column;
-    margin-top: 1vw;
-    gap: 0.4vw;
-    font-family: Neue Regrade;
-    letter-spacing: 0%;
-}
-
-.description .title {
-    width: 100%;
-    font-weight: 700;
-    font-size: 2vw;
-    text-transform: uppercase;
-}
-
-.description .desc {
-    font-weight: 500;
-    font-size: 1.5vw;
-}
-
-
-
-@keyframes instantSwap {
-
-    0%,
-    49.999% {
-        opacity: 1;
-    }
-
-    50%,
-    100% {
-        opacity: 0;
-    }
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(100%);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideInReverse {
-    from {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.content {
-    padding-top: 1vw;
-    display: flex;
-    flex-direction: column;
-    gap: 2vw;
-    padding-bottom: 3vw;
-}
-
-.content .image {
-    animation: slideIn .8s ease-out forwards;
-}
-
-/* Projects */
-
-.btn-back {
-    animation: slideIn .8s ease-out forwards;
-    width: 3vw;
+.branding-card-2 {
+    right: 2vw;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .container-project {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 0 2.5vw;
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100vh;
+    top: 6vw;
+    padding: 0 2.5vw 3vw;
+    z-index: 5;
 }
 
 .header-project {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.btn-back {
+    position: sticky;
+    top: 6vw;
+    left: 2.5vw;
+    width: 2.5vw;
+    min-width: 34px;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.btn-back img {
+    display: block;
     width: 100%;
-    margin-top: 3.1vw;
+    height: auto;
 }
 
 .about {
+    position: sticky;
+    top: 12vw;
+    left: 2.5vw;
+    width: 17vw;
+    height: calc(100vh - 15.5vw);
     display: flex;
     flex-direction: column;
-    font-family: Neue Regrade;
-    font-weight: 500;
-    font-size: 1.05vw;
-    letter-spacing: 0%;
-    gap: .5vw;
-    animation: slideInReverse .8s ease-out forwards;
+    color: rgba(37, 37, 37, 1);
+    font-family: "New Tegomin", "Neue Regrade", serif;
+    font-size: 1vw;
+    line-height: 1.25;
+    pointer-events: auto;
 }
 
-.about span {
-    font-weight: 400;
+.about>div {
+    margin-bottom: 1.2vw;
+}
+
+.about .industry {
+    margin-bottom: auto;
 }
 
 .about strong {
-    font-weight: 700;
+    display: block;
+    margin-top: 0.45vw;
+    font-weight: 600;
+}
+
+.about span {
+    display: block;
+    margin-top: 0.45vw;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    width: min(48vw, 100%);
+    margin: 0 auto;
+}
+
+.content>div {
+    width: 100%;
+}
+
+.image {
+    display: block;
+    width: 100% !important;
+    height: auto;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    /* z-index: 1; */
 }

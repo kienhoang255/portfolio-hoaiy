@@ -1,0 +1,143 @@
+.button {
+    cursor: pointer;
+    display: flex;
+    justify-content: end;
+    gap: 0.5vw;
+    position: relative;
+}
+
+.button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(150, 150, 150, 1);
+    height: 70%;
+    top: 50%;
+    transform: translateY(-50%) scaleX(0);
+    transform-origin: left;
+    transition: transform 300ms ease-in-out;
+    z-index: -10;
+}
+
+.button:hover::before {
+    transform: translateY(-50%) scaleX(1);
+}
+
+.button:hover {
+    z-index: 1;
+    line-height: 140%;
+    letter-spacing: 0%;
+    transform: scale(1);
+}
+
+.contact-card-overlay {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 70%;
+    top: 50%;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+    z-index: 1;
+    transform: translateY(-50%) scaleX(0);
+    transform-origin: left;
+    transition: transform 300ms ease-in-out;
+}
+
+.button:hover .contact-card-overlay {
+    transform-origin: left;
+    transform: translateY(-50%) scaleX(1);
+    transition: transform 300ms ease-in-out;
+}
+
+.button .arrow {
+    position: relative;
+    top: 50%;
+    transform: translateY(10%);
+}
+
+.card {
+    transform-origin: bottom right;
+    animation: card-slide-bounce 1s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+    will-change: transform, opacity;
+
+    position: relative;
+    z-index: 9999999999;
+}
+
+.card img {
+    display: block;
+    max-width: 100%;
+}
+
+.info {
+    position: absolute;
+    top: 52%;
+    left: 14%;
+    transform: rotate(359deg)
+}
+
+.info-item {
+    display: flex;
+    align-self: center;
+    font-family: New Tegomin;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    gap: 0.5vw;
+}
+
+.info-item img {
+    width: 36px;
+    height: 36px;
+}
+
+.cardClosing {
+    animation: card-slide-out 300ms cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
+@keyframes card-slide-bounce {
+    0% {
+        opacity: 0;
+        transform: translate3d(18vw, 30vh, 0) rotate(6deg) scale(0.92);
+    }
+
+    65% {
+        opacity: 1;
+        transform: translate3d(-0.6vw, -0.8vh, 0) rotate(-0.8deg) scale(1.015);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) rotate(0) scale(1);
+    }
+}
+
+@keyframes card-slide-out {
+    from {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) rotate(0) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translate3d(32vw, 38vh, 0) rotate(12deg) scale(0.7);
+    }
+}
+
+.close {
+    font-family: New Tegomin;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: -6%;
+    text-align: end;
+    padding-right: 5vw;
+    cursor: pointer;
+    transition: all .6s;
+}
+
+.close:hover {
+    transform: scale(1.1);
+}

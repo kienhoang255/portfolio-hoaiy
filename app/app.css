@@ -169,6 +169,14 @@ table {
   border-spacing: 0;
 }
 
+* {
+  cursor: url('assets/images/cursor-normal.svg'), auto;
+}
+
+.theme-dark * {
+  cursor: url('assets/images/cursor-normal-white.svg'), auto;
+}
+
 .fadeIn {
   animation-name: fadeIn;
   animation-timing-function: linear;
@@ -202,6 +210,23 @@ table {
   animation-timing-function: linear;
   animation-duration: .6s;
   animation-fill-mode: both;
+}
+
+.blur {
+  animation-name: blur;
+  animation-timing-function: linear;
+  animation-duration: .6s;
+  animation-fill-mode: both;
+}
+
+.blur-left-to-right {
+  animation: blurLeftToRight linear .8s both;
+}
+
+.blur-left-to-right-noise {
+  position: relative;
+  overflow: hidden;
+  animation: blurLeftToRight linear .8s both;
 }
 
 .delay1ms {
@@ -284,5 +309,44 @@ table {
   100% {
     opacity: 1;
     transform: translateX(0px);
+  }
+}
+
+@keyframes blur {
+  0% {
+    filter: blur(10px);
+  }
+
+  100% {
+    filter: blur(0px);
+  }
+}
+
+@keyframes blurLeftToRight {
+  0% {
+    filter: blur(10px);
+    clip-path: inset(0 100% 0 0);
+  }
+
+  100% {
+    filter: blur(0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes noiseDrift {
+  0% {
+    transform: translate(0, 0);
+    opacity: .1;
+  }
+
+  50% {
+    transform: translate(2%, -1%);
+    opacity: .16;
+  }
+
+  100% {
+    transform: translate(-1%, 1%);
+    opacity: .12;
   }
 }

@@ -2,31 +2,35 @@
     "routing": [
         {
             "id": "tokyo-deli-project",
-            "title": "TOKYO DELI PROJECT",
-            "placeholderImg": "social-tokyo.jpg",
-            "kicker": "My first taste of F&B",
-            "desc": "Social post design"
+            "title": "Website design service",
+            "placeholderImg": "video-gob.jpg",
+            "kicker": "Leveling up my edits",
+            "desc": "GOBRANDING’s advertising video"
         },
         {
             "id": "gsoft-project",
-            "title": "GSOFT PROJECT",
-            "placeholderImg": "social-yte.jpg",
-            "kicker": "My tech ad experiments",
-            "desc": "Advertising image"
+            "title": "Marketing costs are increasing",
+            "placeholderImg": "video-gob2.jpg",
+            "kicker": "Edited down to detail",
+            "desc": "GOBRANDING’s advertising video"
         },
         {
             "id": "ics",
-            "title": "GSOFT PROJECT",
-            "placeholderImg": "social-ics.jpg",
-            "kicker": "My most detailed client",
-            "desc": "Banner website"
+            "title": "“BINH THUONG THOI” REPORTAGE",
+            "placeholderImg": "video-bth.jpg",
+            "kicker": "Made with pure joy",
+            "desc": "Graduation project",
+            "icons": {
+                "like": "95 Likes",
+                "view": "2 .1k views"
+            }
         },
         {
             "id": "gob-project",
-            "title": "GOBRANDING Project",
-            "kicker": "My most consistent project",
-            "placeholderImg": "social-gob.jpg",
-            "desc": "Advertising image"
+            "title": "SEO AI services",
+            "kicker": "Exploring a new service",
+            "placeholderImg": "video-ai.jpg",
+            "desc": "GOBRANDING’s advertising video"
         }
     ],
     "gob-project": {

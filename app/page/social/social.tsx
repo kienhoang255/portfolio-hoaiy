@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router';
 import data from '../../assets/data/social.json'
 import styles from './social.module.css'
+import titleImg from '../../assets/images/social-design.svg'
+import ProjectCard from '~/components/projectCard/projectCard';
+import { playClickSound } from '~/utils/playClickSound';
+import overlayImg from '../../assets/images/overlay.webp'
 
 export default function Social() {
     const navigate = useNavigate();
@@ -12,21 +16,23 @@ export default function Social() {
 
     return (
         <div className={styles.container}>
-            <div className={styles['title-wrap']}>
-                <div className={styles['title-neue']}>SOCIAL DESIGN</div>
-                <div className={styles['title-apple']}>Social Design</div>
+            <img className={styles.overlay} src={overlayImg} alt="" />
+            <div className={styles.title}>
+                <img src={titleImg} className={"fadeIn blur-left-to-right-noise"} alt="" />
             </div>
-            <div className={styles['project-wrapper']}>
-                {projects.map((project, idx) => (
-                    <div key={idx} className={styles.project} onClick={() => goToProject(project.id)}>
-                        <div className={styles['img-holder']}></div>
-                        <div className={styles.description}>
-                            <span className={styles.title}>{project.title}</span>
-                            <span className={styles.desc}>{project.desc}</span>
-                        </div>
-                    </div>
-                ))}
-            </div>
+
+            {projects.map((project, idx) => (
+                <div
+                    key={project.id || idx}
+                    className={styles[`branding-card-${idx}`]}
+                    onClick={() => {
+                        playClickSound();
+                        goToProject(project.id);
+                    }}
+                >
+                    <ProjectCard project={project} />
+                </div>
+            ))}
         </div>
     );
 }

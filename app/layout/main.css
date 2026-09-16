@@ -8,6 +8,10 @@
     background-size: cover;
 }
 
+.without-background {
+    background-image: none;
+}
+
 .overlay {
     position: absolute;
     top: 0;
@@ -17,6 +21,6 @@
     object-fit: cover;
     mix-blend-mode: overlay;
     pointer-events: none;
-    /* opacity: 0.3; */
+    opacity: 0.6;
     z-index: 1;
 }

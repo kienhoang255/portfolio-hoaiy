@@ -1,8 +1,8 @@
 
 import Header from "~/components/header";
 import type { Route } from "../+types/root";
-import { Outlet } from "react-router";
-import overlayImg from '../assets/images/overlay.webp'
+import { Outlet, useLocation } from "react-router";
+import overlayImg from '../assets/images/overlay2.webp'
 
 import "./main.css";
 
@@ -14,11 +14,13 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export default function Main() {
+    const { pathname } = useLocation();
+    const isHomePage = pathname === "/";
+
     return (
         <>
-            <div className="layout-main-container">
+            <div className={`layout-main-container${isHomePage ? "" : " without-background"}`}>
                 <Header />
-                <img className='overlay' src={overlayImg} alt="" />
                 <Outlet />
             </div>
         </>

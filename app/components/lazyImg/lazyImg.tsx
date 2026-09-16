@@ -55,7 +55,7 @@ const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className }) => {
                     src={src}
                     alt={alt}
                     style={{
-                        width: '100%',
+                        width: '48vw',
                         height: 'auto',
                         display: 'block',
                     }}
