@@ -10,6 +10,7 @@ import styles from './contactCard.module.css'
 import { motion } from 'framer-motion';
 import overlayImg from '../../assets/images/overlay2.webp'
 import { playClickSound } from '~/utils/playClickSound';
+import Tooltip from '../tooltip/tooltip'
 
 type ContactCardProps = {
     dark?: false
@@ -49,14 +50,18 @@ export default function ContactCard({ dark }: ContactCardProps) {
                     <div className={`${styles.close} pointer`} onClick={closeCard}>Close X</div>
                     <img src={dark ? darkBg : lightBg} alt="" loading='lazy' />
                     <div className={styles.info}>
-                        <div className={styles['info-item']}>
-                            <img src={dark ? phoneIcon : phoneLightIcon} alt="" loading='lazy' />
-                            0948 736 606
-                        </div>
-                        <div className={styles['info-item']}>
-                            <img src={dark ? emailIcon : emailLightIcon} alt="" loading='lazy' />
-                            hoaiynguyen138@gmail.com
-                        </div>
+                        <Tooltip text={'click to copy'}>
+                            <div className={styles['info-item']}>
+                                <img src={dark ? phoneIcon : phoneLightIcon} alt="" loading='lazy' />
+                                0948 736 606
+                            </div>
+                        </Tooltip>
+                        <Tooltip text={'click to copy'}>
+                            <div className={styles['info-item']}>
+                                <img src={dark ? emailIcon : emailLightIcon} alt="" loading='lazy' />
+                                hoaiynguyen138@gmail.com
+                            </div>
+                        </Tooltip>
                     </div>
                 </motion.div>
             }

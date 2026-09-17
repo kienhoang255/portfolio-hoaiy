@@ -96,6 +96,7 @@
     line-height: 100%;
     letter-spacing: 0%;
     gap: 0.5vw;
+    width: fit-content;
 }
 
 .info-item img {

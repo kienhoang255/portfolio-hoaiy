@@ -1,0 +1,175 @@
+.wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.tooltip {
+    --shake-rotate: 0deg;
+
+    position: absolute;
+    z-index: 1000;
+    max-width: 240px;
+    width: max-content;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background-color: #1f2328;
+    color: #f5f5f5;
+    font-size: 13px;
+    line-height: 1.4;
+    white-space: pre-line;
+    text-align: center;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.tooltip.visible {
+    opacity: 1;
+    visibility: visible;
+    animation: shakeHead 0.6s ease-in-out 0.15s;
+}
+
+@keyframes shakeHead {
+    0% {
+        --shake-rotate: 0deg;
+    }
+
+    8% {
+        --shake-rotate: -1deg;
+    }
+
+    16% {
+        --shake-rotate: -3deg;
+    }
+
+    24% {
+        --shake-rotate: 2.7deg;
+    }
+
+    32% {
+        --shake-rotate: -2.4deg;
+    }
+
+    40% {
+        --shake-rotate: 2deg;
+    }
+
+    48% {
+        --shake-rotate: -1.7deg;
+    }
+
+    56% {
+        --shake-rotate: 1.4deg;
+    }
+
+    64% {
+        --shake-rotate: -1.1deg;
+    }
+
+    72% {
+        --shake-rotate: 0.8deg;
+    }
+
+    80% {
+        --shake-rotate: -0.5deg;
+    }
+
+    88% {
+        --shake-rotate: 0.3deg;
+    }
+
+    94% {
+        --shake-rotate: -0.1deg;
+    }
+
+    100% {
+        --shake-rotate: 0deg;
+    }
+}
+
+.arrow {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: inherit;
+    transform: rotate(45deg);
+}
+
+/* --- Vị trí: top (điểm tựa xoay ở đáy, nơi có mũi tên) --- */
+.top {
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform-origin: 50% 100%;
+    transform: translate(-50%, 4px) rotate(var(--shake-rotate));
+    transition: opacity 0.15s ease, visibility 0.15s, transform 0.15s ease;
+}
+
+.top.visible {
+    transform: translate(-50%, 0) rotate(var(--shake-rotate));
+}
+
+.top .arrow {
+    bottom: -4px;
+    left: 50%;
+    margin-left: -4px;
+}
+
+/* --- Vị trí: bottom (điểm tựa xoay ở đỉnh) --- */
+.bottom {
+    top: calc(100% + 8px);
+    left: 50%;
+    transform-origin: 50% 0%;
+    transform: translate(-50%, -4px) rotate(var(--shake-rotate));
+    transition: opacity 0.15s ease, visibility 0.15s, transform 0.15s ease;
+}
+
+.bottom.visible {
+    transform: translate(-50%, 0) rotate(var(--shake-rotate));
+}
+
+.bottom .arrow {
+    top: -4px;
+    left: 50%;
+    margin-left: -4px;
+}
+
+/* --- Vị trí: left (điểm tựa xoay ở cạnh phải, nơi có mũi tên) --- */
+.left {
+    right: calc(100% + 8px);
+    top: 50%;
+    transform-origin: 100% 50%;
+    transform: translate(4px, -50%) rotate(var(--shake-rotate));
+    transition: opacity 0.15s ease, visibility 0.15s, transform 0.15s ease;
+}
+
+.left.visible {
+    transform: translate(0, -50%) rotate(var(--shake-rotate));
+}
+
+.left .arrow {
+    right: -4px;
+    top: 50%;
+    margin-top: -4px;
+}
+
+/* --- Vị trí: right (điểm tựa xoay ở cạnh trái) --- */
+.right {
+    left: calc(100% + 8px);
+    top: 50%;
+    transform-origin: 0% 50%;
+    transform: translate(-4px, -50%) rotate(var(--shake-rotate));
+    transition: opacity 0.15s ease, visibility 0.15s, transform 0.15s ease;
+}
+
+.right.visible {
+    transform: translate(0, -50%) rotate(var(--shake-rotate));
+}
+
+.right .arrow {
+    left: -4px;
+    top: 50%;
+    margin-top: -4px;
+}
