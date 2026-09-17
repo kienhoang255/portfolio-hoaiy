@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import darkBg from '../../assets/images/contact-card-dark.png'
 import lightBg from '../../assets/images/contact-card-light.png'
 import phoneIcon from '../../assets/images/phone-icon.png'
+import phoneLightIcon from '../../assets/images/phone-icon-light.png'
 import emailIcon from '../../assets/images/email-icon.png'
+import emailLightIcon from '../../assets/images/email-icon-light.png'
 import arrowIcon from '../../assets/icons/arrow.svg'
 import styles from './contactCard.module.css'
 import { motion } from 'framer-motion';
@@ -35,24 +37,24 @@ export default function ContactCard({ dark }: ContactCardProps) {
     return (
         <>
             {!isOpen && !isClosing &&
-                <motion.div layoutId="contact-box" className={`${styles.button}`} onClick={openCard}>
-                    <img className={styles['contact-card-overlay']} src={overlayImg} alt="" />
+                <motion.div layoutId="contact-box" className={`${styles.button} pointer`} onClick={openCard}>
+                    <img className={styles['contact-card-overlay']} src={overlayImg} alt="" loading='lazy' />
                     Meet your designer
-                    <img className={styles.arrow} src={arrowIcon} alt="" />
+                    <img className={styles.arrow} src={arrowIcon} alt="" loading='lazy' />
                 </motion.div>
             }
 
             {isOpen &&
                 <motion.div layoutId="contact-box" className={`${styles.card} ${isClosing ? styles.cardClosing : ''}`}>
-                    <div className={styles.close} onClick={closeCard}>Close X</div>
-                    <img src={dark ? darkBg : lightBg} alt="" />
+                    <div className={`${styles.close} pointer`} onClick={closeCard}>Close X</div>
+                    <img src={dark ? darkBg : lightBg} alt="" loading='lazy' />
                     <div className={styles.info}>
                         <div className={styles['info-item']}>
-                            <img src={phoneIcon} alt="" />
+                            <img src={dark ? phoneIcon : phoneLightIcon} alt="" loading='lazy' />
                             0948 736 606
                         </div>
                         <div className={styles['info-item']}>
-                            <img src={emailIcon} alt="" />
+                            <img src={dark ? emailIcon : emailLightIcon} alt="" loading='lazy' />
                             hoaiynguyen138@gmail.com
                         </div>
                     </div>

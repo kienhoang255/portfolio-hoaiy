@@ -4,6 +4,7 @@ import data from '../../assets/data/branding.json'
 import btnBack from '../../assets/icons/btn-back.svg'
 import LazyImage from "~/components/lazyImg/lazyImg";
 import ContactCard from "~/components/contactCard/contactCard";
+import overlayImg from '../../assets/images/overlay.webp'
 
 type BrandingData = typeof data;
 type BrandingProjectKey = Exclude<keyof BrandingData, 'routing'>;
@@ -52,6 +53,7 @@ export default function Branding() {
                 })}
             </div>
             <ContactCard></ContactCard>
+            <img className={styles.overlay} src={overlayImg} alt="" />
         </div>
     );
 }

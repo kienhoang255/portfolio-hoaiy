@@ -1,9 +1,15 @@
 .button {
-    cursor: pointer;
     display: flex;
     justify-content: end;
     gap: 0.5vw;
     position: relative;
+
+    font-family: New Tegomin;
+    font-weight: 400;
+    font-size: 1.7vw;
+    line-height: 140%;
+    letter-spacing: 0%;
+    z-index: 1;
 }
 
 .button::before {
@@ -68,21 +74,25 @@
 .card img {
     display: block;
     max-width: 100%;
+    width: 34vw;
 }
 
 .info {
     position: absolute;
-    top: 52%;
+    top: 46%;
     left: 14%;
-    transform: rotate(359deg)
+    transform: rotate(359deg);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
 }
 
 .info-item {
     display: flex;
-    align-self: center;
+    align-items: center;
     font-family: New Tegomin;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 1.5vw;
     line-height: 100%;
     letter-spacing: 0%;
     gap: 0.5vw;
@@ -129,12 +139,11 @@
 .close {
     font-family: New Tegomin;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 1.6vw;
     line-height: 100%;
     letter-spacing: -6%;
     text-align: end;
     padding-right: 5vw;
-    cursor: pointer;
     transition: all .6s;
 }
 

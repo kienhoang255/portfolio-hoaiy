@@ -173,6 +173,19 @@ table {
   cursor: url('assets/images/cursor-normal.svg'), auto;
 }
 
+a,
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+label,
+select,
+[role="button"],
+[onclick],
+.pointer {
+  cursor: url('assets/images/pointer.svg'), pointer;
+}
+
 .theme-dark * {
   cursor: url('assets/images/cursor-normal-white.svg'), auto;
 }

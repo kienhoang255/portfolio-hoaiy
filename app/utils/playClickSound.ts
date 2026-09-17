@@ -1,4 +1,4 @@
-import clickSoundUrl from '~/assets/sounds/dragon-studio-pop.mp3';
+import clickSoundUrl from '~/assets/sounds/universfield-bubble-pop-cutted.mp3';
 
 const audioPool: HTMLAudioElement[] = [];
 const maxPoolSize = 4;
