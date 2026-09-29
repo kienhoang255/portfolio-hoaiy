@@ -71,7 +71,6 @@
     left: 2.5vw;
     width: 2.5vw;
     min-width: 34px;
-    cursor: pointer;
     pointer-events: auto;
 }
 
@@ -94,6 +93,7 @@
     font-size: 1vw;
     line-height: 1.25;
     pointer-events: auto;
+    user-select: none;
 }
 
 .about>div {
@@ -123,6 +123,7 @@
     margin: 0 auto;
     overflow: hidden;
     margin-top: 15vw;
+    padding-bottom: 15vw;
 }
 
 .content>div {

@@ -5,6 +5,7 @@ import btnBack from '../../assets/icons/btn-back.svg'
 import LazyImage from "~/components/lazyImg/lazyImg";
 import ContactCard from "~/components/contactCard/contactCard";
 import overlayImg from '../../assets/images/overlay.webp'
+import { playClickSound } from "~/utils/playClickSound";
 
 type BrandingData = typeof data;
 type BrandingProjectKey = Exclude<keyof BrandingData, 'routing'>;
@@ -23,6 +24,7 @@ export default function Branding() {
     }
 
     function goBack() {
+        playClickSound();
         navigate(`/branding`);
     }
 
@@ -30,8 +32,8 @@ export default function Branding() {
         <div className={styles['container-project']}>
             <img className={styles.overlay} src={overlayImg} alt="" />
             <div className={`${styles['header-project']} fadeIn`}>
-                <div className={styles["btn-back"]} onClick={() => goBack()}>
-                    <img src={btnBack} alt="button back" />
+                <div className={`${styles["btn-back"]} pointer`} onClick={() => goBack()}>
+                    <img src={btnBack} alt="button back" className="pointer" />
                 </div>
                 <div className={styles.about}>
                     <strong>&#x2022; Client: <div>{project.client}</div></strong>
