@@ -74,7 +74,7 @@
 .card img {
     display: block;
     max-width: 100%;
-    width: 34vw;
+    width: 28vw;
 }
 
 .info {
@@ -84,7 +84,7 @@
     transform: rotate(359deg);
     display: flex;
     flex-direction: column;
-    gap: 0.5vw;
+    gap: 1vw;
 }
 
 .info-item {
@@ -92,7 +92,7 @@
     align-items: center;
     font-family: New Tegomin;
     font-weight: 400;
-    font-size: 1.5vw;
+    font-size: 1.1vw;
     line-height: 100%;
     letter-spacing: 0%;
     gap: 0.5vw;
@@ -146,6 +146,10 @@
     text-align: end;
     padding-right: 5vw;
     transition: all .6s;
+}
+
+.close span {
+    font-size: 1.2vw;
 }
 
 .close:hover {

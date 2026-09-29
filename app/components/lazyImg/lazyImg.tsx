@@ -3,54 +3,98 @@ import React, { useState, useEffect, useRef } from 'react';
 interface LazyImageProps {
     src: string;
     alt: string;
-    className?: string
+    className?: string;
+    minScale?: number;
+    range?: number; // 1 = đạt minScale khi tâm ảnh chạm mép viewport; nhỏ hơn = nhỏ sớm hơn
 }
 
-const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className }) => {
-    // Trạng thái xác định xem ảnh đã cuộn tới chưa
+const LazyImage: React.FC<LazyImageProps> = ({
+    src, alt, className, minScale = 0.8, range = 1,
+}) => {
     const [isInView, setIsInView] = useState<boolean>(false);
-    // Trạng thái xác định ảnh đã thực sự tải xong file từ mạng về chưa
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
-    const imgRef = useRef<HTMLDivElement>(null);
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    const imgRef = useRef<HTMLImageElement>(null);
 
+    // Lazy load (giữ nguyên logic cũ)
     useEffect(() => {
+        const el = wrapperRef.current;
+        if (!el) return;
+
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        setIsInView(true); // Đánh dấu là đã cuộn tới
-                        if (imgRef.current) {
-                            observer.unobserve(imgRef.current);
-                        }
+                        setIsInView(true);
+                        observer.unobserve(entry.target);
                     }
                 });
             },
-            { rootMargin: '50px' } // Tải trước khi chạm màn hình 50px cho mượt
+            { rootMargin: '50px' }
         );
 
-        if (imgRef.current) {
-            observer.observe(imgRef.current);
-        }
-
+        observer.observe(el);
         return () => observer.disconnect();
     }, []);
 
-    // Kích hoạt tải ngầm khi đã cuộn tới vùng chứa
     useEffect(() => {
         if (!isInView) return;
-
         const img = new Image();
         img.src = src;
-        img.onload = () => {
-            setIsLoaded(true); // Ảnh tải xong hoàn toàn mới kích hoạt render ra giao diện
-        };
+        img.onload = () => setIsLoaded(true);
     }, [isInView, src]);
 
+    // Hiệu ứng scale theo khoảng cách tới tâm viewport
+    useEffect(() => {
+        if (!isLoaded) return;
+
+        let rafId = 0;
+
+        const update = () => {
+            rafId = 0;
+            const wrapper = wrapperRef.current;
+            const img = imgRef.current;
+            if (!wrapper || !img) return;
+
+            const rect = wrapper.getBoundingClientRect();
+            const vh = window.innerHeight;
+
+            // Phần ảnh đã trượt ra ngoài mép trên / mép dưới viewport (px)
+            const overflowTop = Math.max(0, -rect.top);
+            const overflowBottom = Math.max(0, rect.bottom - vh);
+
+            // Nếu ảnh cao hơn viewport thì luôn có một phần tràn ra ngoài,
+            // trừ phần tràn "tự nhiên" này đi để ảnh ở giữa vẫn là scale 1
+            const baseline = Math.max(0, rect.height - vh) / 2;
+            const overflow = Math.max(0, Math.max(overflowTop, overflowBottom) - baseline);
+
+            // Đạt minScale khi ảnh đã ra ngoài một đoạn = rect.height * range
+            const t = Math.min(overflow / (rect.height * range), 1);
+
+            const scale = 1 - (1 - minScale) * t;
+            img.style.transform = `scale(${scale.toFixed(4)})`;
+        };
+
+        const onScroll = () => {
+            if (rafId === 0) rafId = requestAnimationFrame(update);
+        };
+
+        update();
+        window.addEventListener('scroll', onScroll, { passive: true, capture: true });
+        window.addEventListener('resize', onScroll);
+
+        return () => {
+            window.removeEventListener('scroll', onScroll, { capture: true });
+            window.removeEventListener('resize', onScroll);
+            if (rafId) cancelAnimationFrame(rafId);
+        };
+    }, [isLoaded, minScale, range]);
+
     return (
-        <div ref={imgRef} style={{ width: '100%' }}>
+        <div ref={wrapperRef} style={{ width: '100%' }}>
             {isLoaded ? (
-                // Khi ảnh đã load xong, nó tự động có tỷ lệ chuẩn của nó, không lo bị khoảng trống
                 <img
+                    ref={imgRef}
                     className={className}
                     src={src}
                     alt={alt}
@@ -58,17 +102,18 @@ const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className }) => {
                         width: '48vw',
                         height: 'auto',
                         display: 'block',
+                        transformOrigin: 'center center',
+                        transition: 'transform 0.15s ease-out', // làm mượt thêm giữa các frame
+                        willChange: 'transform',
                     }}
                 />
             ) : (
-                // Khung giữ chỗ mặc định khi chưa cuộn tới HOẶC đang tải. 
-                // Chiều cao vừa phải (250px) để không bị dồn 6 ảnh, phù hợp cả mobile và PC.
                 <div
                     style={{
                         width: '100%',
                         height: '250px',
                         backgroundColor: '#f5f5f5',
-                        display: 'block'
+                        display: 'block',
                     }}
                 />
             )}
@@ -76,4 +121,4 @@ const LazyImage: React.FC<LazyImageProps> = ({ src, alt, className }) => {
     );
 };
 
-export default LazyImage
+export default LazyImage;

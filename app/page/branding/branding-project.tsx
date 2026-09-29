@@ -28,7 +28,8 @@ export default function Branding() {
 
     return (
         <div className={styles['container-project']}>
-            <div className={styles['header-project']}>
+            <img className={styles.overlay} src={overlayImg} alt="" />
+            <div className={`${styles['header-project']} fadeIn`}>
                 <div className={styles["btn-back"]} onClick={() => goBack()}>
                     <img src={btnBack} alt="button back" />
                 </div>
@@ -40,10 +41,10 @@ export default function Branding() {
                 </div>
             </div>
 
-            <div className={styles.content}>
+            <div className={`${styles.content} fadeIn`}>
                 {project.images.map((name, i) => {
                     return (
-                        <LazyImage
+                        <LazyImage minScale={0.7}
                             className={styles.image}
                             key={i}
                             src={`${import.meta.env.BASE_URL}assets/images/${name}`}
@@ -52,8 +53,7 @@ export default function Branding() {
                     );
                 })}
             </div>
-            <ContactCard></ContactCard>
-            <img className={styles.overlay} src={overlayImg} alt="" />
+            <div className='contact_card_wrapper'><ContactCard></ContactCard></div>
         </div>
     );
 }

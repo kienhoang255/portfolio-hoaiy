@@ -50,10 +50,10 @@
 }
 
 .container-project {
-    position: relative;
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 100vh;
+    /* position: relative; */
+    /* box-sizing: border-box; */
+    width: 100vw;
+    height: 100vh;
     /* top: 6vw; */
     /* padding: 0 2.5vw 3vw; */
     z-index: 5;
@@ -121,6 +121,8 @@
     gap: 2vw;
     width: min(48vw, 100%);
     margin: 0 auto;
+    overflow: hidden;
+    margin-top: 15vw;
 }
 
 .content>div {
@@ -145,13 +147,5 @@
     /* z-index: 1; */
 }
 
-.container-project .overlay {
-    position: sticky;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    mix-blend-mode: overlay;
-    pointer-events: none;
-    z-index: ;
-}
+
+.container-project .content {}

@@ -13,12 +13,32 @@ import { playClickSound } from '~/utils/playClickSound';
 import Tooltip from '../tooltip/tooltip'
 
 type ContactCardProps = {
-    dark?: false
+    dark?: boolean
 }
 
 export default function ContactCard({ dark }: ContactCardProps) {
     const [isOpen, setIsOpen] = useState(false)
     const [isClosing, setIsClosing] = useState(false)
+    const [copiedKey, setCopiedKey] = useState<'phone' | 'email' | null>(null)
+
+    async function copyText(value: string, key: 'phone' | 'email') {
+        try {
+            await navigator.clipboard.writeText(value)
+        } catch {
+            const textarea = document.createElement('textarea')
+            textarea.value = value
+            textarea.setAttribute('readonly', '')
+            textarea.style.position = 'fixed'
+            textarea.style.opacity = '0'
+            document.body.appendChild(textarea)
+            textarea.select()
+            document.execCommand('copy')
+            document.body.removeChild(textarea)
+        }
+
+        setCopiedKey(key)
+        window.setTimeout(() => setCopiedKey(null), 1500)
+    }
 
     function openCard() {
         playClickSound();
@@ -47,17 +67,39 @@ export default function ContactCard({ dark }: ContactCardProps) {
 
             {isOpen &&
                 <motion.div layoutId="contact-box" className={`${styles.card} ${isClosing ? styles.cardClosing : ''}`}>
-                    <div className={`${styles.close} pointer`} onClick={closeCard}>Close X</div>
+                    <div className={`${styles.close} pointer`} onClick={closeCard}><span>Close</span> X</div>
                     <img src={dark ? darkBg : lightBg} alt="" loading='lazy' />
                     <div className={styles.info}>
-                        <Tooltip text={'click to copy'}>
-                            <div className={styles['info-item']}>
+                        <Tooltip text={copiedKey === 'phone' ? 'copied!' : 'click to copy'}>
+                            <div
+                                className={styles['info-item']}
+                                onClick={() => copyText('0948 736 606', 'phone')}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(event) => {
+                                    if (event.key === 'Enter' || event.key === ' ') {
+                                        event.preventDefault();
+                                        copyText('0948 736 606', 'phone');
+                                    }
+                                }}
+                            >
                                 <img src={dark ? phoneIcon : phoneLightIcon} alt="" loading='lazy' />
                                 0948 736 606
                             </div>
                         </Tooltip>
-                        <Tooltip text={'click to copy'}>
-                            <div className={styles['info-item']}>
+                        <Tooltip text={copiedKey === 'email' ? 'copied!' : 'click to copy'}>
+                            <div
+                                className={styles['info-item']}
+                                onClick={() => copyText('hoaiynguyen138@gmail.com', 'email')}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(event) => {
+                                    if (event.key === 'Enter' || event.key === ' ') {
+                                        event.preventDefault();
+                                        copyText('hoaiynguyen138@gmail.com', 'email');
+                                    }
+                                }}
+                            >
                                 <img src={dark ? emailIcon : emailLightIcon} alt="" loading='lazy' />
                                 hoaiynguyen138@gmail.com
                             </div>

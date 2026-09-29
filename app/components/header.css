@@ -64,3 +64,7 @@
 .dark .nav-link.active {
     color: rgba(37, 37, 37, 1);
 }
+
+.dark .nav-link::before {
+    background-color: rgba(249, 247, 239, 1)
+}

@@ -173,6 +173,10 @@ table {
   cursor: url('assets/images/cursor-normal.svg'), auto;
 }
 
+.theme-dark * {
+  cursor: url('assets/images/cursor-normal-white.svg'), auto;
+}
+
 a,
 button,
 input[type="button"],
@@ -184,10 +188,7 @@ select,
 [onclick],
 .pointer {
   cursor: url('assets/images/pointer.svg'), pointer;
-}
-
-.theme-dark * {
-  cursor: url('assets/images/cursor-normal-white.svg'), auto;
+  user-select: none;
 }
 
 .fadeIn {
@@ -362,4 +363,12 @@ select,
     transform: translate(-1%, 1%);
     opacity: .12;
   }
+}
+
+.contact_card_wrapper {
+  overflow: hidden;
+  position: absolute;
+  bottom: 2vw;
+  right: 1vw;
+  padding: 20px 0 0 20px;
 }

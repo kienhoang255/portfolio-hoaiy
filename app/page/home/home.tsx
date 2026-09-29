@@ -41,7 +41,7 @@ export default function Home() {
         <div className='home-scroll-shell' onWheel={handleWheel}>
             <section className='home1-panel'>
                 <div className='home-container'>
-                    <Header></Header>
+                    {/* <Header></Header> */}
                     <img className='home-overlay' src={overlayImg} alt="" />
                     <div className='home-banner-img'>
                         <img className='fadeIn blur-left-to-right-noise' src={portfolioImg} alt="" />

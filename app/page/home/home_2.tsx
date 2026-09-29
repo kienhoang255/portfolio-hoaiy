@@ -31,7 +31,7 @@ export default function Home2({ showContent }: Home2Props) {
                             <article className={showContent === 1 ? 'experience-item fadeInRight' : 'experience-list'}>
                                 <div className='experience-meta'>
                                     <time>03. 2024 - Present</time>
-                                    <div className='experience-company'>GLOBAL ONLINE BRANDING</div>
+                                    <div className='experience-company'>Global Online Branding</div>
                                 </div>
                                 <div className='experience-detail'>
                                     <h3>Multimedia Executive</h3>
@@ -41,7 +41,7 @@ export default function Home2({ showContent }: Home2Props) {
                             <article className={showContent === 1 ? 'experience-item fadeInRight' : 'experience-list'}>
                                 <div className='experience-meta'>
                                     <time>03. 2024 - Present</time>
-                                    <div className='experience-company'>GSOFT SOFTWARE CORPORATION <small>(A group entity alongside GOBRANDING)</small></div>
+                                    <div className='experience-company'>GSOFT Software Corporation<small>(A group entity alongside GOBRANDING)</small></div>
                                 </div>
                                 <div className='experience-detail'>
                                     <h3>Multimedia Executive</h3>

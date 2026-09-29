@@ -1,13 +1,13 @@
 .home-scroll-shell {
     width: 100%;
     min-height: 100vh;
-    position: relative;
+    /* position: relative; */
     overflow: hidden;
 }
 
 .home1-panel {
-    position: relative;
-    z-index: 1;
+    /* position: relative;
+    z-index: 1; */
 }
 
 .home2-panel {
@@ -39,6 +39,7 @@
     background-image: url(../../assets/images/bg.svg);
     background-repeat: no-repeat;
     background-size: cover;
+    overflow: hidden;
 }
 
 .home2-container .home-container {
@@ -64,6 +65,7 @@
     padding: 8.2vw 0 2.9vw;
     box-sizing: border-box;
     color: rgba(224, 224, 224, 1);
+    overflow: hidden;
 }
 
 .home2-container .home2-intro {
@@ -85,8 +87,8 @@
     display: flex;
     align-items: baseline;
     gap: 0.18ch;
-    margin-top: auto;
-    margin-left: 2vw;
+    margin-left: auto;
+    margin-right: auto;
     color: rgba(239, 239, 239, 1);
     font: 700 clamp(3.5rem, 7vw, 7.2rem)/0.8 'New Tegomin', serif;
     letter-spacing: -0.08em;
@@ -292,7 +294,8 @@
     line-height: 140%;
     letter-spacing: 0%;
     padding: 0 3.7vw;
-    z-index: 1;
+    z-index: 2;
+    overflow: hidden;
 }
 
 .home-overlay {

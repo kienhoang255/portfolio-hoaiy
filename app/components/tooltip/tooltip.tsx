@@ -24,7 +24,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     delay = 150,
     disabled = false,
 }) => {
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState(false);
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const tooltipId = useId();
 

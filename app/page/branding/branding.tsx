@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router";
 import styles from './branding.module.css'
 import data from '../../assets/data/branding.json'
-import brandingImg from '../../assets/images/Branding.svg'
+import brandingImg from '../../assets/images/branding.svg'
 import ProjectCard from "~/components/projectCard/projectCard";
-import ContactCard from "~/components/contactCard/contactCard";
 import overlayImg from '../../assets/images/overlay.webp'
 import { playClickSound } from '~/utils/playClickSound';
 
