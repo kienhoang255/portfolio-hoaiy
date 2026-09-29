@@ -8,6 +8,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    /* position: relative; */
     left: 0;
     padding: 0 2.5vw;
     padding-bottom: 3vw;
@@ -55,6 +56,112 @@
     transform: translateY(-50%);
 }
 
+.container-project {
+    /* position: relative; */
+    /* box-sizing: border-box; */
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    /* top: 6vw; */
+    /* padding: 0 2.5vw 3vw; */
+    z-index: 5;
+}
+
+.header-project {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.btn-back {
+    position: sticky;
+    top: 6vw;
+    left: 2.5vw;
+    width: 2.5vw;
+    min-width: 34px;
+    pointer-events: auto;
+}
+
+.btn-back img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.btn-back .btn-back-hover {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 160ms ease;
+}
+
+.btn-back:hover .btn-back-hover {
+    opacity: 1;
+}
+
+.btn-back:hover img:first-child {
+    opacity: 0;
+}
+
+.about {
+    position: sticky;
+    top: 12vw;
+    left: 2.5vw;
+    width: 17vw;
+    height: calc(100vh - 15.5vw);
+    display: flex;
+    flex-direction: column;
+    color: rgba(37, 37, 37, 1);
+    font-family: "New Tegomin", "Neue Regrade", serif;
+    font-size: 1vw;
+    line-height: 1.25;
+    pointer-events: auto;
+    user-select: none;
+}
+
+.about>div {
+    margin-bottom: 1.2vw;
+}
+
+.about .industry {
+    margin-bottom: auto;
+}
+
+.about strong {
+    display: block;
+    margin-top: 0.45vw;
+    font-weight: 600;
+}
+
+.about span {
+    display: block;
+    margin-top: 0.45vw;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    width: 50vw;
+    /* width: min(48vw, 100%); */
+    margin: 0 auto;
+    overflow: hidden;
+    /* margin-top: 15vw; */
+    /* padding-bottom: 15vw; */
+    /* max-height: 80vh;
+    overflow-y: auto; */
+}
+
+.content>div {
+    width: 100%;
+}
+
+.image {
+    display: block;
+    width: 100% !important;
+    height: auto;
+}
+
 .overlay {
     position: absolute;
     top: 0;
@@ -64,4 +171,14 @@
     object-fit: cover;
     mix-blend-mode: overlay;
     pointer-events: none;
+    /* z-index: 1; */
+}
+
+.content_wrapper {
+    height: 100vh;
+    max-height: 92vh;
+    overflow-y: auto;
+    margin-top: 8vh;
+    padding-bottom: 15vw;
+    padding-top: 10vw;
 }

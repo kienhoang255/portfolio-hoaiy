@@ -10,6 +10,7 @@ export default [
         route("social", "./page/social/social.tsx"),
         route("social/:pid", "./page/social/social-project.tsx"),
         route("video", "./page/video/video.tsx"),
+        route("video/:pid", "./page/video/video-project.tsx"),
         route("photography", "./page/photography/photography.tsx"),
     ])
 ] satisfies RouteConfig;

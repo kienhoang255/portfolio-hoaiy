@@ -17,15 +17,13 @@ export default function Video() {
     return (
         <div className={styles.container}>
             <img className={styles.overlay} src={overlayImg} alt="" />
-
             <div className={styles.title}>
                 <img src={titleImg} className={"fadeIn blur-left-to-right-noise"} alt="" />
             </div>
-
             {projects.map((project, idx) => (
                 <div
                     key={project.id || idx}
-                    className={styles[`branding-card-${idx}`]}
+                    className={`${styles[`branding-card-${idx}`]} fadeIn pointer`}
                     onClick={() => {
                         playClickSound();
                         goToProject(project.id);

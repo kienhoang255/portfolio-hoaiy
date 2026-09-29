@@ -42,23 +42,33 @@
         ]
     },
     "gAMSPro": {
-        "client": "gsoft - gAMSPro 4.0 software app",
+        "client": "GSOFT - gAMSPro 4.0 GSOFT Software app",
         "industry": "Investment Procurement and Asset Management Software System",
         "project_scope": "Logo, color palette, typography, mockup",
         "images": [
-            "gsoft1.png",
-            "gsoft2.png",
-            "gsoft3.png",
-            "gsoft4.png",
-            "gsoft5.png",
-            "gsoft6.png",
-            "gsoft7.png"
+            "gsoft1.jpg",
+            "gsoft2.jpg",
+            "gsoft3.jpg",
+            "gsoft4.gif",
+            "gsoft5.jpg",
+            "gsoft6.jpg",
+            "gsoft7.jpg",
+            "gsoft8.gif"
         ]
     },
     "gob": {
-        "client": "VINA SPICE EUROPE B.V.",
-        "industry": "Distribution and import of agricultural products in the Netherlands and Europe",
-        "project_scope": "Logo, color palette, typography, stationery, social media templates, brand guidlines",
-        "images": []
+        "client": "GOBRANDING",
+        "industry": "Digital Marketing services",
+        "project_scope": "Company profile, editorial design",
+        "images": [
+            "gob1.jpg",
+            "gob2.jpg",
+            "gob3.jpg",
+            "gob4.jpg",
+            "gob5.jpg",
+            "gob6.jpg",
+            "gob7.jpg",
+            "gob8.jpg"
+        ]
     }
 }

@@ -1,4 +1,4 @@
-import styles from './social.module.css'
+import styles from './video.module.css'
 import btnBack from '../../assets/icons/btn-back.svg'
 import { useNavigate, useParams } from 'react-router';
 import SwiperJs from '~/components/swiper/swiper';
@@ -28,7 +28,7 @@ export default function Social() {
 
     function goBack() {
         playClickSound();
-        navigate(`/social`);
+        navigate(`/video`);
     }
 
     const listImg: Array<string> = project?.images ? project?.images : []

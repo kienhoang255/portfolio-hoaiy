@@ -30,9 +30,9 @@
         }
     ],
     "gob-project": {
-        "header": "PERFORMANCE",
-        "footer": "VISUALS SERIES",
-        "project_overview": "A collection of high-impact ad designs for GOBRANDING, a digital marketing agency. The objective was to create professional, trust-driven visuals for advertising campaigns, specifically engineered to engage B2B clients, SME owners,... seeking digital growth solutions.",
+        "client": "gOBRANDING",
+        "industry": "Digital Marketing Services",
+        "project_scope": "A collection of high-impact ad designs for GOBRANDING, a digital marketing agency. The objective was to create professional, trust-driven visuals for advertising campaigns, specifically engineered to engage B2B clients, SME owners,... seeking digital growth solutions.",
         "images": [
             "gob1.png",
             "gob2.png",
@@ -48,9 +48,9 @@
         ]
     },
     "tokyo-deli-project": {
-        "header": "SOCIAL MEDIA",
-        "footer": "STORYTELLING",
-        "project_overview": "Bringing the essence of Japanese cuisine to the digital space through refined, 'Fresh & Authentic' visual storytelling. This project focuses on capturing the natural beauty of ingredients with a minimalist yet elegant layout and balancing traditional Japanese aesthetics with modern design.",
+        "client": "TOKYO DELI",
+        "industry": "Restaurant and food & beverage (F&B) sector, specializing in operating chains of Japanese restaurants",
+        "project_scope": "Bringing the essence of Japanese cuisine to the digital space through refined, \"Fresh & Authentic\" visual storytelling. This project focuses on capturing the natural beauty of ingredients with a minimalist yet elegant layout and balancing traditional Japanese aesthetics with modern design.",
         "images": [
             "tokyo1.png",
             "tokyo2.png",
@@ -62,9 +62,15 @@
         ]
     },
     "gsoft-project": {
-        "header": "Performance",
-        "footer": "Visuals series",
-        "project_overview": "A collection of high-impact ad designs for GOBRANDING, a digital marketing agency. The objective was to create professional, trust-driven visuals for advertising campaigns, specifically engineered to engage B2B clients, SME owners,... seeking digital growth solutions.",
+        "client": "gsoft",
+        "industry": "Providing management software solutions for enterprises and corporations",
+        "project_scope": "Designed a series of targeted B2B visual assets for GSOFT’s enterprise software, gAMSPro 4.0. The goal was to communicate complex digital transformation solutions to specialized sectors. Each design translates technical software features into clear, benefit-driven visuals that emphasize operational efficiency and professional reliability.",
+        "images": []
+    },
+    "ics": {
+        "client": "ICS GROUP",
+        "industry": "Specializing in the supply and export of genuine Honda and Yamaha motorcycles from Vietnam.",
+        "project_scope": "This project designs website hero banners for ICS GROUP, showcasing featured Honda and Yamaha motorcycle lineups from Vietnam. Each visual highlights specific bike models through modern, high-impact imagery tailored for global buyers, also positions ICS GROUP as a trusted international supplier.",
         "images": []
     }
 }

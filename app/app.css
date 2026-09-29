@@ -186,7 +186,8 @@ label,
 select,
 [role="button"],
 [onclick],
-.pointer {
+.pointer,
+.pointer * {
   cursor: url('assets/images/pointer.svg'), pointer;
   user-select: none;
 }

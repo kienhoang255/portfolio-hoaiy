@@ -23,7 +23,7 @@ export default function Branding() {
             {projects.map((project, idx) => (
                 <div
                     key={project.id || idx}
-                    className={`${styles[`branding-card-${idx}`]} fadeIn`}
+                    className={`${styles[`branding-card-${idx}`]} fadeIn pointer`}
                     onClick={() => {
                         playClickSound();
                         goToProject(project.id);
