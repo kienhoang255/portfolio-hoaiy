@@ -44,7 +44,8 @@
             "social_design-gob/08.png",
             "social_design-gob/09.png",
             "social_design-gob/10.png"
-        ]
+        ],
+        "slideWidth": "40vw"
     },
     "tokyo-deli-project": {
         "client": "TOKYO DELI",
@@ -58,7 +59,8 @@
             "social_design-tokyo_deli/05.png",
             "social_design-tokyo_deli/06.png",
             "social_design-tokyo_deli/07.png"
-        ]
+        ],
+        "slideWidth": "33vw"
     },
     "gsoft-project": {
         "client": "gsoft",
@@ -71,7 +73,8 @@
             "social_design-gsoft/04.png",
             "social_design-gsoft/05.png",
             "social_design-gsoft/06.png"
-        ]
+        ],
+        "slideWidth": "40vw"
     },
     "ics": {
         "client": "ICS GROUP",
@@ -89,6 +92,7 @@
             "social_design-ics/09.png",
             "social_design-ics/10.png",
             "social_design-ics/11.png"
-        ]
+        ],
+        "slideWidth": "80vw"
     }
 }

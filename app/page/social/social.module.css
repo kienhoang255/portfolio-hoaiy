@@ -139,27 +139,47 @@
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
-    gap: 2vw;
-    width: 50vw;
-    /* width: min(48vw, 100%); */
-    margin: 0 auto;
+    --gallery-width: calc(100vw - 20vw - 2.5vw);
+    --slide-width: 40vw;
+    width: var(--gallery-width);
+    margin-left: 20vw;
     overflow: hidden;
-    /* margin-top: 15vw; */
-    /* padding-bottom: 15vw; */
-    /* max-height: 80vh;
-    overflow-y: auto; */
+    touch-action: pan-y;
+    /* stop the .overlay mix-blend-mode above from re-blending every drag frame, which leaves ghost trails on fast drags */
+    isolation: isolate;
 }
 
-.content>div {
-    width: 100%;
+.track {
+    display: flex;
+    flex-direction: row;
+    gap: 3.5vw;
+    width: max-content;
+    /* side padding centers each slide, keeping prev/next slides peeking in frame */
+    padding: 0 calc((var(--gallery-width) - var(--slide-width)) / 2);
+    will-change: transform;
+}
+
+.slide {
+    flex: 0 0 auto;
+    width: var(--slide-width);
+    /* prevent native image drag ghost from fighting framer-motion's drag */
+    user-select: none;
+}
+
+.slideInner {
+    transform: scale(0.75);
+    transition: transform 0.3s ease;
+}
+
+.slide.active .slideInner {
+    transform: scale(1);
 }
 
 .image {
     display: block;
     width: 100% !important;
     height: auto;
+    pointer-events: none;
 }
 
 .overlay {
@@ -180,6 +200,6 @@
     max-height: 92vh;
     overflow-y: auto;
     margin-top: 8vh;
-    padding-bottom: 15vw;
-    padding-top: 10vw;
+    /* padding-bottom: 15vw; */
+    padding-top: 6vw;
 }

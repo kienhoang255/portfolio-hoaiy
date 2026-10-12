@@ -33,22 +33,6 @@ export default function Social() {
 
     const listImg: Array<string> = project?.images ? project?.images : []
     return (
-        // <div className={styles['container-project']}>
-        //     <div className={styles['header-project']}>
-        //         <div className={styles["btn-back"]} onClick={() => goBack()}>
-        //             <img src={btnBack} alt="button back" />
-        //         </div>
-        //     </div>
-        //     <div className={styles.content}>
-        //         <span>{project?.header}</span>
-        //         <div className={styles['swiper-wrapper']}><SwiperJs imgs={listImg} /></div>
-        //         <span>{project?.footer}</span>
-        //     </div>
-        //     <div className={styles.about}>
-        //         Project Overview: <span>{project?.project_overview}</span>
-        //     </div>
-        // </div>
-
         <div className={styles['container-project']}>
             <img className={styles.overlay} src={overlayImg} alt="" />
             <div className={styles.content_wrapper}>

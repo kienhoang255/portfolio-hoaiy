@@ -381,7 +381,7 @@ select,
 .contact_card_wrapper {
   overflow: hidden;
   position: absolute;
-  bottom: 3vw;
-  right: 2vw;
+  bottom: 1vw;
+  right: 1.5vw;
   padding: 20px 0 0 20px;
 }
