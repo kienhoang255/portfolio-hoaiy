@@ -43,8 +43,8 @@ export default function Home() {
                 <div className='home-container'>
                     {/* <Header></Header> */}
                     <img className='home-overlay' src={overlayImg} alt="" />
-                    <div className='home-banner-img'>
-                        <img className='fadeIn blur-left-to-right-noise' src={portfolioImg} alt="" />
+                    <div className='home-banner-img blur-left-to-right-noise'>
+                        <img className='fadeIn' src={portfolioImg} alt="" />
                     </div>
                     <div className='home-avatar-img'><img className='fadeInUp' src={avatarImg} alt="" /></div>
                     <LayoutGroup>

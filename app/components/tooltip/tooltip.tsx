@@ -15,6 +15,8 @@ interface TooltipProps {
     delay?: number;
     /** Vô hiệu hoá tooltip */
     disabled?: boolean;
+    /** Đảo màu tooltip (nền sáng, chữ tối) để dùng trên nền tối */
+    light?: boolean;
 }
 
 const Tooltip: React.FC<TooltipProps> = ({
@@ -23,6 +25,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     position = "top",
     delay = 150,
     disabled = false,
+    light = false,
 }) => {
     const [visible, setVisible] = useState(false);
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -57,7 +60,7 @@ const Tooltip: React.FC<TooltipProps> = ({
                 <span
                     id={tooltipId}
                     role="tooltip"
-                    className={`${styles.tooltip} ${styles[position]} ${visible ? styles.visible : ""
+                    className={`${styles.tooltip} ${styles[position]} ${light ? styles.light : ""} ${visible ? styles.visible : ""
                         }`}
                 >
                     {text}

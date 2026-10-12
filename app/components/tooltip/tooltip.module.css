@@ -32,6 +32,11 @@
     animation: shakeHead 0.6s ease-in-out 0.15s;
 }
 
+.tooltip.light {
+    background-color: #f3ead8;
+    color: #1f2328;
+}
+
 @keyframes shakeHead {
     0% {
         --shake-rotate: 0deg;

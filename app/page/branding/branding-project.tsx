@@ -46,7 +46,7 @@ export default function Branding() {
                     </div>
                 </div>
 
-                <div className={`${styles.content} fadeIn`}>
+                <div className={`${styles.content} fadeInUp`}>
                     {project.images.map((name, i) => {
                         return (
                             <LazyImage minScale={0.7}
@@ -58,7 +58,7 @@ export default function Branding() {
                         );
                     })}
                 </div>
-                <div className='contact_card_wrapper'><ContactCard></ContactCard></div>
+                <div className='contact_card_wrapper fadeIn'><ContactCard></ContactCard></div>
             </div>
         </div>
     );

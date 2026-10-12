@@ -18,7 +18,7 @@
 .project-card-kicker {
     font-family: New Tegomin;
     font-weight: 400;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 100%;
     letter-spacing: -8%;
     background-color: rgba(161, 161, 161, 1);
@@ -29,7 +29,7 @@
 .project-card-title {
     font-family: New Tegomin;
     font-weight: 400;
-    font-size: 32px;
+    font-size: 24px;
     line-height: 100%;
     letter-spacing: -8%;
     margin-top: 0.5vw;
@@ -39,8 +39,7 @@
 .project-card-description {
     font-family: New Tegomin;
     font-weight: 400;
-    font-style: Regular;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 100%;
     letter-spacing: -8%;
 }

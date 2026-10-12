@@ -6,7 +6,7 @@
 
     font-family: New Tegomin;
     font-weight: 400;
-    font-size: 1.7vw;
+    font-size: 1.3vw;
     line-height: 140%;
     letter-spacing: 0%;
     z-index: 1;
@@ -74,7 +74,7 @@
 .card img {
     display: block;
     max-width: 100%;
-    width: 28vw;
+    width: 22vw;
 }
 
 .info {
@@ -106,6 +106,10 @@
 
 .cardClosing {
     animation: card-slide-out 300ms cubic-bezier(0.55, 0, 1, 0.45) forwards;
+}
+
+.card.dark .info-item {
+    color: #f3ead8;
 }
 
 @keyframes card-slide-bounce {
@@ -146,6 +150,11 @@
     text-align: end;
     padding-right: 5vw;
     transition: all .6s;
+    color: #f3ead8;
+}
+
+.card.dark .close {
+    color: #1f2328;
 }
 
 .close span {

@@ -39,7 +39,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background-color: rgba(150, 150, 150, 1);
+    background-color: rgb(187, 187, 187, 1);
     height: 70%;
     top: 50%;
     transform: translateY(-50%) scaleX(0);

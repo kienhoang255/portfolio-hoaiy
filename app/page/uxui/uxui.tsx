@@ -7,8 +7,8 @@ export default function Uxui() {
         <>
             <div className={styles.container}>
                 <img className={styles.overlay} src={overlayImg} alt="" />
-                <div className={styles.title}>
-                    <img src={uxuiImg} className={"fadeIn blur-left-to-right-noise"} alt="" />
+                <div className={`${styles.title} blur-left-to-right-noise`}>
+                    <img src={uxuiImg} className="fadeIn" alt="" />
                 </div>
 
                 {/* {projects.map((project, idx) => (

@@ -66,11 +66,11 @@ export default function ContactCard({ dark }: ContactCardProps) {
             }
 
             {isOpen &&
-                <motion.div layoutId="contact-box" className={`${styles.card} ${isClosing ? styles.cardClosing : ''}`}>
+                <motion.div layoutId="contact-box" className={`${styles.card} ${dark ? styles.dark : ''} ${isClosing ? styles.cardClosing : ''}`}>
                     <div className={`${styles.close} pointer`} onClick={closeCard}><span>Close</span> X</div>
                     <img src={dark ? darkBg : lightBg} alt="" loading='lazy' />
                     <div className={styles.info}>
-                        <Tooltip text={copiedKey === 'phone' ? 'copied!' : 'click to copy'}>
+                        <Tooltip light={dark} text={copiedKey === 'phone' ? 'copied!' : 'click to copy'}>
                             <div
                                 className={styles['info-item']}
                                 onClick={() => copyText('0948 736 606', 'phone')}
@@ -87,7 +87,7 @@ export default function ContactCard({ dark }: ContactCardProps) {
                                 0948 736 606
                             </div>
                         </Tooltip>
-                        <Tooltip text={copiedKey === 'email' ? 'copied!' : 'click to copy'}>
+                        <Tooltip light={dark} text={copiedKey === 'email' ? 'copied!' : 'click to copy'}>
                             <div
                                 className={styles['info-item']}
                                 onClick={() => copyText('hoaiynguyen138@gmail.com', 'email')}

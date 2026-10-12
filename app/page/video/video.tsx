@@ -17,8 +17,8 @@ export default function Video() {
     return (
         <div className={styles.container}>
             <img className={styles.overlay} src={overlayImg} alt="" />
-            <div className={styles.title}>
-                <img src={titleImg} className={"fadeIn blur-left-to-right-noise"} alt="" />
+            <div className={`${styles.title} blur-left-to-right-noise`}>
+                <img src={titleImg} className="fadeIn" alt="" />
             </div>
             {projects.map((project, idx) => (
                 <div
