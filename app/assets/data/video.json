@@ -4,6 +4,7 @@
             "id": "tokyo-deli-project",
             "title": "Website design service",
             "placeholderImg": "video-gob.jpg",
+            "placeholderVideo": "video-gob-web.jpg",
             "kicker": "Leveling up my edits",
             "desc": "GOBRANDING’s advertising video"
         },
@@ -11,6 +12,7 @@
             "id": "gsoft-project",
             "title": "Marketing costs are increasing",
             "placeholderImg": "video-gob2.jpg",
+            "placeholderVideo": "video-gob-seo.jpg",
             "kicker": "Edited down to detail",
             "desc": "GOBRANDING’s advertising video"
         },
@@ -18,8 +20,10 @@
             "id": "ics",
             "title": "“BINH THUONG THOI” REPORTAGE",
             "placeholderImg": "video-bth.jpg",
+            "placeholderVideo": "video-gob-bth.jpg",
             "kicker": "Made with pure joy",
             "desc": "Graduation project",
+            "frame": "video-frame-2",
             "icons": {
                 "like": "95 Likes",
                 "view": "2 .1k views"
@@ -30,6 +34,7 @@
             "title": "SEO AI services",
             "kicker": "Exploring a new service",
             "placeholderImg": "video-ai.jpg",
+            "placeholderVideo": "video-gob-ai.jpg",
             "desc": "GOBRANDING’s advertising video"
         }
     ],

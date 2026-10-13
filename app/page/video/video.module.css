@@ -65,6 +65,9 @@
     /* top: 6vw; */
     /* padding: 0 2.5vw 3vw; */
     z-index: 5;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .header-project {
@@ -86,6 +89,8 @@
     display: block;
     width: 100%;
     height: auto;
+    /* flip the dark back-button icon so it reads on the dark wrap background */
+    filter: invert(1);
 }
 
 .btn-back .btn-back-hover {
@@ -111,7 +116,7 @@
     height: calc(100vh - 15.5vw);
     display: flex;
     flex-direction: column;
-    color: rgba(37, 37, 37, 1);
+    color: rgba(204, 204, 204, 1);
     font-family: "New Tegomin", "Neue Regrade", serif;
     font-size: 1vw;
     line-height: 1.25;
@@ -140,26 +145,104 @@
 
 .content {
     display: flex;
-    flex-direction: column;
-    gap: 2vw;
+    align-items: center;
+    justify-content: center;
+    gap: 3vw;
     width: 50vw;
-    /* width: min(48vw, 100%); */
     margin: 0 auto;
-    overflow: hidden;
-    /* margin-top: 15vw; */
-    /* padding-bottom: 15vw; */
-    /* max-height: 80vh;
-    overflow-y: auto; */
+    height: calc(100vh - 20vw);
 }
 
-.content>div {
+.wrap {
+    position: relative;
+    width: 26vw;
+    aspect-ratio: 1 / 1;
+    user-select: none;
+}
+
+.wrap.wide {
+    width: 36vw;
+    aspect-ratio: 1000 / 569;
+}
+
+.poster,
+.frame,
+.wrapTexture {
+    position: absolute;
+    inset: 4%;
+    width: 92%;
+    height: 92%;
+    object-fit: cover;
+}
+
+.poster {
+    z-index: 1;
+}
+
+.frame {
+    inset: 0;
     width: 100%;
+    height: 100%;
+    object-fit: fill;
+    z-index: 3;
+    pointer-events: none;
 }
 
-.image {
-    display: block;
-    width: 100% !important;
-    height: auto;
+.wrapTexture {
+    z-index: 2;
+    mix-blend-mode: soft-light;
+    opacity: 0.9;
+    transition: opacity 500ms ease, transform 500ms ease;
+}
+
+.wrap.unwrapped .wrapTexture {
+    opacity: 0;
+    transform: scale(1.04);
+}
+
+.playButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 3.4vw;
+    height: 3.4vw;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: rgba(20, 20, 20, 0.45);
+    z-index: 4;
+    transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.playButton::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 54%;
+    transform: translate(-50%, -50%);
+    border-style: solid;
+    border-width: 0.55vw 0 0.55vw 0.95vw;
+    border-color: transparent transparent transparent #f9f7ef;
+}
+
+.wrap:hover .playButton {
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+.unwrapHint {
+    font-family: "New Tegomin", "Neue Regrade", serif;
+    font-style: italic;
+    font-size: 1.3vw;
+    color: rgba(204, 204, 204, 1);
+    display: flex;
+    align-items: center;
+    gap: 0.4vw;
+    transition: opacity 400ms ease;
+    user-select: none;
+}
+
+.wrap.unwrapped+.unwrapHint {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .overlay {

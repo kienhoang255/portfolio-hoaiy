@@ -14,9 +14,10 @@ import Tooltip from '../tooltip/tooltip'
 
 type ContactCardProps = {
     dark?: boolean
+    invertButton?: boolean
 }
 
-export default function ContactCard({ dark }: ContactCardProps) {
+export default function ContactCard({ dark, invertButton }: ContactCardProps) {
     const [isOpen, setIsOpen] = useState(false)
     const [isClosing, setIsClosing] = useState(false)
     const [copiedKey, setCopiedKey] = useState<'phone' | 'email' | null>(null)
@@ -58,7 +59,7 @@ export default function ContactCard({ dark }: ContactCardProps) {
     return (
         <>
             {!isOpen && !isClosing &&
-                <motion.div layoutId="contact-box" className={`${styles.button} pointer`} onClick={openCard}>
+                <motion.div layoutId="contact-box" className={`${styles.button} ${invertButton ? styles['button-invert'] : ''} pointer`} onClick={openCard}>
                     <img className={styles['contact-card-overlay']} src={overlayImg} alt="" loading='lazy' />
                     Meet your designer
                     <img className={styles.arrow} src={arrowIcon} alt="" loading='lazy' />

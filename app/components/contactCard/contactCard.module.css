@@ -62,6 +62,11 @@
     transform: translateY(10%);
 }
 
+.button-invert {
+    /* flips the default dark label/icon to light so it reads over a dark page background */
+    filter: invert(1);
+}
+
 .card {
     transform-origin: bottom right;
     animation: card-slide-bounce 1s cubic-bezier(0.2, 0.8, 0.3, 1) both;
