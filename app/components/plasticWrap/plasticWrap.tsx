@@ -69,21 +69,58 @@ const CLOTH_FRAGMENT_SHADER = `
     ${GLSL_NOISE}
 
     void main() {
-        vec3 n = normalize(vNormal) * (gl_FrontFacing ? 1.0 : -1.0);
+        vec3 n = normalize(vNormal);
+
+        if (!gl_FrontFacing) {
+            n = -n;
+        }
+
+        // Fixed directional light
+        vec3 lightDir = normalize(vec3(-0.45, 0.65, 0.75));
         vec3 viewDir = vec3(0.0, 0.0, 1.0);
-        vec3 lightDir = normalize(vec3(0.35, 0.6, 0.75));
 
-        float diffuse = max(dot(n, lightDir), 0.0);
-        float wrapAmt = 0.3;
-        float lighting = clamp((diffuse + wrapAmt) / (1.0 + wrapAmt), 0.0, 1.0);
+        float NdotL = max(dot(n, lightDir), 0.0);
+        float NdotV = max(dot(n, viewDir), 0.0);
 
+        // Soft diffuse lighting
+        float diffuse = 0.35 + 0.65 * NdotL;
+
+        // Broad plastic reflection
         vec3 halfDir = normalize(lightDir + viewDir);
-        float spec = pow(max(dot(n, halfDir), 0.0), 14.0) * 0.1;
 
-        float grain = snoise(vUv * 90.0) * 0.015;
-        vec3 color = vec3(0.97, 0.965, 0.95) * (0.42 + lighting * 0.62) + spec + grain;
+        float specBroad = pow(
+            max(dot(n, halfDir), 0.0),
+            12.0
+        ) * 0.30;
 
-        gl_FragColor = vec4(color, 0.2);
+        // Sharp glossy highlight
+        float specSharp = pow(
+            max(dot(n, halfDir), 0.0),
+            100.0
+        ) * 1.20;
+
+        // Fresnel: stronger reflections near grazing angles
+        float fresnel = 0.04 + 0.96 * pow(
+            1.0 - NdotV,
+            5.0
+        );
+
+        float reflection = specBroad + specSharp
+                         + fresnel * 0.18;
+
+        // Very subtle surface grain
+        float grain = snoise(vUv * 120.0) * 0.003;
+
+        vec3 baseColor = vec3(0.97, 0.975, 0.98);
+
+        vec3 color = baseColor * diffuse
+                   + vec3(1.0) * reflection
+                   + grain;
+
+        color = clamp(color, 0.0, 1.0);
+
+        // More visible plastic surface
+        gl_FragColor = vec4(color, 0.25);
     }
 `;
 
@@ -96,15 +133,15 @@ interface Particle {
 
 interface Constraint { i1: number; i2: number; restLength: number; stiffness: number; }
 
-const GRID_COLS = 18;
-const GRID_ROWS = 13;
-const CLOTH_WIDTH_SCALE = 1.22; // extra fabric width beyond the frame so it buckles into folds
+const GRID_COLS = 30;
+const GRID_ROWS = 24;
+const CLOTH_WIDTH_SCALE = 1.4; // extra fabric width beyond the frame so it buckles into folds
 const CLOTH_TOP_Y = 0.62; // pinned above the visible frame top (hidden behind the bezel)
 const CLOTH_BOTTOM_Y = -0.58; // hangs slightly past the bottom edge for full coverage
-const GRAVITY = 2.6;
+const GRAVITY = 2.2;
 const DAMPING = 0.985;
-const SOLVER_ITERATIONS = 8;
-const SUBSTEPS = 2;
+const SOLVER_ITERATIONS = 15;
+const SUBSTEPS = 3;
 
 function buildCloth(aspect: number) {
     const cols = GRID_COLS + 1;
@@ -117,16 +154,39 @@ function buildCloth(aspect: number) {
         for (let c = 0; c < cols; c++) {
             const x = -clothWidth / 2 + (c / GRID_COLS) * clothWidth;
             const y = CLOTH_TOP_Y - (r / GRID_ROWS) * height;
-            const z = (Math.random() - 0.5) * 0.02; // tiny jitter seeds asymmetric folds
+            const fold = Math.sin(c * 0.7 + r * 0.35) * 0.035;
+            const noise = (Math.random() - 0.5) * 0.025;
+            const z = fold + noise;
             particles.push({ x, y, z, px: x, py: y, pz: z, pinned: false, pinX: x, pinY: y, pinZ: z });
         }
     }
 
     // pin two points near the top corners (not the full edge) so it drapes/folds like real cloth
     const idx = (c: number, r: number) => r * cols + c;
-    const pinCols = [Math.round(cols * 0.14), Math.round(cols * 0.86)];
-    const permanentPins = pinCols.map((c) => idx(c, 0));
-    for (const i of permanentPins) particles[i].pinned = true;
+    const pinCols = [
+        Math.round(GRID_COLS * 0.00),
+        Math.round(GRID_COLS * 0.275),
+        Math.round(GRID_COLS * 0.5),
+        Math.round(GRID_COLS * 0.725),
+        Math.round(GRID_COLS * 1.00),
+    ];
+
+    const permanentPins = pinCols.map(c => idx(c, 0));
+
+    for (let k = 0; k < permanentPins.length; k++) {
+        const p = particles[permanentPins[k]];
+
+        p.pinned = true;
+        p.pinX = aspect * 1.22 * (
+            pinCols[k] / GRID_COLS - 0.5
+        );
+        p.pinY = CLOTH_TOP_Y;
+        p.pinZ = p.z;
+
+        p.x = p.px = p.pinX;
+        p.y = p.py = p.pinY;
+        p.z = p.pz = p.pinZ;
+    }
 
     const constraints: Constraint[] = [];
     const addConstraint = (i1: number, i2: number, stiffness: number) => {
@@ -138,14 +198,22 @@ function buildCloth(aspect: number) {
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
             const i0 = idx(c, r);
-            if (c < cols - 1) addConstraint(i0, idx(c + 1, r), 0.9);
-            if (r < rows - 1) addConstraint(i0, idx(c, r + 1), 0.9);
+            if (c < cols - 1)
+                addConstraint(i0, idx(c + 1, r), 0.98);
+
+            if (r < rows - 1)
+                addConstraint(i0, idx(c, r + 1), 0.98);
+
             if (c < cols - 1 && r < rows - 1) {
-                addConstraint(i0, idx(c + 1, r + 1), 0.5);
-                addConstraint(idx(c + 1, r), idx(c, r + 1), 0.5);
+                addConstraint(i0, idx(c + 1, r + 1), 0.65);
+                addConstraint(idx(c + 1, r), idx(c, r + 1), 0.65);
             }
-            if (c < cols - 2) addConstraint(i0, idx(c + 2, r), 0.15);
-            if (r < rows - 2) addConstraint(i0, idx(c, r + 2), 0.15);
+
+            if (c < cols - 2)
+                addConstraint(i0, idx(c + 2, r), 0.25);
+
+            if (r < rows - 2)
+                addConstraint(i0, idx(c, r + 2), 0.25);
         }
     }
 
