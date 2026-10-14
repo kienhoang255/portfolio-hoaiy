@@ -158,6 +158,16 @@
     width: 26vw;
     aspect-ratio: 1 / 1;
     user-select: none;
+    touch-action: none;
+    cursor: grab;
+}
+
+.wrap.dragging {
+    cursor: grabbing;
+}
+
+.wrap.unwrapped {
+    cursor: default;
 }
 
 .wrap.wide {
@@ -166,8 +176,7 @@
 }
 
 .poster,
-.frame,
-.wrapTexture {
+.frame {
     position: absolute;
     inset: 4%;
     width: 92%;
@@ -184,20 +193,24 @@
     width: 100%;
     height: 100%;
     object-fit: fill;
-    z-index: 3;
+    z-index: 2;
     pointer-events: none;
 }
 
 .wrapTexture {
-    z-index: 2;
-    mix-blend-mode: soft-light;
-    opacity: 0.9;
-    transition: opacity 500ms ease, transform 500ms ease;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    overflow: hidden;
+    pointer-events: none;
 }
 
-.wrap.unwrapped .wrapTexture {
-    opacity: 0;
-    transform: scale(1.04);
+.wrapTexture canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .playButton {
@@ -209,7 +222,7 @@
     transform: translate(-50%, -50%);
     border-radius: 50%;
     background: rgba(20, 20, 20, 0.45);
-    z-index: 4;
+    z-index: 3;
     transition: opacity 300ms ease, transform 300ms ease;
 }
 
