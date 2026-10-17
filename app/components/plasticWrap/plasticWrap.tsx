@@ -9,6 +9,8 @@ export interface PlasticWrapHandle {
      * to its resting drape), 1 confirms the peel (the whole cover unpins and falls/flies away).
      */
     setTarget: (progress: number, dx?: number, dy?: number) => void;
+    /** True once the peel threshold (~190 CSS px) has been crossed and the cloth is flying off. */
+    isPeeled: () => boolean;
 }
 
 interface PlasticWrapProps {
@@ -143,6 +145,22 @@ const DAMPING = 0.985;
 const SOLVER_ITERATIONS = 15;
 const SUBSTEPS = 3;
 
+// Auto-burst threshold: ~5 cm on screen at 1x density == 190 CSS px.
+// Measured from the actual pointer-down position (grab start), independent
+// of container size so behaviour is consistent across screens.
+export const PEEL_THRESHOLD_CSS_PX = 190;
+
+// --- Fling tuning -----------------------------------------------------------
+// Vận tốc ném được đo từ TỐC ĐỘ TAY thật lúc thả (đơn vị thế giới / giây),
+// không còn phụ thuộc vào quãng đường kéo.
+const MAX_FLING_SPEED = 0.8;   // trần tốc độ (frame cao ~1.2 đơn vị => ~0.7 chiều cao/giây)
+const FLING_GAIN = 0.5;        // hệ số giảm thêm cho cảm giác "văng nhẹ" (thử 0.2 - 1.0)
+const FLING_STALE_MS = 80;     // tay đứng yên lâu hơn mức này trước khi thả => không ném, chỉ rơi
+// Màn hình có Y hướng xuống, thế giới three.js có Y hướng lên.
+// Component cha hiện tại đã truyền dy theo hướng "lên" sẵn rồi nên để false.
+// Nếu sau này truyền dy theo hệ tọa độ màn hình (Y xuống) thì đặt true.
+const FLIP_DRAG_Y = false;
+
 function buildCloth(aspect: number) {
     const cols = GRID_COLS + 1;
     const rows = GRID_ROWS + 1;
@@ -161,26 +179,35 @@ function buildCloth(aspect: number) {
         }
     }
 
-    // pin two points near the top corners (not the full edge) so it drapes/folds like real cloth
+    // pin the border points so it drapes/folds like real cloth
     const idx = (c: number, r: number) => r * cols + c;
-    const pinCols = [
-        Math.round(GRID_COLS * 0.00),
-        Math.round(GRID_COLS * 0.275),
-        Math.round(GRID_COLS * 0.5),
-        Math.round(GRID_COLS * 0.725),
-        Math.round(GRID_COLS * 1.00),
-    ];
 
-    const permanentPins = pinCols.map(c => idx(c, 0));
+    const permanentPins: number[] = [];
 
-    for (let k = 0; k < permanentPins.length; k++) {
-        const p = particles[permanentPins[k]];
+    for (let r = 0; r < GRID_ROWS; r++) {
+        for (let c = 0; c < GRID_COLS; c++) {
+            // Chỉ ghim các điểm nằm trên viền
+            if (
+                r === 0 ||
+                r === GRID_ROWS - 1 ||
+                c === 0 ||
+                c === GRID_COLS - 1
+            ) {
+                permanentPins.push(idx(c, r));
+            }
+        }
+    }
+    const permanentPinSet = new Set(permanentPins);
+
+    for (const i of permanentPins) {
+        const p = particles[i];
+        const c = i % cols;
+        const r = Math.floor(i / cols);
 
         p.pinned = true;
-        p.pinX = aspect * 1.22 * (
-            pinCols[k] / GRID_COLS - 0.5
-        );
-        p.pinY = CLOTH_TOP_Y;
+        p.pinX = aspect * 1.22 * (c / (GRID_COLS - 1) - 0.5);
+        p.pinY = CLOTH_TOP_Y -
+            (r / (GRID_ROWS - 1)) * height;
         p.pinZ = p.z;
 
         p.x = p.px = p.pinX;
@@ -233,7 +260,7 @@ function buildCloth(aspect: number) {
         }
     }
 
-    return { particles, constraints, indices, uvs, cols, rows, clothWidth, permanentPins };
+    return { particles, constraints, indices, uvs, cols, rows, clothWidth, permanentPins, permanentPinSet };
 }
 
 function stepCloth(particles: Particle[], constraints: Constraint[], dt: number) {
@@ -283,55 +310,145 @@ const PlasticWrap = forwardRef<PlasticWrapHandle, PlasticWrapProps>(function Pla
     const clothRef = useRef<ReturnType<typeof buildCloth> | null>(null);
     const grabIndexRef = useRef<number | null>(null);
     const grabRestRef = useRef({ x: 0, y: 0 });
+
+    const grabStartRef = useRef({ x: 0, y: 0 });
+    const lastPullRef = useRef({ x: 0, y: 0 });
+    const initialPinPositions = useRef<Array<{ x: number; y: number; z: number }>>([]);
+    const peeledRef = useRef(false);
+    // Vận tốc ném (đơn vị thế giới / giây), được tính từ tốc độ tay lúc thả.
     const flingRef = useRef<{ x: number; y: number } | null>(null);
+    // Theo dõi chuyển động của tay: thời điểm, vị trí kéo gần nhất và vận tốc đã làm mượt.
+    const moveTrackRef = useRef({ t: 0, x: 0, y: 0, vx: 0, vy: 0 });
 
     useImperativeHandle(ref, () => ({
         grab: (clientX: number, clientY: number) => {
+            // Màng bọc đã bị lột ra rồi thì bỏ qua mọi lần nhấn sau đó,
+            // nếu không lúc thả chuột nó sẽ khôi phục các điểm ghim và co lại như ban đầu.
+            if (peeledRef.current) return;
             const cloth = clothRef.current;
             const container = containerRef.current;
             if (!cloth || !container) return;
             const rect = container.getBoundingClientRect();
             if (!rect.width || !rect.height) return;
-            const localX = ((clientX - rect.left) / rect.width - 0.5) * aspectRef.current;
-            const localY = 0.5 - (clientY - rect.top) / rect.height;
+            const imageLeft = rect.left + 0.04 * rect.width;
+            const imageTop = rect.top + 0.04 * rect.height;
+            const imageWidth = 0.92 * rect.width;
+            const imageHeight = 0.92 * rect.height;
+            // Keep the original mesh scale, only anchor the sampling box to the
+            // picture: container centre == image centre, so worldX/Y stay
+            // algebraically identical while surviving CSS resize/position drift.
+            const imageCX = imageLeft + imageWidth / 2;
+            const imageCY = imageTop + imageHeight / 2;
+            const unitsPerPixel = aspectRef.current / rect.width;
+            const localX = (clientX - imageCX) * unitsPerPixel;
+            const localY = (imageCY - clientY) * unitsPerPixel;
 
             let bestIdx = -1;
             let bestDist = Infinity;
             cloth.particles.forEach((p, i) => {
-                if (cloth.permanentPins.includes(i)) return;
+                if (cloth.permanentPinSet.has(i)) return;
                 const d = (p.x - localX) ** 2 + (p.y - localY) ** 2;
                 if (d < bestDist) { bestDist = d; bestIdx = i; }
             });
             if (bestIdx >= 0) {
                 grabIndexRef.current = bestIdx;
                 grabRestRef.current = { x: cloth.particles[bestIdx].x, y: cloth.particles[bestIdx].y };
+                grabStartRef.current = { x: clientX, y: clientY };
+                lastPullRef.current = { x: 0, y: 0 };
+                moveTrackRef.current = { t: 0, x: 0, y: 0, vx: 0, vy: 0 };
+                // New drag -> back to attached; snapshot permanent anchors so a
+                // sub-threshold release can restore the resting drape exactly.
+                peeledRef.current = false;
+                flingRef.current = null;
+                for (const i of cloth.permanentPins) {
+                    const pp = cloth.particles[i];
+                    initialPinPositions.current[i] = { x: pp.pinX, y: pp.pinY, z: pp.pinZ };
+                }
             }
         },
         setTarget: (progress: number, dx?: number, dy?: number) => {
             const cloth = clothRef.current;
             const container = containerRef.current;
+            if (!cloth || !container) return;
+            const rect = container.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
+            const dragDistance = Math.hypot(dx ?? 0, dy ?? 0);
+            const worldPerPixel = aspectRef.current / rect.width;
+            const localDX = (dx ?? 0) * worldPerPixel;
+            // Màn hình Y hướng xuống, thế giới Y hướng lên
+            const localDY = (FLIP_DRAG_Y ? -1 : 1) * (dy ?? 0) * worldPerPixel;
+
+            void progress; // kept for API compat; peel state is tracked via drag distance
             if (dx !== undefined && dy !== undefined) {
-                if (cloth && container && grabIndexRef.current !== null) {
-                    const rect = container.getBoundingClientRect();
-                    const localDX = rect.width ? (dx / rect.width) * aspectRef.current : 0;
-                    const localDY = rect.height ? dy / rect.height : 0;
+                // Keep steering the grabbed vertex for the whole drag, even
+                // after the permanent anchors have burst.  Detach-only-burst:
+                // unpin the sheet from the picture but keep the held point
+                // glued to the pointer until pointerup.
+                if (grabIndexRef.current !== null) {
                     const p = cloth.particles[grabIndexRef.current];
                     p.pinned = true;
+                    p.px = p.x; p.py = p.y; p.pz = p.z; // kill snap velocity while held
                     p.pinX = grabRestRef.current.x + localDX;
                     p.pinY = grabRestRef.current.y + localDY;
                     p.pinZ = 0.18;
+                    lastPullRef.current = { x: localDX, y: localDY };
+
+                    // Đo vận tốc tay (thế giới / giây), làm mượt bằng trung bình trượt
+                    const now = performance.now();
+                    const m = moveTrackRef.current;
+                    if (m.t) {
+                        const dtSec = Math.max((now - m.t) / 1000, 0.001);
+                        m.vx = m.vx * 0.6 + ((localDX - m.x) / dtSec) * 0.4;
+                        m.vy = m.vy * 0.6 + ((localDY - m.y) / dtSec) * 0.4;
+                    }
+                    m.t = now; m.x = localDX; m.y = localDY;
+                }
+
+                // Auto-burst: once the drag exceeds the threshold, release the
+                // picture anchors only.  Do NOT drop the grabbed vertex and do
+                // NOT queue the fling here — the user is still holding the
+                // sheet, so it must keep following the pointer.
+                if (grabIndexRef.current !== null && dragDistance >= PEEL_THRESHOLD_CSS_PX && !peeledRef.current) {
+                    peeledRef.current = true;
+                    for (const i of cloth.permanentPins) {
+                        const pp = cloth.particles[i];
+                        initialPinPositions.current[i] = { x: pp.pinX, y: pp.pinY, z: pp.pinZ };
+                        pp.pinned = false;
+                    }
                 }
                 return;
             }
-            // release (no dx/dy supplied): let go of the grabbed point
-            if (cloth && grabIndexRef.current !== null) {
+
+            if (grabIndexRef.current !== null) {
                 const p = cloth.particles[grabIndexRef.current];
-                const fling = progress >= 1 ? { x: p.pinX - grabRestRef.current.x, y: p.pinY - grabRestRef.current.y } : null;
-                p.pinned = false;
-                if (fling) flingRef.current = fling;
+                if (peeledRef.current) {
+                    // Released AFTER burst: drop the held point now. Fling velocity
+                    // comes from the real hand speed; if the hand had stopped before
+                    // release, there is no fling and the cloth just falls under gravity.
+                    p.pinned = false;
+                    const m = moveTrackRef.current;
+                    const stale = !m.t || performance.now() - m.t > FLING_STALE_MS;
+                    flingRef.current = stale ? { x: 0, y: 0 } : { x: m.vx, y: m.vy };
+                } else {
+                    p.pinned = false;
+                    // Zero the pinned-frame velocity so the cloth relaxes back
+                    // to the resting drape instead of snapping.
+                    p.px = p.x; p.py = p.y; p.pz = p.z;
+                    for (const i of cloth.permanentPins) {
+                        const snap = initialPinPositions.current[i];
+                        if (snap) {
+                            const pp = cloth.particles[i];
+                            pp.pinX = snap.x;
+                            pp.pinY = snap.y;
+                            pp.pinZ = snap.z;
+                            pp.pinned = true;
+                        }
+                    }
+                }
             }
             grabIndexRef.current = null;
         },
+        isPeeled: () => peeledRef.current,
     }), []);
 
     useEffect(() => {
@@ -362,7 +479,7 @@ const PlasticWrap = forwardRef<PlasticWrapHandle, PlasticWrapProps>(function Pla
 
             const cloth = buildCloth(aspect);
             clothRef.current = cloth;
-            const { particles, constraints, cols, rows } = cloth;
+            const { particles, constraints } = cloth;
 
             const positions = new Float32Array(particles.length * 3);
             const normals = new Float32Array(particles.length * 3);
@@ -439,21 +556,32 @@ const PlasticWrap = forwardRef<PlasticWrapHandle, PlasticWrapProps>(function Pla
                 const dt = Math.min((now - lastTime) / 1000, 1 / 30);
                 lastTime = now;
 
+                const subDt = dt / SUBSTEPS;
+
                 if (flingRef.current) {
-                    const { x, y } = flingRef.current;
-                    const mag = Math.hypot(x, y) || 1;
+                    let { x: vx, y: vy } = flingRef.current;
+
+                    // Giới hạn tốc độ tối đa rồi giảm bớt cho cảm giác "văng nhẹ"
+                    const speed = Math.hypot(vx, vy);
+                    if (speed > MAX_FLING_SPEED) {
+                        vx *= MAX_FLING_SPEED / speed;
+                        vy *= MAX_FLING_SPEED / speed;
+                    }
+                    vx *= FLING_GAIN;
+                    vy *= FLING_GAIN;
+
                     for (const i of cloth.permanentPins) particles[i].pinned = false;
                     for (const p of particles) {
-                        p.px = p.x - (x / mag) * 0.05;
-                        p.py = p.y - (y / mag) * 0.05 - 0.02;
+                        if (p.pinned) continue;
+                        // Verlet: vận tốc = x - px (mỗi substep), nên px = x - v * subDt
+                        p.px = p.x - vx * subDt;
+                        p.py = p.y - vy * subDt;
                     }
                     flingRef.current = null;
                 }
 
-                const subDt = dt / SUBSTEPS;
                 for (let i = 0; i < SUBSTEPS; i++) stepCloth(particles, constraints, subDt);
 
-                void cols; void rows;
                 syncBuffers();
                 renderer.render(scene, camera);
             }
@@ -475,4 +603,3 @@ const PlasticWrap = forwardRef<PlasticWrapHandle, PlasticWrapProps>(function Pla
 });
 
 export default PlasticWrap;
-

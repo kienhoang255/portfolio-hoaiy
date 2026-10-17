@@ -30,6 +30,7 @@ export default function VideoProject() {
     const plasticRef = useRef<PlasticWrapHandle>(null);
     const dragStartRef = useRef({ x: 0, y: 0 });
     const lastDragRef = useRef({ x: 0, y: 0 });
+    const videoRef = useRef<HTMLVideoElement | null>(null);
 
     if (!routing) {
         return <div>Project not found</div>;
@@ -66,13 +67,14 @@ export default function VideoProject() {
         e.currentTarget.releasePointerCapture(e.pointerId);
         const threshold = (wrapRef.current?.offsetWidth ?? 300) * 0.3;
         const distance = Math.hypot(lastDragRef.current.x, lastDragRef.current.y);
-        if (distance > threshold) {
-            playClickSound();
-            setIsUnwrapped(true);
-            plasticRef.current?.setTarget(1);
-        } else {
-            plasticRef.current?.setTarget(0);
-        }
+        // if (distance > threshold) {
+        playClickSound();
+        setIsUnwrapped(true);
+        plasticRef.current?.setTarget(1);
+        videoRef.current?.play();
+        // } else {
+        //     plasticRef.current?.setTarget(0);
+        // }
         lastDragRef.current = { x: 0, y: 0 };
     }
 
@@ -101,21 +103,37 @@ export default function VideoProject() {
                         onPointerUp={handlePointerUp}
                         onPointerCancel={handlePointerUp}
                     >
-                        {routing.placeholderVideo && (
+                        {/* {routing.placeholderVideo && (
                             <img
                                 className={styles.poster}
                                 src={`${import.meta.env.BASE_URL}assets/images/${routing.placeholderVideo}`}
                                 alt={routing.title}
                                 draggable={false}
                             />
+                        )} */}
+                        {routing.videoLink && (
+                            <video
+                                ref={videoRef}
+                                className={styles.poster}
+                                src={`${import.meta.env.BASE_URL}assets/videos/${routing.videoLink}`}
+                                poster={`${import.meta.env.BASE_URL}assets/images/${routing.placeholderVideo}`}
+                                controls
+                                playsInline
+                                preload="metadata"
+                            />
                         )}
-                        <img className={styles.frame} src={routing.frame === 'video-frame-2' ? videoFrame2 : videoFrame} alt="" draggable={false} />
+                        <img
+                            className={styles.frame}
+                            src={routing.frame === 'video-frame-2' ? videoFrame2 : videoFrame}
+                            alt=""
+                            draggable={false}
+                        />
                         <PlasticWrap
                             ref={plasticRef}
                             aspect={routing.frame === 'video-frame-2' ? 1000 / 569 : 1}
                             className={styles.wrapTexture}
                         />
-                        <div className={styles.playButton} />
+                        {!isUnwrapped && <div className={styles.playButton} />}
                     </div>
                     <div className={styles.unwrapHint}>
                         <span>&laquo;</span> Press &amp; drag to peel off the wrap!

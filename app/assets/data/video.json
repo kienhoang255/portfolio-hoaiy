@@ -6,6 +6,7 @@
             "placeholderImg": "video-gob.jpg",
             "placeholderVideo": "video-gob-web.jpg",
             "kicker": "Leveling up my edits",
+            "videoLink": "sample.mp4",
             "desc": "GOBRANDING’s advertising video"
         },
         {
@@ -14,6 +15,7 @@
             "placeholderImg": "video-gob2.jpg",
             "placeholderVideo": "video-gob-seo.jpg",
             "kicker": "Edited down to detail",
+            "videoLink": "sample.mp4",
             "desc": "GOBRANDING’s advertising video"
         },
         {
@@ -22,6 +24,7 @@
             "placeholderImg": "video-bth.jpg",
             "placeholderVideo": "video-gob-bth.jpg",
             "kicker": "Made with pure joy",
+            "videoLink": "sample.mp4",
             "desc": "Graduation project",
             "frame": "video-frame-2",
             "icons": {
@@ -35,6 +38,7 @@
             "kicker": "Exploring a new service",
             "placeholderImg": "video-ai.jpg",
             "placeholderVideo": "video-gob-ai.jpg",
+            "videoLink": "sample.mp4",
             "desc": "GOBRANDING’s advertising video"
         }
     ],
