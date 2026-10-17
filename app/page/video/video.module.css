@@ -149,13 +149,18 @@
     justify-content: center;
     gap: 3vw;
     width: 50vw;
-    margin: 0 auto;
+    margin: 0 10vw 0 auto;
     height: calc(100vh - 20vw);
+}
+
+.content.wide {
+    width: 70vw;
+    margin: 0 5vw 0 auto;
 }
 
 .wrap {
     position: relative;
-    width: 26vw;
+    width: 642px;
     aspect-ratio: 1 / 1;
     user-select: none;
     touch-action: none;
@@ -171,8 +176,9 @@
 }
 
 .wrap.wide {
-    width: 36vw;
-    aspect-ratio: 1000 / 569;
+    width: 1000px;
+    aspect-ratio: 1000 / 560;
+    height: 560px;
 }
 
 .poster,
@@ -278,4 +284,12 @@
     margin-top: 8vh;
     /* padding-bottom: 15vw; */
     padding-top: 10vw;
+}
+
+.contact_card_wrapper {
+    overflow: hidden;
+    position: absolute;
+    bottom: 1vw;
+    right: 1.5vw;
+    padding: 20px 0 25px 20px;
 }

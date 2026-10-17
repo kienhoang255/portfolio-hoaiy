@@ -65,16 +65,14 @@ export default function VideoProject() {
         if (!isDragging) return;
         setIsDragging(false);
         e.currentTarget.releasePointerCapture(e.pointerId);
-        const threshold = (wrapRef.current?.offsetWidth ?? 300) * 0.3;
-        const distance = Math.hypot(lastDragRef.current.x, lastDragRef.current.y);
-        // if (distance > threshold) {
-        playClickSound();
-        setIsUnwrapped(true);
-        plasticRef.current?.setTarget(1);
-        videoRef.current?.play();
-        // } else {
-        //     plasticRef.current?.setTarget(0);
-        // }
+        if (isUnwrapped) {
+            playClickSound();
+            setIsUnwrapped(true);
+            plasticRef.current?.setTarget(1);
+            videoRef.current?.play();
+        } else {
+            plasticRef.current?.setTarget(0);
+        }
         lastDragRef.current = { x: 0, y: 0 };
     }
 
@@ -94,7 +92,7 @@ export default function VideoProject() {
                     </div>
                 </div>
 
-                <div className={`${styles.content} fadeIn`}>
+                <div className={`${styles.content} ${routing.frame === 'video-frame-2' ? styles.wide : ''} fadeIn`}>
                     <div
                         ref={wrapRef}
                         className={`${styles.wrap} ${routing.frame === 'video-frame-2' ? styles.wide : ''} ${isUnwrapped ? styles.unwrapped : ''} ${isDragging ? styles.dragging : ''} ${isUnwrapped ? '' : 'pointer'}`}
@@ -132,15 +130,15 @@ export default function VideoProject() {
                             ref={plasticRef}
                             aspect={routing.frame === 'video-frame-2' ? 1000 / 569 : 1}
                             className={styles.wrapTexture}
+                            onSetUnwrapped={setIsUnwrapped}
                         />
                         {!isUnwrapped && <div className={styles.playButton} />}
                     </div>
                     <div className={styles.unwrapHint}>
-                        <span>&laquo;</span> Press &amp; drag to peel off the wrap!
+                        <span>&laquo;</span> Unwrap to watch!
                     </div>
                 </div>
-
-                <div className='contact_card_wrapper'><ContactCard dark={true} invertButton={true}></ContactCard></div>
+                <div className={styles.contact_card_wrapper}><ContactCard dark={true} invertButton={true}></ContactCard></div>
             </div>
         </div>
     );

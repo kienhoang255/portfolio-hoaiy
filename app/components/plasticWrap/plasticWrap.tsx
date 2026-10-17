@@ -17,6 +17,7 @@ interface PlasticWrapProps {
     /** width / height of the frame the cloth drapes over */
     aspect: number;
     className?: string;
+    onSetUnwrapped: (value: boolean) => void
 }
 
 // Loaded at runtime instead of bundled, per project requirement.
@@ -302,7 +303,7 @@ function stepCloth(particles: Particle[], constraints: Constraint[], dt: number)
     }
 }
 
-const PlasticWrap = forwardRef<PlasticWrapHandle, PlasticWrapProps>(function PlasticWrap({ aspect, className }, ref) {
+const PlasticWrap = forwardRef<PlasticWrapHandle, PlasticWrapProps>(function PlasticWrap({ aspect, className, onSetUnwrapped }, ref) {
     const containerRef = useRef<HTMLDivElement>(null);
     const aspectRef = useRef(aspect);
     aspectRef.current = aspect;
@@ -414,6 +415,8 @@ const PlasticWrap = forwardRef<PlasticWrapHandle, PlasticWrapProps>(function Pla
                         const pp = cloth.particles[i];
                         initialPinPositions.current[i] = { x: pp.pinX, y: pp.pinY, z: pp.pinZ };
                         pp.pinned = false;
+                        console.log("bung");
+                        onSetUnwrapped(true)
                     }
                 }
                 return;
