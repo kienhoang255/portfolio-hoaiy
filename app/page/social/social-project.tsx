@@ -153,10 +153,10 @@ export default function Social() {
                                     style={slideStyle}
                                 >
                                     <div className={styles.slideInner}>
-                                        <LazyImage minScale={1}
-                                            className={styles.image}
+                                        <img
+                                            className={`${styles.image} pointer`}
                                             src={`${import.meta.env.BASE_URL}assets/images/${image.src}`}
-                                            alt={image.src}
+                                            style={{ width: image.width }}
                                         />
                                     </div>
                                 </div>

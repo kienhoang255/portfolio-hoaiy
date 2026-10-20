@@ -1,4 +1,5 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 export interface PlasticWrapHandle {
     /** Call on pointer down: grabs the nearest cloth point to the given client (viewport) coordinates. */
@@ -138,9 +139,9 @@ interface Constraint { i1: number; i2: number; restLength: number; stiffness: nu
 
 const GRID_COLS = 30;
 const GRID_ROWS = 24;
-const CLOTH_WIDTH_SCALE = 1.4; // extra fabric width beyond the frame so it buckles into folds
-const CLOTH_TOP_Y = 0.62; // pinned above the visible frame top (hidden behind the bezel)
-const CLOTH_BOTTOM_Y = -0.58; // hangs slightly past the bottom edge for full coverage
+const CLOTH_WIDTH_SCALE = 1.06; // extra fabric width beyond the frame so it buckles into folds
+const CLOTH_TOP_Y = 0.5;
+const CLOTH_BOTTOM_Y = -0.5;
 const GRAVITY = 2.2;
 const DAMPING = 0.985;
 const SOLVER_ITERATIONS = 15;
@@ -149,7 +150,7 @@ const SUBSTEPS = 3;
 // Auto-burst threshold: ~5 cm on screen at 1x density == 190 CSS px.
 // Measured from the actual pointer-down position (grab start), independent
 // of container size so behaviour is consistent across screens.
-export const PEEL_THRESHOLD_CSS_PX = 190;
+export const PEEL_THRESHOLD_CSS_PX = 350;
 
 // --- Fling tuning -----------------------------------------------------------
 // Vận tốc ném được đo từ TỐC ĐỘ TAY thật lúc thả (đơn vị thế giới / giây),
@@ -185,14 +186,14 @@ function buildCloth(aspect: number) {
 
     const permanentPins: number[] = [];
 
-    for (let r = 0; r < GRID_ROWS; r++) {
-        for (let c = 0; c < GRID_COLS; c++) {
+    for (let r = 0; r <= GRID_ROWS; r++) {
+        for (let c = 0; c <= GRID_COLS; c++) {
             // Chỉ ghim các điểm nằm trên viền
             if (
                 r === 0 ||
-                r === GRID_ROWS - 1 ||
+                r === GRID_ROWS ||
                 c === 0 ||
-                c === GRID_COLS - 1
+                c === GRID_COLS
             ) {
                 permanentPins.push(idx(c, r));
             }
@@ -206,9 +207,9 @@ function buildCloth(aspect: number) {
         const r = Math.floor(i / cols);
 
         p.pinned = true;
-        p.pinX = aspect * 1.22 * (c / (GRID_COLS - 1) - 0.5);
+        p.pinX = aspect * (c / GRID_COLS - 0.5);
         p.pinY = CLOTH_TOP_Y -
-            (r / (GRID_ROWS - 1)) * height;
+            (r / GRID_ROWS) * height;
         p.pinZ = p.z;
 
         p.x = p.px = p.pinX;
@@ -305,6 +306,10 @@ function stepCloth(particles: Particle[], constraints: Constraint[], dt: number)
 
 const PlasticWrap = forwardRef<PlasticWrapHandle, PlasticWrapProps>(function PlasticWrap({ aspect, className, onSetUnwrapped }, ref) {
     const containerRef = useRef<HTMLDivElement>(null);
+    // Placeholder in the layout: defines where the frame is; the canvas itself is fullscreen.
+    const anchorRef = useRef<HTMLDivElement>(null);
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
     const aspectRef = useRef(aspect);
     aspectRef.current = aspect;
 
@@ -327,7 +332,7 @@ const PlasticWrap = forwardRef<PlasticWrapHandle, PlasticWrapProps>(function Pla
             // nếu không lúc thả chuột nó sẽ khôi phục các điểm ghim và co lại như ban đầu.
             if (peeledRef.current) return;
             const cloth = clothRef.current;
-            const container = containerRef.current;
+            const container = anchorRef.current;
             if (!cloth || !container) return;
             const rect = container.getBoundingClientRect();
             if (!rect.width || !rect.height) return;
@@ -369,7 +374,7 @@ const PlasticWrap = forwardRef<PlasticWrapHandle, PlasticWrapProps>(function Pla
         },
         setTarget: (progress: number, dx?: number, dy?: number) => {
             const cloth = clothRef.current;
-            const container = containerRef.current;
+            const container = anchorRef.current;
             if (!cloth || !container) return;
             const rect = container.getBoundingClientRect();
             if (!rect.width || !rect.height) return;
@@ -455,6 +460,7 @@ const PlasticWrap = forwardRef<PlasticWrapHandle, PlasticWrapProps>(function Pla
     }), []);
 
     useEffect(() => {
+        if (!mounted) return;
         let disposed = false;
         let renderer: any;
         let resizeObserver: ResizeObserver | undefined;
@@ -478,6 +484,7 @@ const PlasticWrap = forwardRef<PlasticWrapHandle, PlasticWrapProps>(function Pla
 
             renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.domElement.style.display = 'block';
             container.appendChild(renderer.domElement);
 
             const cloth = buildCloth(aspect);
@@ -559,6 +566,19 @@ const PlasticWrap = forwardRef<PlasticWrapHandle, PlasticWrapProps>(function Pla
                 const dt = Math.min((now - lastTime) / 1000, 1 / 30);
                 lastTime = now;
 
+                // Fit the camera so the placeholder rect maps to the frame (aspect x 1 world units).
+                const a = anchorRef.current?.getBoundingClientRect();
+                if (a && a.width) {
+                    const upp = aspectRef.current / a.width;
+                    const cx = a.left + a.width / 2;
+                    const cy = a.top + a.height / 2;
+                    camera.left = -cx * upp;
+                    camera.right = (window.innerWidth - cx) * upp;
+                    camera.top = cy * upp;
+                    camera.bottom = (cy - window.innerHeight) * upp;
+                    camera.updateProjectionMatrix();
+                }
+
                 const subDt = dt / SUBSTEPS;
 
                 if (flingRef.current) {
@@ -600,9 +620,20 @@ const PlasticWrap = forwardRef<PlasticWrapHandle, PlasticWrapProps>(function Pla
                 renderer.domElement.remove();
             }
         };
-    }, [aspect]);
+    }, [aspect, mounted]);
 
-    return <div ref={containerRef} className={className} />;
+    return (
+        <>
+            <div ref={anchorRef} className={className} />
+            {mounted && createPortal(
+                <div
+                    ref={containerRef}
+                    style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 50 }}
+                />,
+                document.body
+            )}
+        </>
+    );
 });
 
 export default PlasticWrap;

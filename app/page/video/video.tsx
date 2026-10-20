@@ -18,7 +18,7 @@ export default function Video() {
         <div className={styles.container}>
             <img className={styles.overlay} src={overlayImg} alt="" />
             <div className={`${styles.title} blur-left-to-right-noise`}>
-                <img src={titleImg} className="fadeIn" alt="" />
+                <img src={titleImg} className="fadeIn" alt="" style={{ width: '45vw' }} />
             </div>
             {projects.map((project, idx) => (
                 <div

@@ -115,7 +115,7 @@ export default function VideoProject() {
                                 className={styles.poster}
                                 src={`${import.meta.env.BASE_URL}assets/videos/${routing.videoLink}`}
                                 poster={`${import.meta.env.BASE_URL}assets/images/${routing.placeholderVideo}`}
-                                controls
+                                controls={isUnwrapped}
                                 playsInline
                                 preload="metadata"
                             />

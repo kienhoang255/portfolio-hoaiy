@@ -5,28 +5,32 @@
             "title": "TOKYO DELI PROJECT",
             "placeholderImg": "social-tokyo.jpg",
             "kicker": "My first taste of F&B",
-            "desc": "Social post design"
+            "desc": "Social post design",
+            "width": "9vw"
         },
         {
             "id": "gsoft-project",
             "title": "GSOFT PROJECT",
             "placeholderImg": "social-yte.jpg",
             "kicker": "My tech ad experiments",
-            "desc": "Advertising image"
+            "desc": "Advertising image",
+            "width": "9vw"
         },
         {
             "id": "ics",
             "title": "GSOFT PROJECT",
             "placeholderImg": "social-ics.jpg",
             "kicker": "My most detailed client",
-            "desc": "Banner website"
+            "desc": "Banner website",
+            "height": "14vh"
         },
         {
             "id": "gob-project",
             "title": "GOBRANDING Project",
             "kicker": "My most consistent project",
             "placeholderImg": "social-gob.jpg",
-            "desc": "Advertising image"
+            "desc": "Advertising image",
+            "width": "9vw"
         }
     ],
     "gob-project": {
@@ -45,7 +49,7 @@
             "social_design-gob/09.png",
             "social_design-gob/10.png"
         ],
-        "slideWidth": "40vw"
+        "slideWidth": "32vw"
     },
     "tokyo-deli-project": {
         "client": "TOKYO DELI",
@@ -55,7 +59,6 @@
             "social_design-tokyo_deli/01.png",
             "social_design-tokyo_deli/02.png",
             "social_design-tokyo_deli/03.png",
-            "social_design-tokyo_deli/04.png",
             "social_design-tokyo_deli/05.png",
             "social_design-tokyo_deli/06.png",
             "social_design-tokyo_deli/07.png"
@@ -74,7 +77,7 @@
             "social_design-gsoft/05.png",
             "social_design-gsoft/06.png"
         ],
-        "slideWidth": "40vw"
+        "slideWidth": "32vw"
     },
     "ics": {
         "client": "ICS GROUP",
@@ -93,6 +96,6 @@
             "social_design-ics/10.png",
             "social_design-ics/11.png"
         ],
-        "slideWidth": "80vw"
+        "slideWidth": "55vw"
     }
 }

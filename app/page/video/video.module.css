@@ -67,7 +67,7 @@
     z-index: 5;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
+    background-position: left;
 }
 
 .header-project {
@@ -257,6 +257,7 @@
     gap: 0.4vw;
     transition: opacity 400ms ease;
     user-select: none;
+    animation: hint .8s infinite;
 }
 
 .wrap.unwrapped+.unwrapHint {
@@ -292,4 +293,51 @@
     bottom: 1vw;
     right: 1.5vw;
     padding: 20px 0 25px 20px;
+}
+
+.seek {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 8px;
+    width: calc(100% - 16px);
+    margin: 0 8px;
+    accent-color: #fff;
+    z-index: 3;
+}
+
+@keyframes hint {
+    0% {
+        transform: translateX(0);
+        animation-timing-function: cubic-bezier(.2, .8, .3, 1);
+        /* bật ra nhanh */
+    }
+
+    25% {
+        transform: translateX(24px);
+        /* vượt quá một chút */
+        animation-timing-function: ease-in-out;
+    }
+
+    40% {
+        transform: translateX(14px);
+        /* nảy ngược lại */
+        animation-timing-function: ease-in-out;
+    }
+
+    55% {
+        transform: translateX(20px);
+        /* nảy nhỏ lần 2 */
+        animation-timing-function: ease-in;
+    }
+
+    70% {
+        transform: translateX(0);
+        /* về vị trí cũ */
+    }
+
+    100% {
+        transform: translateX(0);
+        /* nghỉ một nhịp */
+    }
 }

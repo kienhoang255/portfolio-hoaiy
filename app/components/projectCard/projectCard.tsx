@@ -7,6 +7,8 @@ type Project = {
     desc: string;
     placeholderImg?: string;
     kicker?: string;
+    height?: string;
+    width?: string;
 };
 
 type ProjectCardProps = {
@@ -29,7 +31,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
     return (
         <article className={styles['project-card']} onClick={handleClick}>
             <div className={styles['project-card-image']}>
-                <img src={imageSrc} alt="" />
+                <img src={imageSrc} alt="" style={{ height: project.height || 'auto', width: project.width || 'auto' }} />
             </div>
 
             <div className={styles['project-card-copy']}>

@@ -1,7 +1,7 @@
 {
     "routing": [
         {
-            "id": "tokyo-deli-project",
+            "id": "video-gob-web",
             "title": "Website design service",
             "placeholderImg": "video-gob.jpg",
             "placeholderVideo": "video-gob-web.jpg",
@@ -19,8 +19,8 @@
             "desc": "GOBRANDING’s advertising video"
         },
         {
-            "id": "ics",
-            "title": "“BINH THUONG THOI” REPORTAGE",
+            "id": "video-bth",
+            "title": "\"BINH THUONG THOI\" REPORTAGE",
             "placeholderImg": "video-bth.jpg",
             "placeholderVideo": "video-gob-bth.jpg",
             "kicker": "Made with pure joy",
@@ -33,7 +33,7 @@
             }
         },
         {
-            "id": "gob-project",
+            "id": "video-gob-ai",
             "title": "SEO AI services",
             "kicker": "Exploring a new service",
             "placeholderImg": "video-ai.jpg",
@@ -42,42 +42,28 @@
             "desc": "GOBRANDING’s advertising video"
         }
     ],
-    "gob-project": {
+    "video-gob-ai": {
         "header": "PERFORMANCE",
         "footer": "VISUALS SERIES",
-        "project_overview": "A collection of high-impact ad designs for GOBRANDING, a digital marketing agency. The objective was to create professional, trust-driven visuals for advertising campaigns, specifically engineered to engage B2B clients, SME owners,... seeking digital growth solutions.",
-        "images": [
-            "gob1.png",
-            "gob2.png",
-            "gob3.png",
-            "gob4.png",
-            "gob5.png",
-            "gob6.png",
-            "gob7.png",
-            "gob8.png",
-            "gob9.png",
-            "gob10.png",
-            "gob11.png"
-        ]
+        "project_overview": "What happens to your website traffic when Google’s new AI takes over search results? In this video, I edited a compelling visual story on the Google AI Overviews shift, showcasing GOBRANDING’s 3-stage roadmap (Technical, E-E-A-T, AI Content) that turns search disruptions into top-ranking opportunities.",
+        "images": []
     },
-    "tokyo-deli-project": {
+    "video-gob-web": {
         "header": "SOCIAL MEDIA",
         "footer": "STORYTELLING",
-        "project_overview": "Bringing the essence of Japanese cuisine to the digital space through refined, 'Fresh & Authentic' visual storytelling. This project focuses on capturing the natural beauty of ingredients with a minimalist yet elegant layout and balancing traditional Japanese aesthetics with modern design.",
-        "images": [
-            "tokyo1.png",
-            "tokyo2.png",
-            "tokyo3.png",
-            "tokyo4.png",
-            "tokyo5.png",
-            "tokyo6.png",
-            "tokyo7.png"
-        ]
+        "project_overview": "As the video editor, I crafted a fast-paced motion graphic video to showcase how GOBRANDING builds high-converting, SEO-standard websites for businesses. By translating complex technical features into clear, engaging visuals, I aimed to help viewers easily understand why a great website is the ultimate profit engine.",
+        "images": []
     },
-    "gsoft-project": {
+    "video-gob-seo": {
         "header": "Performance",
         "footer": "Visuals series",
-        "project_overview": "A collection of high-impact ad designs for GOBRANDING, a digital marketing agency. The objective was to create professional, trust-driven visuals for advertising campaigns, specifically engineered to engage B2B clients, SME owners,... seeking digital growth solutions.",
+        "project_overview": "In this project, I edited an insightful promo video that breaks down why businesses are struggling with rising ad costs and declining ROI. Using simple graphvideo-bth—like falling money icons and AI search screens—I showed how GOBRANDING helps companies grow without relying only on paid ads.",
+        "images": []
+    },
+    "video-bth": {
+        "header": "Performance",
+        "footer": "Visuals series",
+        "project_overview": "What does a \"normal\" life mean when society constantly demands conventional success? As part of my graduation project, I shaped the concept, filmed, and edited this portrait documentary featuring Thien. The video follows a 25-year-old art teacher who left school for a self-chosen path, exploring his journey toward genuine fulfillment in an ordinary life.",
         "images": []
     }
 }
