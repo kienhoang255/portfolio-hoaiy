@@ -34,18 +34,6 @@ export default function UxuiProject() {
         <div className={styles['container-project']}>
             <img className={styles.overlay} src={overlayImg} alt="" />
             <div className={styles.content_wrapper}>
-                <div className={`${styles['header-project']} fadeIn`}>
-                    <div className={`${styles["btn-back"]} pointer`} onClick={() => goBack()}>
-                        <img src={btnBack} alt="button back" className="pointer" />
-                        <img src={btnBack2} alt="" className={styles["btn-back-hover"]} />
-                    </div>
-                    <div className={styles.about}>
-                        <strong>&#x2022; Client: <div>{project.client}</div></strong>
-                        <br />
-                        <div className={styles.industry}>&#x2022; Industry: <span>{project.industry}</span></div>
-                        <div >&#x2022; Project scope: <span>{project.project_scope}</span></div>
-                    </div>
-                </div>
 
                 <div className={`${styles.content} fadeInUp`}>
                     <div className={styles.project_wrapper}>
@@ -81,6 +69,20 @@ export default function UxuiProject() {
                         );
                     })}
                 </div>
+
+                <div className={`${styles['header-project']} fadeIn`}>
+                    <div className={`${styles["btn-back"]} pointer`} onClick={() => goBack()}>
+                        <img src={btnBack} alt="button back" className="pointer" />
+                        <img src={btnBack2} alt="" className={styles["btn-back-hover"]} />
+                    </div>
+                    <div className={styles.about}>
+                        <strong>&#x2022; Client: <div>{project.client}</div></strong>
+                        <br />
+                        <div className={styles.industry}>&#x2022; Industry: <span>{project.industry}</span></div>
+                        <div >&#x2022; Project scope: <span>{project.project_scope}</span></div>
+                    </div>
+                </div>
+
                 <div className='contact_card_wrapper fadeIn'><ContactCard></ContactCard></div>
             </div>
         </div>

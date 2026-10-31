@@ -2,7 +2,7 @@
     "routing": [
         {
             "id": "tokyo-deli-project",
-            "title": "TOKYO DELI PROJECT",
+            "title": "TOKYO DELI",
             "placeholderImg": "social-tokyo.jpg",
             "kicker": "My first taste of F&B",
             "desc": "Social post design",
@@ -10,7 +10,7 @@
         },
         {
             "id": "gsoft-project",
-            "title": "GSOFT PROJECT",
+            "title": "GSOFT",
             "placeholderImg": "social-yte.jpg",
             "kicker": "My tech ad experiments",
             "desc": "Advertising image",
@@ -18,7 +18,7 @@
         },
         {
             "id": "ics",
-            "title": "GSOFT PROJECT",
+            "title": "ICS GROUP",
             "placeholderImg": "social-ics.jpg",
             "kicker": "My most detailed client",
             "desc": "Banner website",
@@ -26,7 +26,7 @@
         },
         {
             "id": "gob-project",
-            "title": "GOBRANDING Project",
+            "title": "GOBRANDING",
             "kicker": "My most consistent project",
             "placeholderImg": "social-gob.jpg",
             "desc": "Advertising image",
@@ -34,7 +34,7 @@
         }
     ],
     "gob-project": {
-        "client": "gOBRANDING",
+        "client": "GOBRANDING",
         "industry": "Digital Marketing Services",
         "project_scope": "A collection of high-impact ad designs for GOBRANDING, a digital marketing agency. The objective was to create professional, trust-driven visuals for advertising campaigns, specifically engineered to engage B2B clients, SME owners,... seeking digital growth solutions.",
         "images": [
@@ -66,7 +66,7 @@
         "slideWidth": "33vw"
     },
     "gsoft-project": {
-        "client": "gsoft",
+        "client": "GSOFT",
         "industry": "Providing management software solutions for enterprises and corporations",
         "project_scope": "Designed a series of targeted B2B visual assets for GSOFT’s enterprise software, gAMSPro 4.0. The goal was to communicate complex digital transformation solutions to specialized sectors. Each design translates technical software features into clear, benefit-driven visuals that emphasize operational efficiency and professional reliability.",
         "images": [
@@ -94,7 +94,9 @@
             "social_design-ics/08.png",
             "social_design-ics/09.png",
             "social_design-ics/10.png",
-            "social_design-ics/11.png"
+            "social_design-ics/11.png",
+            "social_design-ics/12.png",
+            "social_design-ics/13.png"
         ],
         "slideWidth": "55vw"
     }

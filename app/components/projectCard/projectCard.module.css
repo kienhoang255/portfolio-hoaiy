@@ -38,6 +38,7 @@
     letter-spacing: -8%;
     margin-top: 0.5vw;
     margin-bottom: 0.5vw;
+    text-transform: uppercase;
 }
 
 .project-card-description {

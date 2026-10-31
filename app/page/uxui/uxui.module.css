@@ -9,10 +9,6 @@
     margin: 0;
     padding: 0;
     left: 0;
-    /* padding: 0 2.5vw;
-    padding-bottom: 3vw;
-    height: calc(100% - 5.1vw);
-    top: 5.1vw; */
 }
 
 .title {
@@ -64,14 +60,14 @@
 }
 
 .header-project {
-    position: absolute;
+    position: sticky;
     inset: 0;
-    pointer-events: none;
+    display: flex;
+    height: 90vh;
 }
 
 .btn-back {
     position: sticky;
-    top: 6vw;
     left: 2.5vw;
     width: 2.5vw;
     min-width: 34px;
@@ -104,12 +100,12 @@
     top: 12vw;
     left: 2.5vw;
     width: 17vw;
-    height: calc(100vh - 15.5vw);
+    height: calc(100vh - 11.5vw);
     display: flex;
     flex-direction: column;
     color: rgba(37, 37, 37, 1);
     font-family: "New Tegomin", "Neue Regrade", serif;
-    font-size: 1vw;
+    font-size: 0.9vw;
     line-height: 1.25;
     pointer-events: auto;
     user-select: none;
@@ -141,6 +137,7 @@
     width: 50vw;
     margin: 0 auto;
     overflow: hidden;
+    padding-top: 3vw;
 }
 
 .content>div {
@@ -167,12 +164,12 @@
 
 .content_wrapper {
     height: 100vh;
-    max-height: 92vh;
+    max-height: 90vh;
     overflow: hidden;
     overflow-y: auto;
     margin-top: 10vh;
-    padding-bottom: 15vw;
-    padding-top: 3vw;
+    z-index: 2;
+    position: relative;
 }
 
 .project_wrapper {
@@ -183,7 +180,7 @@
 .project_title {
     font-family: New Tegomin;
     font-weight: 400;
-    font-size: 48px;
+    font-size: 2.2vw;
     text-transform: uppercase;
     color: rgba(37, 37, 37, 1);
 }
@@ -191,7 +188,7 @@
 .project_sub_title {
     font-family: New Tegomin;
     font-weight: 400;
-    font-size: 18px;
+    font-size: .8vw;
     text-transform: uppercase;
     color: rgba(37, 37, 37, 0.6);
 }
@@ -199,7 +196,7 @@
 .project_desc {
     font-family: New Tegomin;
     font-weight: 400;
-    font-size: 18px;
+    font-size: .8vw;
 }
 
 .project_sub {
@@ -211,7 +208,7 @@
     color: rgba(37, 37, 37, 0.6);
     font-family: New Tegomin;
     font-weight: 400;
-    font-size: 18px;
+    font-size: .8vw;
     line-height: 120%;
     text-transform: uppercase;
 }
@@ -220,7 +217,7 @@
     color: rgba(37, 37, 37, 1);
     font-family: New Tegomin;
     font-weight: 400;
-    font-size: 18px;
+    font-size: .8vw;
     line-height: 120%;
 }
 

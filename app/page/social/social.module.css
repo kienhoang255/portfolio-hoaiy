@@ -8,12 +8,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    /* position: relative; */
     left: 0;
-    /* padding: 0 2.5vw;
-    padding-bottom: 3vw;
-    height: calc(100% - 5.1vw);
-    top: 5.1vw; */
 }
 
 .title {
@@ -59,25 +54,20 @@
 }
 
 .container-project {
-    /* position: relative; */
-    /* box-sizing: border-box; */
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    /* top: 6vw; */
-    /* padding: 0 2.5vw 3vw; */
-    z-index: 5;
 }
 
 .header-project {
-    position: absolute;
+    position: sticky;
     inset: 0;
-    pointer-events: none;
+    display: flex;
+    height: 90vh;
 }
 
 .btn-back {
     position: sticky;
-    top: 6vw;
     left: 2.5vw;
     width: 2.5vw;
     min-width: 34px;
@@ -110,12 +100,12 @@
     top: 12vw;
     left: 2.5vw;
     width: 17vw;
-    height: calc(100vh - 15.5vw);
+    height: calc(100vh - 11.5vw);
     display: flex;
     flex-direction: column;
     color: rgba(37, 37, 37, 1);
     font-family: "New Tegomin", "Neue Regrade", serif;
-    font-size: 1vw;
+    font-size: 0.9vw;
     line-height: 1.25;
     pointer-events: auto;
     user-select: none;
@@ -149,6 +139,10 @@
     touch-action: pan-y;
     /* stop the .overlay mix-blend-mode above from re-blending every drag frame, which leaves ghost trails on fast drags */
     isolation: isolate;
+    z-index: 1;
+    transform: translateY(-50%);
+    top: 50%;
+    position: absolute;
 }
 
 .track {
@@ -198,11 +192,22 @@
 
 .content_wrapper {
     height: 100vh;
-    max-height: 100vh;
+    max-height: 90vh;
+    overflow: hidden;
     overflow-y: auto;
-    /* margin-top: 8vh; */
-    /* padding-top: 6vw; */
+    margin-top: 10vh;
+    z-index: 2;
+    position: relative;
+}
+
+.contact_card_wrapper {
+    position: absolute;
+    overflow: hidden;
+    position: -webkit-sticky;
+    bottom: 2vw;
+    right: 1.5vw;
+    padding: 20px 0 0 20px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: end;
 }
