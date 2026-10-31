@@ -7,7 +7,6 @@ import LazyImage from "~/components/lazyImg/lazyImg";
 import ContactCard from "~/components/contactCard/contactCard";
 import overlayImg from '../../assets/images/overlay.webp'
 import { playClickSound } from "~/utils/playClickSound";
-import { div } from "framer-motion/client";
 
 type UxuiData = typeof data;
 type UxuiProjectKey = Exclude<keyof UxuiData, 'routing'>;

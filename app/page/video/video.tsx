@@ -5,6 +5,7 @@ import titleImg from '../../assets/images/video-design.svg'
 import ProjectCard from '~/components/projectCard/projectCard';
 import { playClickSound } from '~/utils/playClickSound';
 import overlayImg from '../../assets/images/overlay.webp'
+import Loading from '~/components/loading/loading';
 
 export default function Video() {
     const navigate = useNavigate();
@@ -32,6 +33,7 @@ export default function Video() {
                     <ProjectCard project={project} />
                 </div>
             ))}
+            <Loading progress={20}></Loading>
         </div>
     );
 }
