@@ -380,8 +380,12 @@ select,
 
 .contact_card_wrapper {
   overflow: hidden;
-  position: absolute;
-  bottom: 1vw;
+  position: sticky;
+  position: -webkit-sticky;
+  bottom: 2vw;
   right: 1.5vw;
   padding: 20px 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 }

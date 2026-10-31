@@ -30,7 +30,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
 
     return (
         <article className={styles['project-card']} onClick={handleClick}>
-            <div className={styles['project-card-image']}>
+            <div className={styles['project-card-image']} style={{ maxHeight: project.height || 'auto', maxWidth: project.width || 'auto' }}>
                 <img src={imageSrc} alt="" style={{ height: project.height || 'auto', width: project.width || 'auto' }} />
             </div>
 

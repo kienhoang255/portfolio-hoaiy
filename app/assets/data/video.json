@@ -7,7 +7,8 @@
             "placeholderVideo": "video-gob-web.jpg",
             "kicker": "Leveling up my edits",
             "videoLink": "sample.mp4",
-            "desc": "GOBRANDING’s advertising video"
+            "desc": "GOBRANDING’s advertising video",
+            "width": "9vw"
         },
         {
             "id": "gsoft-project",
@@ -16,7 +17,8 @@
             "placeholderVideo": "video-gob-seo.jpg",
             "kicker": "Edited down to detail",
             "videoLink": "sample.mp4",
-            "desc": "GOBRANDING’s advertising video"
+            "desc": "GOBRANDING’s advertising video",
+            "width": "8vw"
         },
         {
             "id": "video-bth",
@@ -30,7 +32,8 @@
             "icons": {
                 "like": "95 Likes",
                 "view": "2 .1k views"
-            }
+            },
+            "width": "14vw"
         },
         {
             "id": "video-gob-ai",
@@ -39,7 +42,8 @@
             "placeholderImg": "video-ai.jpg",
             "placeholderVideo": "video-gob-ai.jpg",
             "videoLink": "sample.mp4",
-            "desc": "GOBRANDING’s advertising video"
+            "desc": "GOBRANDING’s advertising video",
+            "width": "9vw"
         }
     ],
     "video-gob-ai": {

@@ -150,7 +150,7 @@ const SUBSTEPS = 3;
 // Auto-burst threshold: ~5 cm on screen at 1x density == 190 CSS px.
 // Measured from the actual pointer-down position (grab start), independent
 // of container size so behaviour is consistent across screens.
-export const PEEL_THRESHOLD_CSS_PX = 350;
+export const PEEL_THRESHOLD_VW = 25;
 
 // --- Fling tuning -----------------------------------------------------------
 // Vận tốc ném được đo từ TỐC ĐỘ TAY thật lúc thả (đơn vị thế giới / giây),
@@ -414,7 +414,8 @@ const PlasticWrap = forwardRef<PlasticWrapHandle, PlasticWrapProps>(function Pla
                 // picture anchors only.  Do NOT drop the grabbed vertex and do
                 // NOT queue the fling here — the user is still holding the
                 // sheet, so it must keep following the pointer.
-                if (grabIndexRef.current !== null && dragDistance >= PEEL_THRESHOLD_CSS_PX && !peeledRef.current) {
+                const peelThresholdPx = (PEEL_THRESHOLD_VW / 100) * window.innerWidth;
+                if (grabIndexRef.current !== null && dragDistance >= peelThresholdPx && !peeledRef.current) {
                     peeledRef.current = true;
                     for (const i of cloth.permanentPins) {
                         const pp = cloth.particles[i];

@@ -1,7 +1,4 @@
 
-import Header from "~/components/header";
-
-import bgImg from "../assets/images/main_bg.png"
 import type { Route } from "../+types/root";
 
 export function meta({ }: Route.MetaArgs) {

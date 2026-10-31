@@ -8,13 +8,11 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    /* position: relative; */
     left: 0;
     padding: 0 2.5vw;
     padding-bottom: 3vw;
     min-height: 100vh;
     height: 100%;
-    /* top: 5.1vw; */
     background-image: url(../../assets/images/photography-bg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -47,14 +45,24 @@
     max-height: 92vh;
     overflow-y: auto;
     margin-top: 8vh;
-    /* padding-bottom: 15vw; */
     padding-top: 10vw;
 }
 
-.contact_card_wrapper {
-    overflow: hidden;
+.banner {
     position: absolute;
     bottom: 1vw;
-    right: 1.5vw;
-    padding: 20px 0 25px 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.banner .title {
+    font-family: 'JaneAusten';
+    font-size: 3.9vw;
+    color: #f3ead8;
+}
+
+.banner .sub_title {
+    font-family: New Tegomin;
+    font-size: 1.5vw;
+    color: #f3ead8;
 }

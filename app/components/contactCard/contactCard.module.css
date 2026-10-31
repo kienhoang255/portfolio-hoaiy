@@ -10,6 +10,7 @@
     line-height: 140%;
     letter-spacing: 0%;
     z-index: 1;
+    width: fit-content;
 }
 
 .button::before {
@@ -105,8 +106,8 @@
 }
 
 .info-item img {
-    width: 36px;
-    height: 36px;
+    width: 1.8vw;
+    height: 1.8vw;
 }
 
 .cardClosing {
@@ -155,11 +156,11 @@
     text-align: end;
     padding-right: 5vw;
     transition: all .6s;
-    color: #f3ead8;
+    color: #1f2328;
 }
 
 .card.dark .close {
-    color: #1f2328;
+    color: #f3ead8;
 }
 
 .close span {

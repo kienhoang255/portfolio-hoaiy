@@ -7,6 +7,7 @@ export default [
         route("branding", "./page/branding/branding.tsx"),
         route("branding/:pid", "./page/branding/branding-project.tsx"),
         route("ux-ui", "./page/uxui/uxui.tsx"),
+        route("ux-ui/:pid", "./page/uxui/uxui-project.tsx"),
         route("social", "./page/social/social.tsx"),
         route("social/:pid", "./page/social/social-project.tsx"),
         route("video", "./page/video/video.tsx"),

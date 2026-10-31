@@ -138,7 +138,7 @@ export default function VideoProject() {
                         <span>&laquo;</span> Unwrap to watch!
                     </div>
                 </div>
-                <div className={styles.contact_card_wrapper}><ContactCard dark={true} invertButton={true}></ContactCard></div>
+                <div className='contact_card_wrapper fadeIn'><ContactCard dark={true} invertButton={true}></ContactCard></div>
             </div>
         </div>
     );
