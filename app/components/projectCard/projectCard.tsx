@@ -36,7 +36,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
 
             <div className={styles['project-card-copy']}>
                 <div className={styles['project-card-kicker']}>{project.kicker}</div>
-                <h3 className={styles['project-card-title']}>{project.title}</h3>
+                <h3 className={styles['project-card-title']}><pre>{project.title}</pre></h3>
                 <p className={styles['project-card-description']}>{project.desc}</p>
             </div>
         </article>

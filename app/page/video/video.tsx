@@ -6,10 +6,17 @@ import ProjectCard from '~/components/projectCard/projectCard';
 import { playClickSound } from '~/utils/playClickSound';
 import overlayImg from '../../assets/images/overlay.webp'
 import Loading from '~/components/loading/loading';
+import { AnimatePresence } from 'framer-motion';
+import { useImagesReady } from '~/hooks/useImagesReady';
 
 export default function Video() {
     const navigate = useNavigate();
-    const projects = data.routing
+    const projects = data.routing;
+    const { progress, ready } = useImagesReady([
+        overlayImg,
+        titleImg,
+        ...projects.map((p) => `${import.meta.env.BASE_URL}assets/images/${p.placeholderImg}`),
+    ]);
 
     function goToProject(pid: string) {
         navigate(`/video/${pid}`);
@@ -17,6 +24,9 @@ export default function Video() {
 
     return (
         <div className={styles.container}>
+            <AnimatePresence>
+                {!ready && <Loading theme="light" progress={progress} />}
+            </AnimatePresence>
             <img className={styles.overlay} src={overlayImg} alt="" />
             <div className={`${styles.title} blur-left-to-right-noise`}>
                 <img src={titleImg} className="fadeIn" alt="" style={{ width: '45vw' }} />
@@ -33,7 +43,6 @@ export default function Video() {
                     <ProjectCard project={project} />
                 </div>
             ))}
-            <Loading progress={20}></Loading>
         </div>
     );
 }

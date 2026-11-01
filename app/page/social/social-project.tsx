@@ -1,15 +1,17 @@
 import styles from './social.module.css'
 import btnBack from '../../assets/icons/btn-back.svg'
 import { useNavigate, useParams } from 'react-router';
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { motion, useMotionValue, animate, type PanInfo } from 'framer-motion';
+import { useEffect, useRef, useState, type CSSProperties, type ReactElement } from 'react';
+import { AnimatePresence, motion, useMotionValue, animate, type PanInfo } from 'framer-motion';
 import data from '../../assets/data/social.json'
 
 import btnBack2 from '../../assets/icons/btn-back-2.svg'
-import LazyImage from "~/components/lazyImg/lazyImg";
 import ContactCard from "~/components/contactCard/contactCard";
 import overlayImg from '../../assets/images/overlay.webp'
+import Loading from "~/components/loading/loading";
+import { useImagesReady } from "~/hooks/useImagesReady";
 import { playClickSound } from "~/utils/playClickSound";
+import ProjectCard from '~/components/projectCard/projectCard';
 
 type ProjectData = typeof data;
 type ProjectProjectKey = Exclude<keyof ProjectData, 'routing'>;
@@ -24,7 +26,7 @@ export default function Social() {
     const navigate = useNavigate();
     const { pid } = useParams<{ pid: string }>();
     const project = pid && isProjectProjectKey(pid) ? data[pid] : undefined;
-
+    const projects = data.routing
 
     const dragContainerRef = useRef<HTMLDivElement>(null);
     const dragTrackRef = useRef<HTMLDivElement>(null);
@@ -34,8 +36,15 @@ export default function Social() {
     // center offset of each slide within the track, in px (handles non-uniform widths)
     const slideCentersRef = useRef<number[]>([]);
     const x = useMotionValue(0);
+    const { progress, ready } = useImagesReady([
+        overlayImg,
+        ...((project?.images ?? []) as ProjectImage[]).map((entry) =>
+            `${import.meta.env.BASE_URL}assets/images/${typeof entry === 'string' ? entry : entry.src}`),
+    ]);
 
     useEffect(() => {
+        if (!ready) return;
+
         function updateConstraint() {
             const container = dragContainerRef.current;
             const track = dragTrackRef.current;
@@ -55,7 +64,7 @@ export default function Social() {
         updateConstraint();
         window.addEventListener('resize', updateConstraint);
         return () => window.removeEventListener('resize', updateConstraint);
-    }, [project]);
+    }, [project, ready]);
 
     function handleDragEnd(_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
         setIsDragging(false);
@@ -101,8 +110,30 @@ export default function Social() {
     }
 
     function goBack() {
-        playClickSound();
         navigate(`/social`);
+        playClickSound();
+    }
+
+    function goToProject(pid: string) {
+        navigate(`/social/${pid}`);
+        x.set(0);
+        setActiveIndex(0);
+    }
+
+    function otherProject(): ReactElement[] {
+        return projects.filter((proj) => proj.id !== pid).map((proj, idx) => {
+            return (
+                <div
+                    key={proj.id || idx}
+                    className={`fadeIn pointer`}
+                    onClick={() => {
+                        playClickSound();
+                        goToProject(proj.id);
+                    }}>
+                    <ProjectCard project={proj} />
+                </div>
+            )
+        })
     }
 
     const listImg: Array<string> = project?.images ? project?.images : []
@@ -112,9 +143,26 @@ export default function Social() {
         : undefined;
 
     return (
-        <div className={styles['container-project']}>
+        <div className={`${styles['container-project']} social-project`}>
+            <AnimatePresence>
+                {!ready && <Loading theme="light" progress={progress} />}
+            </AnimatePresence>
             <img className={styles.overlay} src={overlayImg} alt="" />
             <div className={styles.content_wrapper}>
+
+                <div className={`${styles['header-project']} fadeIn`}>
+                    <div className={`${styles["btn-back"]} pointer`} onClick={() => goBack()}>
+                        <img src={btnBack} alt="button back" className="pointer" />
+                        <img src={btnBack2} alt="" className={styles["btn-back-hover"]} />
+                    </div>
+                    <div className={styles.about}>
+                        <strong>&#x2022; Client: <div>{project.client}</div></strong>
+                        <br />
+                        <div className={styles.industry}>&#x2022; Industry: <span>{project.industry}</span></div>
+                        <div >&#x2022; Project scope: <span>{project.project_scope}</span></div>
+                    </div>
+                </div>
+
                 <div className={`${styles.content} fadeIn`} ref={dragContainerRef} style={contentStyle}>
                     <motion.div
                         className={styles.track}
@@ -149,20 +197,12 @@ export default function Social() {
                                 </div>
                             );
                         })}
-                    </motion.div>
-                </div>
 
-                <div className={`${styles['header-project']} fadeIn`}>
-                    <div className={`${styles["btn-back"]} pointer`} onClick={() => goBack()}>
-                        <img src={btnBack} alt="button back" className="pointer" />
-                        <img src={btnBack2} alt="" className={styles["btn-back-hover"]} />
-                    </div>
-                    <div className={styles.about}>
-                        <strong>&#x2022; Client: <div>{project.client}</div></strong>
-                        <br />
-                        <div className={styles.industry}>&#x2022; Industry: <span>{project.industry}</span></div>
-                        <div >&#x2022; Project scope: <span>{project.project_scope}</span></div>
-                    </div>
+                        <div className="otherProject">
+                            <div className="otherProjectTitle">Explore related projects</div>
+                            <div className="otherProjectList">{otherProject()}</div>
+                        </div>
+                    </motion.div>
                 </div>
 
                 <div className={styles.contact_card_wrapper}><ContactCard></ContactCard></div>

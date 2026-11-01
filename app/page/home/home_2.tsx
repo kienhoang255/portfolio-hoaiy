@@ -7,6 +7,8 @@ import emailIcon from '../../assets/images/email-icon.png'
 import phoneIcon from '../../assets/images/phone-icon.png'
 import NguyenHoaiYImg from '../../assets/images/Nguyen Hoai Y.svg'
 
+export const home2Images = [overlayImg, avatarImg, birthdayIcon, emailIcon, phoneIcon, NguyenHoaiYImg];
+
 type Home2Props = {
     showContent: number
 };

@@ -6,7 +6,12 @@ import btnBack2 from '../../assets/icons/btn-back-2.svg'
 import LazyImage from "~/components/lazyImg/lazyImg";
 import ContactCard from "~/components/contactCard/contactCard";
 import overlayImg from '../../assets/images/overlay.webp'
+import Loading from "~/components/loading/loading";
+import { useImagesReady } from "~/hooks/useImagesReady";
+import { AnimatePresence } from "framer-motion";
+import { useEffect, useRef, type ReactElement } from "react";
 import { playClickSound } from "~/utils/playClickSound";
+import ProjectCard from "~/components/projectCard/projectCard";
 
 type UxuiData = typeof data;
 type UxuiProjectKey = Exclude<keyof UxuiData, 'routing'>;
@@ -18,21 +23,71 @@ function isUxuiProjectKey(key: string): key is UxuiProjectKey {
 export default function UxuiProject() {
     const navigate = useNavigate();
     const { pid } = useParams<{ pid: string }>();
+    const contentWrapperRef = useRef<HTMLDivElement>(null);
     const project = pid && isUxuiProjectKey(pid) ? data[pid] : undefined;
+    const projects = data.routing
+
+    useEffect(() => {
+        contentWrapperRef.current?.scrollTo(0, 0);
+    }, [pid]);
+
+    const { progress, ready } = useImagesReady([
+        overlayImg,
+        ...(project?.images ?? [])
+            // '8' on YOMOST renders a placeholder instead of an image
+            .filter((name) => !(name == '8' && project?.client == 'YOMOST'))
+            .map((name) => `${import.meta.env.BASE_URL}assets/images/${name}`),
+    ]);
 
     if (!project) {
         return <div>Project not found</div>;
     }
 
     function goBack() {
-        playClickSound();
         navigate(`/ux-ui`);
+        playClickSound();
+    }
+
+    function goToProject(pid: string) {
+        navigate(`/ux-ui/${pid}`);
+    }
+
+    function otherProject(): ReactElement[] {
+        return projects.filter((proj) => proj.id !== pid).map((proj, idx) => {
+            return (
+                <div
+                    key={proj.id || idx}
+                    className={`fadeIn pointer`}
+                    onClick={() => {
+                        playClickSound();
+                        goToProject(proj.id);
+                    }}>
+                    <ProjectCard project={proj} />
+                </div>
+            )
+        })
     }
 
     return (
         <div className={styles['container-project']}>
+            <AnimatePresence>
+                {!ready && <Loading theme="light" progress={progress} />}
+            </AnimatePresence>
             <img className={styles.overlay} src={overlayImg} alt="" />
-            <div className={styles.content_wrapper}>
+            <div className={styles.content_wrapper} ref={contentWrapperRef}>
+
+                <div className={`${styles['header-project']} fadeIn`}>
+                    <div className={`${styles["btn-back"]} pointer`} onClick={() => goBack()}>
+                        <img src={btnBack} alt="button back" className="pointer" />
+                        <img src={btnBack2} alt="" className={styles["btn-back-hover"]} />
+                    </div>
+                    <div className={styles.about}>
+                        <strong>&#x2022; Client: <div>{project.client}</div></strong>
+                        <br />
+                        <div className={styles.industry}>&#x2022; Industry: <span>{project.industry}</span></div>
+                        <div >&#x2022; Project scope: <span>{project.project_scope}</span></div>
+                    </div>
+                </div>
 
                 <div className={`${styles.content} fadeInUp`}>
                     <div className={styles.project_wrapper}>
@@ -67,18 +122,10 @@ export default function UxuiProject() {
                             />
                         );
                     })}
-                </div>
 
-                <div className={`${styles['header-project']} fadeIn`}>
-                    <div className={`${styles["btn-back"]} pointer`} onClick={() => goBack()}>
-                        <img src={btnBack} alt="button back" className="pointer" />
-                        <img src={btnBack2} alt="" className={styles["btn-back-hover"]} />
-                    </div>
-                    <div className={styles.about}>
-                        <strong>&#x2022; Client: <div>{project.client}</div></strong>
-                        <br />
-                        <div className={styles.industry}>&#x2022; Industry: <span>{project.industry}</span></div>
-                        <div >&#x2022; Project scope: <span>{project.project_scope}</span></div>
+                    <div className="otherProject">
+                        <div className="otherProjectTitle">Explore related projects</div>
+                        <div className="otherProjectList">{otherProject()}</div>
                     </div>
                 </div>
 

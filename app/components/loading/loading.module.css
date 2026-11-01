@@ -8,17 +8,30 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+}
+
+.loading_wrapper img {
+    max-width: 10vw;
 }
 
 .progress {
     overflow: hidden;
-    height: 8px;
+    height: .4vw;
     border-radius: 40px;
     background: rgba(205, 205, 205, 0.25);
 }
 
 .progressFill {
     height: 100%;
+    width: 100%;
     border-radius: inherit;
     background: linear-gradient(90deg, #1A1A1A 0%, #CDCDCD 100%);
+    transition: width 0.3s ease-out;
+    transition: .1s all;
+}
+
+.content {
+    margin-top: 1vw;
+    width: 15vw;
 }

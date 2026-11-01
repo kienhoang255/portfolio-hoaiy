@@ -53,29 +53,36 @@
 }
 
 .header-project {
-    position: sticky;
-    inset: 0;
+    position: fixed;
     display: flex;
     height: 90vh;
+    flex-direction: column;
+    width: 17vw;
+    left: 2.5vw;
+    gap: 4vw;
 }
 
 .btn-back {
-    position: sticky;
-    left: 2.5vw;
-    width: 2.5vw;
+    width: fit-content;
     min-width: 34px;
+    width: 2.5vw;
+    height: 2.5vw;
+    min-height: 35px;
+    min-width: 35px;
     pointer-events: auto;
 }
 
 .btn-back img {
+    position: absolute;
     display: block;
-    width: 100%;
     height: auto;
+    width: 2.5vw;
+    height: 2.5vw;
+    min-width: 35px;
+    min-height: 35px;
 }
 
 .btn-back .btn-back-hover {
-    position: absolute;
-    inset: 0;
     opacity: 0;
     transition: opacity 160ms ease;
 }
@@ -89,9 +96,6 @@
 }
 
 .about {
-    position: sticky;
-    top: 12vw;
-    left: 2.5vw;
     width: 17vw;
     height: calc(100vh - 11.5vw);
     display: flex;
@@ -130,8 +134,9 @@
     width: 50vw;
     margin: 0 auto;
     overflow: hidden;
-
     padding-top: 10vw;
+    position: relative;
+    z-index: 1;
 }
 
 .content>div {

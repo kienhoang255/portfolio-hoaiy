@@ -9,8 +9,6 @@
     margin: 0;
     padding: 0;
     left: 0;
-    padding: 0 2.5vw;
-    padding-bottom: 3vw;
     min-height: 100vh;
     height: 100%;
     background-image: url(../../assets/images/photography-bg.jpg);
@@ -59,6 +57,7 @@
     font-family: 'JaneAusten';
     font-size: 3.9vw;
     color: #f3ead8;
+    margin-bottom: 1vw;
 }
 
 .banner .sub_title {

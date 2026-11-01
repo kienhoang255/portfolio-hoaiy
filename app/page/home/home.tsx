@@ -1,19 +1,25 @@
 import portfolioImg from '../../assets/images/portfolio.svg'
 import avatarImg from '../../assets/images/avatar.webp'
 import overlayImg from '../../assets/images/overlay.webp'
+import bgImg from '../../assets/images/bg.svg'
+import bg2Img from '../../assets/images/bg_2.png'
 import './home.css'
 import { useState, type WheelEvent } from 'react'
-import Home2 from './home_2'
-import Header from '~/components/header'
+import Home2, { home2Images } from './home_2'
 import ContactCard from '~/components/contactCard/contactCard'
-import { motion, LayoutGroup } from 'framer-motion';
+import Loading from '~/components/loading/loading'
+import { useImagesReady } from '~/hooks/useImagesReady'
+import { AnimatePresence, motion, LayoutGroup } from 'framer-motion';
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
 
+// bg images are CSS backgrounds, so they're listed here to be preloaded too
+const homeImages = [portfolioImg, avatarImg, overlayImg, bgImg, bg2Img, ...home2Images]
+
 export default function Home() {
+    const { progress, ready } = useImagesReady(homeImages)
     const [home2Progress, setHome2Progress] = useState(0)
     const [home2Step3, setHome2Step3] = useState(false)
-    const [contactOpen, setContactOpen] = useState(false)
 
     const handleWheel = (event: WheelEvent<HTMLElement>) => {
         if (event.deltaY === 0) return
@@ -39,30 +45,36 @@ export default function Home() {
 
     return (
         <div className='home-scroll-shell' onWheel={handleWheel}>
-            <section className='home1-panel'>
-                <div className='home-container'>
-                    {/* <Header></Header> */}
-                    <img className='home-overlay' src={overlayImg} alt="" />
-                    <div className='home-banner-img blur-left-to-right-noise'>
-                        <img className='fadeIn' src={portfolioImg} alt="" />
-                    </div>
-                    <div className='home-avatar-img'><img className='fadeInUp' src={avatarImg} alt="" /></div>
-                    <LayoutGroup>
-                        <div className='home-info'>
-                            <motion.div layout className='fadeIn'>NGUYEN HOAI Y</motion.div>
-                            <motion.div layout className='fadeIn'>MULTI-DESIGN</motion.div>
-                            <motion.div layout className='fadeIn'>2026 EDITION</motion.div>
-                            <motion.div layout className='home-info-resume fadeIn'>
-                                <ContactCard />
-                            </motion.div>
+            <AnimatePresence>
+                {!ready && <Loading theme="light" progress={progress} />}
+            </AnimatePresence>
+            {/* mounted after loading so the entrance animations play when the page is revealed */}
+            {ready && <>
+                <section className='home1-panel'>
+                    <div className='home-container'>
+                        {/* <Header></Header> */}
+                        <img className='home-overlay' src={overlayImg} alt="" />
+                        <div className='home-banner-img blur-left-to-right-noise'>
+                            <img className='fadeIn' src={portfolioImg} alt="" />
                         </div>
-                    </LayoutGroup>
-                </div>
-            </section>
+                        <div className='home-avatar-img'><img className='fadeInUp' src={avatarImg} alt="" /></div>
+                        <LayoutGroup>
+                            <div className='home-info'>
+                                <motion.div layout className='fadeIn'>NGUYEN HOAI Y</motion.div>
+                                <motion.div layout className='fadeIn'>MULTI-DESIGN</motion.div>
+                                <motion.div layout className='fadeIn'>2026 EDITION</motion.div>
+                                <motion.div layout className='home-info-resume fadeIn'>
+                                    <ContactCard />
+                                </motion.div>
+                            </div>
+                        </LayoutGroup>
+                    </div>
+                </section>
 
-            <section className={home2Step3 ? 'home2-panel home2-animation' : 'home2-panel'} style={{ transform: `translateX(${110 - home2Progress * 110}%)` }}>
-                <Home2 showContent={home2Progress} />
-            </section>
+                <section className={home2Step3 ? 'home2-panel home2-animation' : 'home2-panel'} style={{ transform: `translateX(${110 - home2Progress * 110}%)` }}>
+                    <Home2 showContent={home2Progress} />
+                </section>
+            </>}
         </div>
     )
 }

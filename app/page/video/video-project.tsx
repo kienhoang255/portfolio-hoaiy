@@ -11,6 +11,9 @@ import videoBg from '../../assets/images/video-design/video-bg.jpg'
 import videoFrame from '../../assets/images/video-design/video-frame.png'
 import videoFrame2 from '../../assets/images/video-design/video-frame-2.png'
 import { playClickSound } from "~/utils/playClickSound";
+import { AnimatePresence } from 'framer-motion';
+import Loading from '~/components/loading/loading';
+import { useImagesReady } from '~/hooks/useImagesReady';
 
 type ProjectData = typeof data;
 type ProjectDetailKey = Exclude<keyof ProjectData, 'routing'>;
@@ -30,15 +33,20 @@ export default function VideoProject() {
     const plasticRef = useRef<PlasticWrapHandle>(null);
     const dragStartRef = useRef({ x: 0, y: 0 });
     const lastDragRef = useRef({ x: 0, y: 0 });
-    const videoRef = useRef<HTMLVideoElement | null>(null);
+    const { progress, ready } = useImagesReady([
+        btnBack,
+        videoBg,
+        videoFrame,
+        videoFrame2
+    ]);
 
     if (!routing) {
         return <div>Project not found</div>;
     }
 
     function goBack() {
-        playClickSound();
         navigate(`/video`);
+        playClickSound();
     }
 
     function handlePointerDown(e: ReactPointerEvent<HTMLDivElement>) {
@@ -69,7 +77,6 @@ export default function VideoProject() {
             playClickSound();
             setIsUnwrapped(true);
             plasticRef.current?.setTarget(1);
-            videoRef.current?.play();
         } else {
             plasticRef.current?.setTarget(0);
         }
@@ -78,6 +85,9 @@ export default function VideoProject() {
 
     return (
         <div className={styles['container-project']} style={{ backgroundImage: `url(${videoBg})` }}>
+            <AnimatePresence>
+                {!ready && <Loading theme="dark" progress={progress} />}
+            </AnimatePresence>
             <div className={styles.content_wrapper}>
                 <div className={`${styles['header-project']} fadeIn`}>
                     <div className={`${styles["btn-back"]} pointer`} onClick={() => goBack()}>
@@ -101,25 +111,40 @@ export default function VideoProject() {
                         onPointerUp={handlePointerUp}
                         onPointerCancel={handlePointerUp}
                     >
-                        {/* {routing.placeholderVideo && (
+                        {routing.facebook && (isUnwrapped ? (
+                            <iframe
+                                className={styles.poster}
+                                src={`https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(routing.facebook)}&show_text=false&autoplay=true&mute=true`}
+                                title={routing.title}
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share; fullscreen"
+                                allowFullScreen
+                                scrolling="no"
+                                frameBorder="0"
+                            />
+                        ) : (
                             <img
                                 className={styles.poster}
                                 src={`${import.meta.env.BASE_URL}assets/images/${routing.placeholderVideo}`}
                                 alt={routing.title}
                                 draggable={false}
                             />
-                        )} */}
-                        {routing.videoLink && (
-                            <video
-                                ref={videoRef}
+                        ))}
+                        {routing.youtube && (isUnwrapped ? (
+                            <iframe
                                 className={styles.poster}
-                                src={`${import.meta.env.BASE_URL}assets/videos/${routing.videoLink}`}
-                                poster={`${import.meta.env.BASE_URL}assets/images/${routing.placeholderVideo}`}
-                                controls={isUnwrapped}
-                                playsInline
-                                preload="metadata"
+                                src={`https://www.youtube.com/embed/${routing.youtube}?autoplay=1&mute=0&playsinline=1&rel=0`}
+                                title={routing.title}
+                                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                                allowFullScreen
                             />
-                        )}
+                        ) : (
+                            <img
+                                className={styles.poster}
+                                src={`${import.meta.env.BASE_URL}assets/images/${routing.placeholderVideo}`}
+                                alt={routing.title}
+                                draggable={false}
+                            />
+                        ))}
                         <img
                             className={styles.frame}
                             src={routing.frame === 'video-frame-2' ? videoFrame2 : videoFrame}
