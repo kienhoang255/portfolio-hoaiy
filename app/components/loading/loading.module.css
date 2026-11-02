@@ -23,19 +23,19 @@
 }
 
 .nameLoading {
-    animation: loadingFill 3s ease-in-out infinite;
+    animation: loadingFill 2s ease-in-out infinite;
 }
 
 .nameLoading path:last-child {
-    animation: loadingStroke 3s ease-in-out infinite;
+    animation: loadingStroke 2s ease-in-out infinite;
 }
 
 .nameLoadingDark {
-    animation: loadingFill 3s ease-in-out infinite reverse;
+    animation: loadingFill 2s ease-in-out infinite reverse;
 }
 
 .nameLoadingDark path:last-child {
-    animation: loadingStroke 3s ease-in-out infinite reverse;
+    animation: loadingStroke 2s ease-in-out infinite reverse;
 }
 
 .progressFill {

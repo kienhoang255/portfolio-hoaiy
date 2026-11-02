@@ -413,7 +413,7 @@ select,
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-bottom: 30%;
+  height: 100vh;
 }
 
 .social-project .otherProject {
@@ -421,8 +421,8 @@ select,
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-bottom: 0%;
-  padding-left: 1vw;
+  height: auto;
+  width: 100vw;
 }
 
 .otherProjectTitle {

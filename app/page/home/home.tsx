@@ -48,7 +48,6 @@ export default function Home() {
             <AnimatePresence>
                 {!ready && <Loading theme="light" progress={progress} />}
             </AnimatePresence>
-            <Loading theme="dark" progress={20} />
             {/* mounted after loading so the entrance animations play when the page is revealed */}
             {ready && <>
                 <section className='home1-panel'>

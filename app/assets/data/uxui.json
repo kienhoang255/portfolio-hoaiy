@@ -24,10 +24,6 @@
             "videoLink": "sample.mp4",
             "desc": "Website design",
             "frame": "video-frame-2",
-            "icons": {
-                "like": "95 Likes",
-                "view": "2 .1k views"
-            },
             "width": "12vw"
         }
     ],
