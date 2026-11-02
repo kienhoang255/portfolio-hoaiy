@@ -1,6 +1,6 @@
 import data from '../../assets/data/photography.json'
 import styles from './photography.module.css'
-import overlayImg from '../../assets/images/overlay.webp'
+import overlayImg from '../../assets/images/overlay2.webp'
 import ContactCard from '~/components/contactCard/contactCard';
 import PhotoCarousel, { type PhotoItem } from '~/components/photoCarousel/photoCarousel';
 import Header from '~/components/header';

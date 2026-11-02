@@ -33,7 +33,7 @@
             "desc": "Graduation project",
             "frame": "video-frame-2",
             "icons": {
-                "like": "95 Likes",
+                "heart": "95 Likes",
                 "view": "2 .1k views"
             },
             "width": "14vw"

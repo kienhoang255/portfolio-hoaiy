@@ -1,6 +1,10 @@
 import styles from './projectCard.module.css';
 import { playClickSound } from '~/utils/playClickSound';
 
+import eyeIcon from '../../assets/icons/eye.svg'
+import heartIcon from '../../assets/icons/heart-circle.svg'
+
+
 type Project = {
     id: string;
     title: string;
@@ -9,7 +13,13 @@ type Project = {
     kicker?: string;
     height?: string;
     width?: string;
+    icons?: any
 };
+
+type ProjectIcon = {
+    eye?: any;
+    heart?: any;
+}
 
 type ProjectCardProps = {
     project: Project;
@@ -39,6 +49,13 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
                 <h3 className={styles['project-card-title']}><pre>{project.title}</pre></h3>
                 <p className={styles['project-card-description']}>{project.desc}</p>
             </div>
+
+            {project.icons &&
+                <div className={styles.icons}>
+                    {project?.icons?.view && <span><img src={eyeIcon} alt="" />{project.icons.view}</span>}
+                    {project?.icons?.heart && <span><img src={heartIcon} alt="" />{project.icons.heart}</span>}
+                </div>
+            }
         </article>
     );
 }

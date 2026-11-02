@@ -3,6 +3,7 @@ import btnBack from '../../assets/icons/btn-back.svg'
 import { useNavigate, useParams } from 'react-router';
 import { useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import data from '../../assets/data/video.json'
+import overlayImg from '../../assets/images/overlay2.webp'
 
 import btnBack2 from '../../assets/icons/btn-back-2.svg'
 import ContactCard from "~/components/contactCard/contactCard";
@@ -88,6 +89,7 @@ export default function VideoProject() {
             <AnimatePresence>
                 {!ready && <Loading theme="dark" progress={progress} />}
             </AnimatePresence>
+            <img className={styles.overlay} src={overlayImg} alt="" />
             <div className={styles.content_wrapper}>
                 <div className={`${styles['header-project']} fadeIn`}>
                     <div className={`${styles["btn-back"]} pointer`} onClick={() => goBack()}>
@@ -163,8 +165,8 @@ export default function VideoProject() {
                         <span>&laquo;</span> Unwrap to watch!
                     </div>
                 </div>
-                <div className='contact_card_wrapper fadeIn'><ContactCard dark={true} invertButton={true}></ContactCard></div>
             </div>
+            <div className='contact_card_wrapper fadeIn'><ContactCard dark={true} invertButton={true}></ContactCard></div>
         </div>
     );
 }

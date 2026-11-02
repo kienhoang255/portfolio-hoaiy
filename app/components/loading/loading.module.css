@@ -22,6 +22,22 @@
     background: rgba(205, 205, 205, 0.25);
 }
 
+.nameLoading {
+    animation: loadingFill 3s ease-in-out infinite;
+}
+
+.nameLoading path:last-child {
+    animation: loadingStroke 3s ease-in-out infinite;
+}
+
+.nameLoadingDark {
+    animation: loadingFill 3s ease-in-out infinite reverse;
+}
+
+.nameLoadingDark path:last-child {
+    animation: loadingStroke 3s ease-in-out infinite reverse;
+}
+
 .progressFill {
     height: 100%;
     width: 100%;
@@ -34,4 +50,44 @@
 .content {
     margin-top: 1vw;
     width: 15vw;
+}
+
+@keyframes loadingFill {
+
+    0%,
+    100% {
+        fill: #1A1A1A;
+    }
+
+    25% {
+        fill: #545454;
+    }
+
+    50% {
+        fill: #808080;
+    }
+
+    75% {
+        fill: #CCCCCC;
+    }
+}
+
+@keyframes loadingStroke {
+
+    0%,
+    100% {
+        stroke: #1A1A1A;
+    }
+
+    25% {
+        stroke: #545454;
+    }
+
+    50% {
+        stroke: #808080;
+    }
+
+    75% {
+        stroke: #CCCCCC;
+    }
 }

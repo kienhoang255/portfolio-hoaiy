@@ -48,3 +48,20 @@
     line-height: 100%;
     letter-spacing: -8%;
 }
+
+.icons {
+    display: flex;
+    gap: 1vw;
+    margin-top: .5vw;
+}
+
+.icons span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .4vw;
+    font-family: New Tegomin;
+    font-weight: 400;
+    font-size: .75vw;
+    line-height: 100%;
+}

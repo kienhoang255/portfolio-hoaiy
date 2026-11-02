@@ -87,12 +87,14 @@
     transition: opacity 160ms ease;
 }
 
-.btn-back:hover .btn-back-hover {
-    opacity: 1;
-}
+@media (hover: hover) and (pointer: fine) {
+    .btn-back:hover .btn-back-hover {
+        opacity: 1;
+    }
 
-.btn-back:hover img:first-child {
-    opacity: 0;
+    .btn-back:hover img:first-child {
+        opacity: 0;
+    }
 }
 
 .about {
