@@ -1,0 +1,1 @@
+import{a as n}from"./chunk-EPOLDU6W-CgeV-fgw.js";function f(t=.15){const r=n.useRef(null),[c,i]=n.useState(!1);return n.useEffect(()=>{const s=r.current;if(!s)return;const e=new IntersectionObserver(([o])=>{o.isIntersecting&&(i(!0),e.disconnect())},{threshold:t});return e.observe(s),()=>e.disconnect()},[t]),{ref:r,inView:c}}export{f as u};
