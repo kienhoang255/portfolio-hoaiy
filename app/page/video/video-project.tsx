@@ -97,7 +97,7 @@ export default function VideoProject() {
                         <img src={btnBack2} alt="" className={styles["btn-back-hover"]} />
                     </div>
                     <div className={styles.about}>
-                        <strong>&#x2022; Video title: <div>{routing.title}</div></strong>
+                        &#x2022; Video title: <strong><div>{routing.title}</div></strong>
                         <br />
                         <div className={styles.industry}>&#x2022; Objective: <span>{routing.desc}</span></div>
                         <div>&#x2022; Project overview: <span>{detail?.project_overview ?? ''}</span></div>

@@ -208,6 +208,11 @@ select,
   user-select: none;
 }
 
+.grab * {
+  cursor: grab;
+  user-select: none;
+}
+
 .fadeIn {
   animation-name: fadeIn;
   animation-timing-function: linear;
@@ -422,7 +427,7 @@ select,
   justify-content: center;
   flex-direction: column;
   height: auto;
-  width: 100vw;
+  padding-left: 10vw;
 }
 
 .otherProjectTitle {

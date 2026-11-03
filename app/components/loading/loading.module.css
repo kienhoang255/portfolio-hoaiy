@@ -31,11 +31,11 @@
 }
 
 .nameLoadingDark {
-    animation: loadingFill 2s ease-in-out infinite reverse;
+    animation: loadingFillReverse 2s ease-in-out infinite;
 }
 
 .nameLoadingDark path:last-child {
-    animation: loadingStroke 2s ease-in-out infinite reverse;
+    animation: loadingStrokeReverse 2s ease-in-out infinite;
 }
 
 .progressFill {
@@ -89,5 +89,45 @@
 
     75% {
         stroke: #CCCCCC;
+    }
+}
+
+@keyframes loadingFillReverse {
+
+    0%,
+    100% {
+        fill: #1A1A1A;
+    }
+
+    25% {
+        fill: #CCCCCC;
+    }
+
+    50% {
+        fill: #808080;
+    }
+
+    75% {
+        fill: #545454;
+    }
+}
+
+@keyframes loadingStrokeReverse {
+
+    0%,
+    100% {
+        stroke: #1A1A1A;
+    }
+
+    25% {
+        stroke: #CCCCCC;
+    }
+
+    50% {
+        stroke: #808080;
+    }
+
+    75% {
+        stroke: #545454;
     }
 }

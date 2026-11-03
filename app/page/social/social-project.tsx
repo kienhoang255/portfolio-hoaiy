@@ -10,6 +10,7 @@ import ContactCard from "~/components/contactCard/contactCard";
 import overlayImg from '../../assets/images/overlay.webp'
 import Loading from "~/components/loading/loading";
 import { useImagesReady } from "~/hooks/useImagesReady";
+import { useInView } from "~/hooks/useInView";
 import { playClickSound } from "~/utils/playClickSound";
 import ProjectCard from '~/components/projectCard/projectCard';
 
@@ -29,6 +30,7 @@ export default function Social() {
     const projects = data.routing
 
     const dragContainerRef = useRef<HTMLDivElement>(null);
+    const { ref: otherRef, inView: otherInView } = useInView<HTMLDivElement>(0);
     const dragTrackRef = useRef<HTMLDivElement>(null);
     const [dragConstraint, setDragConstraint] = useState(0);
     const [isDragging, setIsDragging] = useState(false);
@@ -125,7 +127,7 @@ export default function Social() {
             return (
                 <div
                     key={proj.id || idx}
-                    className={`fadeIn pointer`}
+                    className={`fadeInUp pointer`}
                     onClick={() => {
                         playClickSound();
                         goToProject(proj.id);
@@ -156,10 +158,10 @@ export default function Social() {
                         <img src={btnBack2} alt="" className={styles["btn-back-hover"]} />
                     </div>
                     <div className={styles.about}>
-                        <strong>&#x2022; Client: <div>{project.client}</div></strong>
+                        &#x2022; Client: <strong><div>{project.client}</div></strong>
                         <br />
                         <div className={styles.industry}>&#x2022; Industry: <span>{project.industry}</span></div>
-                        <div >&#x2022; Project scope: <span>{project.project_scope}</span></div>
+                        <div >&#x2022; Project overview: <span>{project.project_scope}</span></div>
                     </div>
                 </div>
 
@@ -183,7 +185,7 @@ export default function Social() {
 
                             return (
                                 <div
-                                    className={`${styles.slide} ${i === activeIndex ? styles.active : ''}`}
+                                    className={`${styles.slide} ${i === activeIndex ? styles.active : ''} grab`}
                                     key={i}
                                     style={slideStyle}
                                 >
@@ -198,9 +200,9 @@ export default function Social() {
                             );
                         })}
 
-                        <div className="otherProject">
+                        <div className="otherProject" ref={otherRef}>
                             <div className="otherProjectTitle">Explore related projects</div>
-                            <div className="otherProjectList">{otherProject()}</div>
+                            <div className="otherProjectList">{otherInView && otherProject()}</div>
                         </div>
                     </motion.div>
                 </div>
