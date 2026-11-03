@@ -3,11 +3,10 @@
 
 <head>
     <script>
-        const path = window.location.pathname;
-        window.location.replace(
-            window.location.origin + '/portfolio-hoaiy/' +
-            '?p=' + encodeURIComponent(path.replace('/portfolio-hoaiy', ''))
-        );
+        var l = window.location;
+        var path = l.pathname.replace('/portfolio-hoaiy', '').replace(/^\//, '');
+        var query = l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '';
+        l.replace(l.origin + '/portfolio-hoaiy/?/' + path + query + l.hash);
     </script>
 </head>
 
