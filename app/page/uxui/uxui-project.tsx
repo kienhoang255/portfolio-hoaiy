@@ -8,7 +8,7 @@ import ContactCard from "~/components/contactCard/contactCard";
 import overlayImg from '../../assets/images/overlay.webp'
 import Loading from "~/components/loading/loading";
 import { useImagesReady } from "~/hooks/useImagesReady";
-import { useInView } from "~/hooks/useInView";
+import { useInView, CENTER_Y } from "~/hooks/useInView";
 import { AnimatePresence } from "framer-motion";
 import { useEffect, useRef, type ReactElement } from "react";
 import { playClickSound } from "~/utils/playClickSound";
@@ -25,7 +25,7 @@ export default function UxuiProject() {
     const navigate = useNavigate();
     const { pid } = useParams<{ pid: string }>();
     const contentWrapperRef = useRef<HTMLDivElement>(null);
-    const { ref: otherRef, inView: otherInView } = useInView<HTMLDivElement>();
+    const { ref: otherRef, inView: otherInView } = useInView<HTMLDivElement>(0, CENTER_Y);
     const project = pid && isUxuiProjectKey(pid) ? data[pid] : undefined;
     const projects = data.routing
 
@@ -125,8 +125,8 @@ export default function UxuiProject() {
                         );
                     })}
 
-                    <div className="otherProject" ref={otherRef}>
-                        <div className="otherProjectTitle">Explore related projects</div>
+                    <div className="otherProject">
+                        <div className={`otherProjectTitle ${otherInView ? 'fadeInUp' : ''}`} style={{ opacity: otherInView ? undefined : 0 }} ref={otherRef}>Explore related projects</div>
                         <div className="otherProjectList">{otherInView && otherProject()}</div>
                     </div>
                 </div>

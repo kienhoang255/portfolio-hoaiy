@@ -428,6 +428,7 @@ select,
   flex-direction: column;
   height: auto;
   padding-left: 10vw;
+  padding-right: 10vw;
 }
 
 .otherProjectTitle {

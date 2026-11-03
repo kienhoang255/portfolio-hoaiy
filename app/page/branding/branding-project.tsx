@@ -8,7 +8,7 @@ import ContactCard from "~/components/contactCard/contactCard";
 import overlayImg from '../../assets/images/overlay.webp'
 import Loading from "~/components/loading/loading";
 import { useImagesReady } from "~/hooks/useImagesReady";
-import { useInView } from "~/hooks/useInView";
+import { useInView, CENTER_Y } from "~/hooks/useInView";
 import { AnimatePresence } from "framer-motion";
 import { playClickSound } from "~/utils/playClickSound";
 import ProjectCard from "~/components/projectCard/projectCard";
@@ -27,7 +27,7 @@ export default function Branding() {
     const project = pid && isBrandingProjectKey(pid) ? data[pid] : undefined;
     const projects = data.routing
     const contentWrapperRef = useRef<HTMLDivElement>(null);
-    const { ref: otherRef, inView: otherInView } = useInView<HTMLDivElement>();
+    const { ref: otherRef, inView: otherInView } = useInView<HTMLDivElement>(0, CENTER_Y);
 
     useEffect(() => {
         contentWrapperRef.current?.scrollTo(0, 0);
@@ -100,8 +100,8 @@ export default function Branding() {
                         );
                     })}
 
-                    <div className="otherProject" ref={otherRef}>
-                        <div className="otherProjectTitle">Explore related projects</div>
+                    <div className="otherProject" >
+                        <div className={`otherProjectTitle ${otherInView ? 'fadeInUp' : ''}`} ref={otherRef} style={{ opacity: otherInView ? undefined : 0 }}>Explore related projects</div>
                         <div className="otherProjectList" style={{ opacity: otherInView ? undefined : 0 }}>{otherInView && otherProject()}</div>
                     </div>
                 </div>

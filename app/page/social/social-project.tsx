@@ -127,7 +127,8 @@ export default function Social() {
             return (
                 <div
                     key={proj.id || idx}
-                    className={`fadeInUp pointer`}
+                    className={`${otherInView ? 'fadeInUp' : ''} pointer`}
+                    style={{ opacity: otherInView ? undefined : 0 }}
                     onClick={() => {
                         playClickSound();
                         goToProject(proj.id);
@@ -139,6 +140,8 @@ export default function Social() {
     }
 
     const listImg: Array<string> = project?.images ? project?.images : []
+    // the related-projects block is the last track child, so landing on it hides the image slides
+    const imagesHidden = activeIndex >= project.images.length;
     // project-level default slide width (falls back to the CSS default when not set in the JSON)
     const contentStyle = project.slideWidth
         ? ({ '--slide-width': project.slideWidth } as CSSProperties)
@@ -185,7 +188,7 @@ export default function Social() {
 
                             return (
                                 <div
-                                    className={`${styles.slide} ${i === activeIndex ? styles.active : ''} grab`}
+                                    className={`${styles.slide} ${i === activeIndex ? styles.active : ''} ${imagesHidden ? styles.hidden : ''} grab`}
                                     key={i}
                                     style={slideStyle}
                                 >
@@ -201,8 +204,12 @@ export default function Social() {
                         })}
 
                         <div className="otherProject" ref={otherRef}>
-                            <div className="otherProjectTitle">Explore related projects</div>
-                            <div className="otherProjectList">{otherInView && otherProject()}</div>
+                            <div
+                                className={`otherProjectTitle ${otherInView ? 'fadeInUp' : ''}`}
+                                style={{ opacity: otherInView ? undefined : 0 }}
+
+                            >Explore related projects</div>
+                            <div className="otherProjectList">{otherProject()}</div>
                         </div>
                     </motion.div>
                 </div>
