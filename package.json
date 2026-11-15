@@ -2,7 +2,7 @@
   "name": "portfolio-hoaiy",
   "private": true,
   "type": "module",
-  "homepage": "https://kienhoang255.github.io/portfolio-hoaiy",
+  "homepage": "https://hoaiy.asia/",
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
